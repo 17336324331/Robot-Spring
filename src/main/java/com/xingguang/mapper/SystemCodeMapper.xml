@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="systemCodeMapper" >
+    <resultMap id="BaseResultMap" type="systemCodeModel">
+        <result column="STR_CODE" jdbcType="VARCHAR" property="strCode" />
+        <result column="STR_VALUE" jdbcType="VARCHAR" property="strValue" />
+        <result column="INT_ID" jdbcType="INTEGER" property="intId" />
+        <result column="IS_DELETED" jdbcType="INTEGER" property="isDeleted" />
+        <result column="DT_CREATETIME" jdbcType="TIMESTAMP" property="dtCreatetime" />
+
+    </resultMap>
+
+    <!-- 通过账号查询Guid -->
+    <!--<insert id="saveMsg" parameterType="msgModel" >-->
+      <!--&lt;!&ndash;insert into coc_Msg () &ndash;&gt;-->
+
+    <!--</insert>-->
+    <insert id="saveSystemCode" parameterType="systemCodeModel">
+      insert into systemcode (int_id,str_code,str_value,is_deleted,dt_createtime)
+      values (
+              LAST_INSERT_ID(),
+              #{strCode},
+              #{strValue},
+               0,
+              now()
+      )
+    </insert>
+
+    <select id="selectSystemCode" resultType="string">
+      select STR_VALUE
+             from systemcode i where is_deleted = 0 order by DT_CREATETIME desc limit 1;
+    </select>
+
+
+</mapper>

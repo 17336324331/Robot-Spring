@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xingguang.mapper.NameMapper" >
+    <resultMap id="BaseResultMap" type="nameModel">
+        <result column="STR_QQ" jdbcType="VARCHAR" property="strQQ" />
+        <result column="STR_GROUP" jdbcType="VARCHAR" property="strGroup" />
+        <result column="STR_NICKNAME" jdbcType="VARCHAR" property="strNickName" />
+        <result column="STR_CARD" jdbcType="VARCHAR" property="strCard" />
+        <result column="STR_NNAME" jdbcType="VARCHAR" property="strNName" />
+        <result column="DT_CREATETIME" jdbcType="TIMESTAMP" property="dtCreatetime"/>
+        <result column="IS_DELETED" jdbcType="INTEGER" property="isDeleted"/>
+    </resultMap>
+
+    <!-- 通过账号查询Guid -->
+    <!--<insert id="saveMsg" parameterType="msgModel" >-->
+      <!--&lt;!&ndash;insert into coc_Msg () &ndash;&gt;-->
+
+    <!--</insert>-->
+    <insert id="saveName" parameterType="nameModel">
+      insert into t_name
+      values (  #{strQQ},
+                #{strGroup},
+                #{strNickName},
+                #{strCard},
+                #{strNName},
+                0,
+                now()
+      )
+    </insert>
+
+    <update id="updateName" >
+        insert into t_name values
+            (
+             #{strQQ},
+             #{strGroup},
+             #{strNickName},
+             #{strCard},
+             #{strNName},
+             0,
+             now()
+            )
+    </update>
+
+    <select id="selectNameByQQGroup" resultType="string">
+        select
+          ifnull(ifnull(STR_NNAME,str_CARD),str_NICKNAME)
+        from t_name
+        where  STR_QQ = #{strQQ} and STR_GROUP = #{strGroup}  and IS_DELETED = 0
+        order by DT_CREATETIME desc limit 1 ;
+
+    </select>
+
+    <select id="selectByQQGroup" resultMap="BaseResultMap">
+        select
+            STR_QQ,STR_GROUP,STR_NICKNAME,STR_CARD,STR_NNAME
+        from t_name
+        where  STR_QQ = #{strQQ} and STR_GROUP = #{strGroup}  and IS_DELETED = 0
+        order by DT_CREATETIME desc limit 1 ;
+
+    </select>
+
+</mapper>

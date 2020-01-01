@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xingguang.mapper.RuleMapper" >
+
+    <resultMap id="BaseResultMap" type="ruleModel">
+        <result column="NAME" jdbcType="VARCHAR" property="strName" />
+        <result column="STR" jdbcType="VARCHAR" property="strSTR" />
+        <result column="CON" jdbcType="VARCHAR" property="strCON" />
+        <result column="TYPE" jdbcType="VARCHAR" property="strType" />
+        <result column="IS_DELETED" jdbcType="INTEGER" property="IS_DELETED" />
+        <result column="SIZ" jdbcType="VARCHAR" property="strSIZ" />
+        <result column="DEX" jdbcType="VARCHAR" property="strDEX" />
+        <result column="INTE" jdbcType="VARCHAR" property="strINT" />
+        <result column="POW" jdbcType="VARCHAR" property="strPOW" />
+        <result column="HP" jdbcType="VARCHAR" property="strHP" />
+        <result column="MAGIC" jdbcType="VARCHAR" property="strMANGIC" />
+        <result column="HURT" jdbcType="VARCHAR" property="strHURT" />
+        <result column="SPECIAL" jdbcType="VARCHAR" property="strSpical" />
+        <result column="CONTENT" jdbcType="VARCHAR" property="strContent" />
+        <result column="REMARK" jdbcType="VARCHAR" property="strRemark" />
+        <result column="SHANBI" jdbcType="VARCHAR" property="shanbi" />
+        <result column="YIDONG" jdbcType="VARCHAR" property="yidong" />
+        <result column="WUQI" jdbcType="VARCHAR" property="wuqi" />
+        <result column="GONGJIFENGSHI" jdbcType="VARCHAR" property="gongjifangshi" />
+        <result column="ZHOUWEN" jdbcType="VARCHAR" property="zhouwen" />
+
+    </resultMap>
+
+    <!-- 根据Name查询怪物规则 -->
+    <select id="selectAllByName" resultMap="BaseResultMap" parameterType="string">
+      <!--insert into coc_Msg () -->
+        select
+            NAME,
+            STR,
+            CON,
+            TYPE,
+            SIZ,
+            INTE,
+            DEX,
+            POW,
+        IFNULL(   HP,'未知') as HP,
+        IFNULL(  MAGIC,'未知') as MAGIC,
+        IFNULL(  HURT,'未知') as HURT,
+        IFNULL(   SPECIAL,'未知') as SPECIAL,
+        IFNULL(  SHANBI,'未知') as SHANBI,
+        IFNULL(   YIDONG,'未知') as YIDONG,
+        IFNULL(WUQI,'未知') as WUQI,
+            IFNULL(GONGJIFANGSHI,'未知') as GONGJIFANGSHI,
+            IFNULL(ZHOUWEN,'未知') as ZHOUWEN
+          from rules
+          where name = #{name}
+          limit 1
+    </select>
+
+    <select id="selectContentByName" resultMap="BaseResultMap" parameterType="string">
+        select CONTENT from rules
+           where name = #{name}
+            limit 1
+    </select>
+</mapper>

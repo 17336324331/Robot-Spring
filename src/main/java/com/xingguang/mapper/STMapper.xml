@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xingguang.mapper.STMapper" >
+
+    <resultMap id="BaseResultMap" type="sTModel">
+        <result column="stName" jdbcType="VARCHAR" property="stName" />
+        <result column="stScore" jdbcType="VARCHAR" property="stScore" />
+        <result column="strQQ" jdbcType="VARCHAR" property="strQQ" />
+        <result column="strGroup" jdbcType="VARCHAR" property="strGroup" />
+
+
+    </resultMap>
+    
+    <insert id="insertOne" parameterType="stmodel">
+      insert into st_information values
+          (
+           #{stName},
+           #{stScore},
+           0,
+           now(),
+           #{strQQ},
+           #{strGroup}
+          )
+    </insert>
+
+    <select id="selectItem" resultMap="BaseResultMap">
+      select strQQ,strGroup,stName,stScore from st_information a
+        <where>
+            strQQ= #{strQQ}
+            and
+            strGroup = #{strGroup}
+            and
+            create_time = (
+                    select max(create_time) from  st_information b
+                    <where>
+                        b.strQQ= a.strQQ
+                        and
+                        b.strGroup = a.strGroup
+                        and
+                        b.stName = a.stName
+                    </where>
+           )
+        </where>
+
+
+
+    </select>
+
+    <!-- 根据Name查询怪物规则 -->
+    <!--<select id="selectAllByName" resultMap="BaseResultMap" parameterType="string">-->
+      <!--&lt;!&ndash;insert into coc_Msg () &ndash;&gt;-->
+        <!--select-->
+            <!--NAME,-->
+            <!--STR,-->
+            <!--CON,-->
+            <!--TYPE,-->
+            <!--SIZ,-->
+            <!--INTE,-->
+            <!--DEX,-->
+            <!--POW,-->
+        <!--IFNULL(   HP,'未知') as HP,-->
+        <!--IFNULL(  MAGIC,'未知') as MAGIC,-->
+        <!--IFNULL(  HURT,'未知') as HURT,-->
+        <!--IFNULL(   SPECIAL,'未知') as SPECIAL,-->
+        <!--IFNULL(  SHANBI,'未知') as SHANBI,-->
+        <!--IFNULL(   YIDONG,'未知') as YIDONG,-->
+        <!--IFNULL(WUQI,'未知') as WUQI,-->
+            <!--IFNULL(GONGJIFANGSHI,'未知') as GONGJIFANGSHI,-->
+            <!--IFNULL(ZHOUWEN,'未知') as ZHOUWEN-->
+          <!--from rules-->
+          <!--where name = #{name}-->
+          <!--limit 1-->
+    <!--</select>-->
+
+    <!--<select id="selectContentByName" resultMap="BaseResultMap" parameterType="string">-->
+        <!--select CONTENT from rules-->
+           <!--where name = #{name}-->
+            <!--limit 1-->
+    <!--</select>-->
+</mapper>

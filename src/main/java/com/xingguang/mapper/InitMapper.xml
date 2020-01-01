@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xingguang.mapper.InitMapper" >
+    <resultMap id="BaseResultMap" type="initModel">
+        <result column="STR_QQ" jdbcType="VARCHAR" property="strQQ" />
+        <result column="STR_GROUP" jdbcType="VARCHAR" property="strGroup" />
+        <result column="STR_NAME" jdbcType="VARCHAR" property="strName" />
+        <result column="INT_SCORE" jdbcType="INTEGER" property="intScore" />
+        <result column="IS_DELETED" jdbcType="INTEGER" property="isDeleted" />
+        <result column="DT_CREATETIME" jdbcType="TIMESTAMP" property="dtCreatetime" />
+
+    </resultMap>
+
+    <!-- 通过账号查询Guid -->
+    <!--<insert id="saveMsg" parameterType="msgModel" >-->
+      <!--&lt;!&ndash;insert into coc_Msg () &ndash;&gt;-->
+
+    <!--</insert>-->
+    <insert id="saveInit" parameterType="initModel">
+      insert into init
+      values ( #{strQQ},
+              #{strGroup},
+              #{intScore},
+               0,
+              now()
+      )
+    </insert>
+
+    <select id="selectInit" resultMap="BaseResultMap">
+      select STR_QQ, STR_GROUP,INT_SCORE,IS_DELETED,DT_CREATETIME,
+             (
+                 select
+                     ifnull(ifnull(STR_NNAME,str_CARD),str_NICKNAME)
+                 from t_name
+                <where>
+                    STR_QQ =i.STR_QQ and STR_GROUP = i.STR_GROUP and IS_DELETED = 0
+                </where>
+                 order by DT_CREATETIME desc limit 1
+                 )
+             from init i where is_deleted = 0 order by INT_SCORE desc
+
+    </select>
+
+    <update id="deleteInit">
+      update      init
+        set IS_DELETED = 1
+        <where>
+            STR_QQ = #{strQQ} and STR_GROUP = #{strGroup} and is_deleted = 0
+        </where>
+
+    </update>
+
+</mapper>
