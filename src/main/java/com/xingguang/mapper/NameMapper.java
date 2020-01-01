@@ -1,6 +1,7 @@
 package com.xingguang.mapper;
 
 import com.xingguang.model.NameModel;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Repository;
  * @date 2019年12月13日 23:27
  * @description
  */
-@Repository
+@Mapper
 public interface NameMapper {
 
     void saveName(NameModel nameModel);

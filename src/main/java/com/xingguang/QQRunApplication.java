@@ -1,10 +1,19 @@
 package com.xingguang;
 
+import com.forte.qqrobot.beans.messages.result.LoginQQInfo;
 import com.forte.qqrobot.component.forhttpapi.HttpApp;
 import com.forte.qqrobot.component.forhttpapi.HttpConfiguration;
 import com.forte.qqrobot.depend.DependGetter;
 import com.forte.qqrobot.sender.MsgSender;
 import com.forte.qqrobot.utils.CQCodeUtil;
+import com.xingguang.model.BotModel;
+import com.xingguang.service.BotService;
+import com.xingguang.service.SystemParamService;
+import com.xingguang.utils.SystemParam;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * 这个是simple-robot框架的启动器类
@@ -60,7 +69,10 @@ public class QQRunApplication implements HttpApp {
 
     @Override
     public void after(CQCodeUtil cqCodeUtil, MsgSender sender) {
-        //启动成功之后，步进行任何操作
-        System.out.println("启动成功 ");
+
+        LoginQQInfo loginQQInfo = sender.GETTER.getLoginQQInfo();
+        SystemParam.strCurrentQQ = loginQQInfo.getQQ();
+
+        System.out.println(SystemParam.strCurrentQQ +"启动成功 ");
     }
 }

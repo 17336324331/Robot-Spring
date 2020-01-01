@@ -12,7 +12,7 @@ import java.util.List;
  * @date 2019年12月13日 23:09
  * @description
  */
-@Repository
+@Mapper
 public interface InitMapper {
 
     // 存储 即插入一条数据

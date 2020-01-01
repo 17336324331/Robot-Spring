@@ -8,7 +8,7 @@ import lombok.Data;
  * @description 系统码工具类
  */
 @Data
-public class SystemCodeModel extends CommonModel{
+public class SystemParamModel extends CommonModel{
 
     /**
      * 系统参数序号

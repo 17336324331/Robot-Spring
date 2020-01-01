@@ -1,5 +1,6 @@
 package com.xingguang.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -7,7 +8,7 @@ import org.springframework.stereotype.Repository;
  * @date 2019年12月31日 23:47
  * @description
  */
-@Repository
+@Mapper
 public class RandomNameMapper {
 
 }

@@ -1,6 +1,7 @@
 package com.xingguang.mapper;
 
 import com.xingguang.model.STModel;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -11,7 +12,7 @@ import java.util.List;
  * @date 2019年12月10日 23:05
  * @description
  */
-@Repository
+@Mapper
 public interface STMapper {
 
     void insertOne(STModel stModel);

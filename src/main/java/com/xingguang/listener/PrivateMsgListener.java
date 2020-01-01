@@ -10,6 +10,7 @@ import com.forte.qqrobot.beans.messages.types.MsgGetTypes;
 import com.forte.qqrobot.beans.types.KeywordMatchType;
 import com.forte.qqrobot.sender.MsgSender;
 import com.forte.qqrobot.utils.CQCodeUtil;
+import com.xingguang.model.BotModel;
 import com.xingguang.utils.CommandUtil;
 import com.xingguang.utils.LogicUtil;
 import com.xingguang.utils.SystemParam;
@@ -39,9 +40,11 @@ public class PrivateMsgListener {
         // 获取对方QQ
         String strQQ = msg.getQQ();
 
+
+
         try {
             // 对方发送的是指令
-            if (CommandUtil.checkCommand(strMsg)&& SystemParam.botstatus){
+            if (CommandUtil.checkCommand(strMsg)){
 
                 // 1.帮助指令明细
                 if (strMsg.contains("help")&&strMsg.contains("help指令")){

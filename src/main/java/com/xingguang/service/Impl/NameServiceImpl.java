@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 public class NameServiceImpl implements NameService {
 
     @Autowired
-    private RandomNameMapper nameMapper;
+    private NameMapper nameMapper;
 
     @Override
     public String getRandomName() {

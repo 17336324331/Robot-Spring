@@ -3,7 +3,7 @@ package com.xingguang.utils;
 /**
  * @author 陈瑞扬
  * @date 2019年12月08日 10:24
- * @description
+ * @description   此类已启用
  */
 
 import org.apache.ibatis.io.Resources;

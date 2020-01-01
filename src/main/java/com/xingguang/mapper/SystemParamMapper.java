@@ -1,6 +1,7 @@
 package com.xingguang.mapper;
 
-import com.xingguang.model.SystemCodeModel;
+import com.xingguang.model.SystemParamModel;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -9,11 +10,11 @@ import org.springframework.stereotype.Repository;
  * @date 2019年12月13日 23:09
  * @description 系统参数处理类
  */
-@Repository
-public interface SystemCodeMapper {
+@Mapper
+public interface SystemParamMapper {
 
     // 存储 即插入一条数据
-    void saveSystemCode(SystemCodeModel systemCodeModel);
+    void saveSystemCode(SystemParamModel systemCodeModel);
 
     String selectSystemCode(@Param("systemCode") String strCode);
 

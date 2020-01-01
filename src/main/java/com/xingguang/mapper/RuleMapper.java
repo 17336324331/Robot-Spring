@@ -1,6 +1,7 @@
 package com.xingguang.mapper;
 
 import com.xingguang.model.RuleModel;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -8,7 +9,7 @@ import org.springframework.stereotype.Repository;
  * @date 2019年12月08日 11:13
  * @description
  */
-@Repository
+@Mapper
 public interface RuleMapper {
 
     RuleModel selectAllByName(String strMsg);

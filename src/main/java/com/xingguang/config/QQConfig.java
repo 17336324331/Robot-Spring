@@ -4,11 +4,18 @@ import com.xingguang.QQRunApplication;
 import com.forte.qqrobot.component.forhttpapi.HttpApplication;
 import com.forte.qqrobot.depend.DependGetter;
 import com.forte.qqrobot.sender.MsgSender;
+import com.xingguang.model.BotModel;
+import com.xingguang.service.BotService;
+import com.xingguang.service.SystemParamService;
+import com.xingguang.utils.SystemParam;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * @author 陈瑞扬
@@ -36,6 +43,28 @@ public class QQConfig {
     @Value("${QQConfig.serverPort}")
     private int serverPort;
 
+    /**
+     * 注入系统参数Service
+     */
+    @Autowired
+    private SystemParamService systemParamService;
+
+    /**
+     * 注入开关Service
+     */
+    @Autowired
+    private BotService botService;
+
+    private void initSystemParam(){
+        //  1.master初始化
+        String master = systemParamService.getSytemParam("master");
+        SystemParam.master = master;
+
+        // 2.bot初始化
+        List<BotModel> botList = botService.getBotList();
+        SystemParam.botList = botList;
+    }
+
 
     /**
      *
@@ -45,6 +74,8 @@ public class QQConfig {
     @Bean
     public HttpApplication httpApplication(){
         HttpApplication httpApplication = new HttpApplication();
+
+        //initSystemParam();
 
         // 通过SpringBoot的依赖工厂，构建一个提供给Http Api启动器的依赖工厂，以实现整合
         DependGetter dependGetter = new DependGetter() {
