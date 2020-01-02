@@ -9,5 +9,7 @@ public interface HelpService {
 
     String getHelpZhiLing();
 
+    String getHelp();
+
     String getHelpGengXin();
 }

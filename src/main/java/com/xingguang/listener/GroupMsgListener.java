@@ -20,7 +20,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.util.List;
 
 /**
@@ -33,6 +32,21 @@ public class GroupMsgListener {
 
     private static final Logger logger = LoggerFactory.getLogger(GroupMsgListener.class);
 
+//    private static GroupMsgListener groupMsgListener;
+//
+//    @PostConstruct
+//    public void init() {
+//        groupMsgListener = this;
+//        groupMsgListener.nameService = this.nameService;
+//        groupMsgListener.helpService = this.helpService;
+//        groupMsgListener.baseService = this.baseService;
+//        groupMsgListener.msgService = this.msgService;
+//        groupMsgListener.systemParamService = this.systemParamService;
+//        groupMsgListener.botService = this.botService;
+//
+//        // 初使化时将已静态化的testService实例化
+//    }
+
     @Autowired
     private NameService nameService;
 
@@ -42,17 +56,20 @@ public class GroupMsgListener {
     @Autowired
     private BaseService baseService;
 
+    @Autowired
+    private MsgService msgService;
+
     /**
      * 注入系统参数Service
      */
     @Autowired
-    private SystemParamService systemParamService;
+    SystemParamService systemParamService;
 
     /**
      * 注入开关Service
      */
     @Autowired
-    private BotService botService;
+    BotService botService;
 
     /**
      *
@@ -123,42 +140,46 @@ public class GroupMsgListener {
                 if (strMsg.contains("help") && strMsg.contains("指令")) {
 
                     String resultMsg = helpService.getHelpZhiLing();
-                    //LogicUtil.helpzhiling();
+
                     sender.SENDER.sendGroupMsg(strGroup, resultMsg);
 
-                    logger.info(strName + "查看了指令明细:" + resultMsg);
+                    MsgModel msgModel = baseModel2MsgModel(baseModel, strName + "查看了指令明细:" + resultMsg);
+                    msgService.saveCommandDialog(msgModel);
+
                     return;
                 }
 
-//
-//                // 帮助指令明细
-//                if (strMsg.contains("help")&&strMsg.contains("更新")){
-//
-//                    String resultMsg = LogicUtil.helpgengxin();
-//                    sender.SENDER.sendGroupMsg(strGroup,resultMsg);
-//
-//                    logger.info(card+"查看了指令明细:"+strMsg);
-//                    return ;
-//                }
-//
-//                // 帮助指令
-//                if (strMsg.contains("help")&&(!strMsg.contains("更新"))&&(!strMsg.contains("指令"))){
-//                    String resultMsg = LogicUtil.help();
-//                    sender.SENDER.sendGroupMsg(strGroup,resultMsg);
-//
-//                    logger.info(card+"查看了指令明细:"+strMsg);
-//                    return ;
-//                }
-//
-//                // 今日人品
-//                if (strMsg.contains("jrrp")){
-//                    String resultMsg = LogicUtil.jrrp();
-//                    addNameSendMsg(strGroup, strQQ,resultMsg,sender);
-//
-////                    /sender.SENDER.sendGroupMsg(strGroup,card+","+resultMsg);
-//                    logger.info(card+"查看了今日人品:"+strMsg);
-//                    return ;
-//                }
+
+                // 帮助指令明细
+                if (strMsg.contains("help")&&strMsg.contains("更新")){
+                    String resultMsg = helpService.getHelpGengXin();
+
+                    sender.SENDER.sendGroupMsg(strGroup,resultMsg);
+
+                    MsgModel msgModel = baseModel2MsgModel(baseModel, strName+"查看了更新:"+strMsg);
+                    msgService.saveCommandDialog(msgModel);
+                    return ;
+                }
+
+                // 帮助指令
+                if (strMsg.contains("help")&&(!strMsg.contains("更新"))&&(!strMsg.contains("指令"))){
+                    String resultMsg = helpService.getHelp();
+                    sender.SENDER.sendGroupMsg(strGroup,resultMsg);
+
+                    MsgModel msgModel = baseModel2MsgModel(baseModel, strName+"查看了help:"+strMsg);
+                    msgService.saveCommandDialog(msgModel);
+                    return ;
+                }
+
+                // 今日人品
+                if (strMsg.contains("jrrp")){
+                    String resultMsg = LogicUtil.jrrp();
+                    addNameSendMsg(strGroup, strQQ,resultMsg,sender);
+
+//                    /sender.SENDER.sendGroupMsg(strGroup,card+","+resultMsg);
+                    logger.info(strName+"查看了今日人品:"+strMsg);
+                    return ;
+                }
 //
 //                // 欢迎词修改
 //                if (strMsg.contains("welcome")&&StringUtils.isNotBlank(CommandUtil.checkAdmin(strQQ))){
@@ -570,6 +591,18 @@ public class GroupMsgListener {
         }
         sender.SENDER.sendGroupMsg(strGroup,resultMsg);
 
+    }
+
+    /**
+     * @date 2019/12/1 15:04
+     * @author 陈瑞扬
+     * @description model 转换
+     * @param
+     * @return
+     */
+    @Ignore
+    public MsgModel baseModel2MsgModel(BaseModel baseModel,String strMsg){
+        return new MsgModel(baseModel.getStrQQ(),baseModel.getStrGroup(),strMsg,2);
     }
 
     @Filter(value = "refesh1",keywordMatchType = KeywordMatchType.TRIM_EQUALS)

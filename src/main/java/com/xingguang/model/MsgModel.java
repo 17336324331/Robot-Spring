@@ -16,9 +16,18 @@ public class MsgModel extends CommonModel{
     private String strMsg;
 
     /**
-     *    发送的 消息的类别 1.私聊 2.群聊
+     *    发送的 消息的类别 1.私聊 2.群聊,3.Command
      */
     private Integer intMsgType;
 
+    public MsgModel() {
 
+    }
+
+    public MsgModel(String strQQ,String strGroup,String strMsg,int intMsgType) {
+        this.setStrMsg(strMsg);
+        this.setIntMsgType(intMsgType);
+        this.setStrQQ(strQQ);
+        this.setStrGroup(strGroup);
+    }
 }

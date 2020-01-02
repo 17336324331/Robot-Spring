@@ -22,14 +22,18 @@ public class HelpServiceImpl implements HelpService {
 
     @Override
     public String getHelpZhiLing() {
-//        String helpzhiling = mapper.selectSystemCode("helpzhiling");
-//        return helpzhiling;
-        return null;
+        String helpzhiling = mapper.selectSystemCode("helpzhiling");
+        return helpzhiling;
+    }
+
+    @Override
+    public String getHelp() {
+        String help = mapper.selectSystemCode("help");
+        return help;
     }
 
     @Override
     public String getHelpGengXin() {
-        //BugService.getGengXin();
-        return null;
+        return bugService.getGengXin();
     }
 }
