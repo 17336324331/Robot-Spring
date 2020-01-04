@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xingguang.mapper.ImageMapper" >
+
+    <resultMap id="baseResultMap" type="VoImageModel">
+        <id column="INT_ID" jdbcType="INTEGER" property="intId"/>
+        <result column="STR_RET" jdbcType="VARCHAR" property="strRet" />
+        <result column="INT_RET_TYPE" jdbcType="VARCHAR" property="intRetType" />
+    </resultMap>
+
+    <select id="selectRetByImageId" resultType="string">
+        SELECT
+            STR_RET
+        FROM
+            t_image
+      <where>
+                STR_IMGID = #{imageId}
+                and IS_DELETED = 0
+          </where>
+        ORDER BY rand( ) LIMIT 1
+    </select>
+
+    <insert id="saveImage" useGeneratedKeys="true" keyProperty="intId" keyColumn="INT_ID">
+        <selectKey keyProperty="intId" resultType="int" order="BEFORE" >
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+      insert into  t_image (INT_TYPE,STR_IMGID,STR_RET,INT_ORDER,IS_DELETED,DT_CREATETIME)
+      values (1,#{strImgId},0,1,0,now());
+    </insert>
+
+</mapper>

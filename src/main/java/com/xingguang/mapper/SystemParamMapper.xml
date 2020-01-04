@@ -26,9 +26,9 @@
       )
     </insert>
 
-    <select id="selectSystemCode" resultType="string">
+    <select id="selectSystemCode" resultType="string" parameterType="string">
       select STR_VALUE
-             from t_system i where is_deleted = 0 order by DT_CREATETIME desc limit 1;
+             from t_system i where is_deleted = 0 and STR_CODE = #{strCode} order by DT_CREATETIME desc limit 1;
     </select>
 
 

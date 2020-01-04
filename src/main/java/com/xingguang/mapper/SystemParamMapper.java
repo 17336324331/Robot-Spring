@@ -16,7 +16,7 @@ public interface SystemParamMapper {
     // 存储 即插入一条数据
     void saveSystemCode(SystemParamModel systemCodeModel);
 
-    String selectSystemCode(@Param("systemCode") String strCode);
+    String selectSystemCode(@Param("strCode") String strCode);
 
    // void deleteSystemCode(@Param("systemCode") String systemCode);
 }

@@ -3,14 +3,13 @@ package com.xingguang.mapper;
 import com.xingguang.model.BotModel;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * @author 陈瑞扬
  * @date 2020年01月01日 22:08
- * @description
+ * @description2
  */
 @Mapper
 public interface BotMapper {
@@ -33,5 +32,5 @@ public interface BotMapper {
      * @param strGroup
      * @return
      */
-    void switchBot(@Param("botStatus") int botStatus, @Param("strQQ") String strQQ, @Param("strGroup") String strGroup);
+    void switchBot( @Param("strQQ") String strQQ, @Param("strGroup") String strGroup,@Param("botStatus") int botStatus);
 }

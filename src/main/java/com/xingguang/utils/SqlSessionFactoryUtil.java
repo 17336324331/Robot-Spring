@@ -9,6 +9,8 @@ package com.xingguang.utils;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,7 +18,7 @@ import java.io.InputStream;
 /**
  * 使用mybatis-config.xml文件，通过SQLSessionFactory-Builder来构建SqlSessionFactory。由于SqlSessionFactory应该采用单例模式，所以这里使用单例模式去构建它
  */
-//@Beans
+@Component
 public class SqlSessionFactoryUtil {
 
     private final static Class<SqlSessionFactoryUtil> LOCK = SqlSessionFactoryUtil.class;
@@ -32,7 +34,7 @@ public class SqlSessionFactoryUtil {
             if (SqlSessionFactory != null) {
                 return SqlSessionFactory;
             }
-           // String resource = "classpath:mybatis-config.xml";
+            //String resource = "classpath:mybatis-config.xml";
             String resource = "mybatis-config.xml";
             InputStream inputStream;
             try {
@@ -47,7 +49,7 @@ public class SqlSessionFactoryUtil {
     }
 
     //openSqlSession方法的作用则是创建SqlSession对象。
-    //@Beans
+    //@Bean
     public static SqlSession openSqlSession() {
         if (SqlSessionFactory == null) {
             getSqlSessionFactory();

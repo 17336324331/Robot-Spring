@@ -19,4 +19,15 @@ public interface BotService {
      * @return
      */
     List<BotModel> getBotList();
+
+    /**
+     * @date 2020/1/4 15:16
+     * @author 陈瑞扬
+     * @description 更新骰子的开关状态
+     * @param strQQ
+     * @param strGroup
+     * @param intBotstatus
+     * @return
+     */
+    void updateBotStatus(String strQQ,String strGroup,int intBotstatus);
 }

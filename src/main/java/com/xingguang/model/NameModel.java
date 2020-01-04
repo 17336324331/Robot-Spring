@@ -25,5 +25,15 @@ public class NameModel extends  CommonModel {
      */
     private String strNName;
 
+    /**
+     * 外文名称
+     */
+    private String strForeignName;
+
+    /**
+     * 中文名称
+     */
+    private String strChineseName;
+
 }
 

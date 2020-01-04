@@ -2,7 +2,7 @@
 # spring相关设置
 ##########################
 server:
-    port: 8080
+    port: 8081
 
 # mapper文件位置
 #mybatis:
@@ -16,6 +16,9 @@ QQConfig:
 spring:
     # 数据库相关配置
     datasource:
+#        url: jdbc:mysql://cdb-qwx5lc5i.cd.tencentcdb.com:10088/coc?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false&serverTimezone=Asia/Shanghai
+#        username: root
+#        password: root1234
         url: jdbc:mysql://127.0.0.1:3306/coc?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false&serverTimezone=Asia/Shanghai
         username: root
         password: root

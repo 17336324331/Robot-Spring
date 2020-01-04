@@ -27,7 +27,20 @@ public class BotServiceImpl implements BotService {
      */
     @Override
     public List<BotModel> getBotList() {
-
         return botMapper.getBotList();
+    }
+
+    /**
+     * @param strQQ
+     * @param strGroup
+     * @param intBotstatus
+     * @return
+     * @date 2020/1/4 15:16
+     * @author 陈瑞扬
+     * @description 更新骰子的开关状态
+     */
+    @Override
+    public void updateBotStatus(String strQQ, String strGroup, int intBotstatus) {
+        botMapper.switchBot(strQQ,strGroup,intBotstatus);
     }
 }

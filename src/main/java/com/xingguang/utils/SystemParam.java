@@ -33,6 +33,11 @@ public class SystemParam {
      */
     public static String strCurrentQQName;
 
+    /**
+     * 异常提示语句
+     */
+    public static String errorMsg = "!无法识别的指令,行光已记录,master上线后会及时处理,";
+
 
 
 

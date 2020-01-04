@@ -8,6 +8,8 @@
         <result column="STR_NICKNAME" jdbcType="VARCHAR" property="strNickName" />
         <result column="STR_CARD" jdbcType="VARCHAR" property="strCard" />
         <result column="STR_NNAME" jdbcType="VARCHAR" property="strNName" />
+        <result column="forgignName" jdbcType="VARCHAR" property="strForeignName"/>
+        <result column="chinesename" jdbcType="VARCHAR" property="strChineseName"/>
         <result column="DT_CREATETIME" jdbcType="TIMESTAMP" property="dtCreatetime"/>
         <result column="IS_DELETED" jdbcType="INTEGER" property="isDeleted"/>
     </resultMap>
@@ -58,6 +60,57 @@
         where  STR_QQ = #{strQQ} and STR_GROUP = #{strGroup}  and IS_DELETED = 0
         order by DT_CREATETIME desc limit 1 ;
 
+    </select>
+
+    <select id="getEnglishName" resultMap="BaseResultMap">
+        SELECT
+            replace(GROUP_CONCAT( english ),',','·') forgignName,
+            replace(GROUP_CONCAT( chinese ),',','·') chinesename
+        FROM
+            (
+                SELECT
+                    english,
+                    chinese
+                FROM
+                    ( SELECT english, chinese FROM coc.englishFirstName ORDER BY rand( ) LIMIT 1 ) b UNION
+                SELECT
+                    english,
+                    chinese
+                FROM
+                    ( SELECT english, chinese FROM coc.englishLastName ORDER BY rand( ) LIMIT 1 ) a
+            ) c
+    </select>
+
+    <select id="getJapanName" resultType="string">
+        SELECT
+            replace(GROUP_CONCAT( text ),',','')
+        FROM
+            (
+                SELECT
+                    text
+                FROM
+                        ( SELECT text FROM coc.japaneseFirstName ORDER BY rand( ) LIMIT 1 ) b UNION
+                SELECT
+                    text
+                FROM
+                        ( SELECT text FROM coc.japaneseSurname ORDER BY rand( ) LIMIT 1 ) a
+            ) c
+    </select>
+
+    <select id="getChineseName" resultType="string">
+        SELECT
+            replace(GROUP_CONCAT( text ),',','')
+        FROM
+            (
+                SELECT
+                    text
+                FROM
+                        ( SELECT text FROM coc.chineseSurname  ORDER BY rand( ) LIMIT 1 ) b UNION
+                SELECT
+                    text
+                FROM
+                        ( SELECT text FROM coc.chineseFirstName ORDER BY rand( ) LIMIT 1 ) a
+            ) c
     </select>
 
 </mapper>
