@@ -1,5 +1,6 @@
 package com.xingguang.mapper;
 
+import com.xingguang.model.VoImageModel;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -18,7 +19,7 @@ public interface ImageMapper {
      * @param
      * @return
      */
-    String selectRetByImageId(@Param("imageId") String imageId);
+    VoImageModel selectRetByImageId(@Param("imageId") String imageId);
 
     /**
      * @date 2020/1/4 15:56

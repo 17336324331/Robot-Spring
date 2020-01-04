@@ -92,35 +92,59 @@ public class GroupMsgListener {
 
         // 图片处理逻辑begin
         if (strMsg.contains("CQ:image")){
-            String strImageId = strMsg.substring(strMsg.lastIndexOf("file="),strMsg.lastIndexOf("jpg")+3).trim();
-            String strRet = "";
+            String strImageId = "";
+            if (strMsg.contains("jpg")){
+                strImageId = strMsg.substring(strMsg.lastIndexOf("file="),strMsg.lastIndexOf("jpg")+3).trim();
+            }
+            else if(strMsg.contains("png")){
+                strImageId = strMsg.substring(strMsg.lastIndexOf("file="),strMsg.lastIndexOf("png")+3).trim();
+            }
+
+            VoImageModel voImageModel = null;
             try {
-                strRet = imageService.dealImageMsg(strImageId,strQQ);
+                voImageModel = imageService.dealImageMsg(strImageId,strQQ);
             }catch (Exception e){
                 sender.SENDER.sendPrivateMsg("1571650839","异常捕获:"+strImageId);
             }
-            if (StringUtils.isBlank(strRet)){
-                // 保存图片地址
+
+            // 如果返回内容为空 ,说明之前没有入库
+            if (StringUtils.isBlank(voImageModel.getStrRet())){
+                // 入库,保存图片地址
                 imageService.saveImage(strImageId);
+                // 向群里发送已记录的消息
                 //sender.SENDER.sendGroupMsg(strGroup,"发现新图片,已记录");
                 // 向master发送图片id
                 sender.SENDER.sendPrivateMsg("1571650839",strImageId);
                 //CQC
                 int beginIndex = strImageId.lastIndexOf("=")+1;
-                int endIndex = strImageId.lastIndexOf("jpg")+3;
+                int endIndex = strImageId.lastIndexOf("g")+1;
                 String imageId = strImageId.substring(beginIndex, endIndex);
-                //CQCode cqCode_image = cqCodeUtil.getCQCode_Image(strImageId);
 
                 String cqCode_image = CQCodeUtil.build().getCQCode_image(strImageId);
                 // 向主QQ发送真实图片
                 sender.SENDER.sendPrivateMsg("1571650839",cqCode_image);
 
-            }else if ("0".equals(strRet)){
+            }
+            // 如果为零 ,说明 未处理 添加 返回逻辑
+            else if ("0".equals(voImageModel.getStrRet())){
 
-            }else{
-                String cqCode_image = CQCodeUtil.build().getCQCode_image("file:"+strImageId);
-                // 向主QQ发送真实图片
-                sender.SENDER.sendPrivateMsg("1571650839",cqCode_image);
+            }
+            // 如果不是0 ,说明已经添加返回逻辑 ,那就按照逻辑返回
+            else{
+                int intRetType = voImageModel.getIntRetType();
+                // 如果类型为1 ,说明为 文字回复
+                if ( intRetType == 1){
+                    // 向群里发送文字回复
+                    sender.SENDER.sendGroupMsg(strGroup,voImageModel.getStrRet());
+                }
+                // 如果类型为2 ,说明为 图片回复
+                else if (intRetType == 2){
+                    // 把文件名 xxx.jpg  拼接为CQ格式   file:xx.jpg
+                    String cqCode_image = CQCodeUtil.build().getCQCode_image(voImageModel.getStrRet());
+                    // 向QQ群返回斗图图片
+                    sender.SENDER.sendGroupMsg(strGroup,cqCode_image);
+                }
+
             }
 
             return ;

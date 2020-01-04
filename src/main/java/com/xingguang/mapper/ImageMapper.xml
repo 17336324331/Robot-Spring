@@ -8,9 +8,9 @@
         <result column="INT_RET_TYPE" jdbcType="VARCHAR" property="intRetType" />
     </resultMap>
 
-    <select id="selectRetByImageId" resultType="string">
+    <select id="selectRetByImageId" resultMap="baseResultMap">
         SELECT
-            STR_RET
+            STR_RET,INT_RET_TYPE
         FROM
             t_image
       <where>

@@ -1,6 +1,6 @@
 package com.xingguang.controller;
 
-import com.forte.qqrobot.component.forhttpapi.HttpApplication;
+import com.forte.component.forcoolqhttpapi.CoolQHttpApplication;
 import com.forte.qqrobot.sender.MsgSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +18,7 @@ public class TestController {
      * 通过Spring注入robot启动器
      */
     @Autowired
-    private HttpApplication httpApplication;
+    private CoolQHttpApplication httpApplication;
 
     /**
      * 通过Spring注入送信器。

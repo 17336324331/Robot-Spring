@@ -1,7 +1,7 @@
 package com.xingguang.config;
 
+import com.forte.component.forcoolqhttpapi.CoolQHttpApplication;
 import com.xingguang.QQRunApplication;
-import com.forte.qqrobot.component.forhttpapi.HttpApplication;
 import com.forte.qqrobot.depend.DependGetter;
 import com.forte.qqrobot.sender.MsgSender;
 import com.xingguang.model.BotModel;
@@ -72,8 +72,8 @@ public class QQConfig {
      * 通过此方法即可实现双向注入
      */
     @Bean
-    public HttpApplication httpApplication(){
-        HttpApplication httpApplication = new HttpApplication();
+    public CoolQHttpApplication httpApplication(){
+        CoolQHttpApplication httpApplication = new CoolQHttpApplication();
 
         //initSystemParam();
 
@@ -127,7 +127,7 @@ public class QQConfig {
      * 通过启动器获取到MsgSender对象
      */
     @Bean
-    public MsgSender msgSender(HttpApplication httpApplication){
+    public MsgSender msgSender(CoolQHttpApplication httpApplication){
         return httpApplication.getMsgSender();
     }
 

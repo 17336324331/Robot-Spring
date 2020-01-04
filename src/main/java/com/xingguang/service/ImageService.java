@@ -1,5 +1,6 @@
 package com.xingguang.service;
 
+import com.xingguang.model.VoImageModel;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,7 +17,7 @@ public interface ImageService {
      * @param
      * @return
      */
-    String dealImageMsg(String strImageMsg,String strQQ);
+    VoImageModel dealImageMsg(String strImageMsg, String strQQ);
 
     /**
      * @date 2020/1/4 15:52

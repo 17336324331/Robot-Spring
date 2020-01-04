@@ -1,5 +1,6 @@
 package com.xingguang.listener;
 
+import com.forte.component.forcoolqhttpapi.beans.result.QQGroupInfo;
 import com.forte.qqrobot.anno.Ignore;
 import com.forte.qqrobot.anno.Listen;
 import com.forte.qqrobot.beans.messages.msgget.GroupMemberIncrease;
@@ -149,59 +150,56 @@ public class OtherListener {
             }
         }
 
-        String strQQ = msg.getQQ();
-        String strGroup = msg.getGroup();
+        //String manageName =  CommandUtil.checkManage();
+        if (strMsg.contains("bot") ){
 
-        // 声明一个是否是管理员的标志位
-        boolean manageFlag = false;
 
-        GroupInfo info = sender.getGroupInfo(msg);
-        String originalData = info.getOriginalData();
-        System.out.println(originalData);
-        String[] adminList = info.getAdminList();
-        System.out.println("adminList.toString():"+adminList.toString());
+            String strQQ = msg.getQQ();
+            String strGroup = msg.getGroup();
 
-        if (adminList != null &&adminList.length>0) {
-            for (int i = 0; i < adminList.length; i++) {
-                String adminQQ = adminList[i];
-                if (adminQQ.equals(strQQ)) {
+            // 声明一个是否是管理员的标志位
+            boolean manageFlag = false;
+
+            QQGroupInfo info = (QQGroupInfo)sender.GETTER.getGroupInfo(strGroup);
+            QQGroupInfo.QQGroupAdmin[] admins = info.getAdmins();
+            for (int i = 0; i < admins.length; i++) {
+                QQGroupInfo.QQGroupAdmin admin = admins[i];
+                String user_id = admin.getUser_id();
+                if (user_id.equals(strQQ)){
                     manageFlag = true;
                 }
             }
-        }
-        boolean ownerFlag = false;
-        String ownerQQ = info.getOwnerQQ();
-        if (strQQ.equals(ownerQQ)){
-            ownerFlag = true;
-        }
-        System.out.println("ownerQQ"+ownerQQ);
-        //adminList.
 
-        BotModel botModel = new BotModel();
-        botModel.setStrGroup(strGroup);
-        botModel.setStrQQ(SystemParam.strCurrentQQ);
+            BotModel botModel = new BotModel();
+            botModel.setStrGroup(strGroup);
+            botModel.setStrQQ(SystemParam.strCurrentQQ);
 
-        String adminName = CommandUtil.checkAdmin(strQQ);
-        //String manageName =  CommandUtil.checkManage();
-        if (strMsg.contains("bot")&& (StringUtils.isNotBlank(adminName)||manageFlag||ownerFlag)){
+            String adminName = CommandUtil.checkAdmin(strQQ);
 
-            String command = strMsg.substring(strMsg.indexOf('t')+1);
-            if (command.contains("on")&&!SystemParam.botList.contains(botModel)){
-                botService.updateBotStatus(SystemParam.strCurrentQQ,strGroup,1);
-                sender.SENDER.sendGroupMsg(strGroup,"来了来了，嗯？我没有喝酒啦！今天会好好骰的！");
-                refeshParam();
-            }else if (command.contains("off")&&SystemParam.botList.contains(botModel)){
-                botService.updateBotStatus(SystemParam.strCurrentQQ,strGroup,0);
-                sender.SENDER.sendGroupMsg(strGroup,"不需要我了？那我喝酒去了，挥挥");
-                refeshParam();
-            }else if(command.contains("on")){
-                sender.SENDER.sendGroupMsg(strGroup,"行光已经在工作了哦");
-            }else if(command.contains("off")){
-                sender.SENDER.sendGroupMsg(strGroup,"行光已经在度假了呢");
+            if ((StringUtils.isNotBlank(adminName)||manageFlag)){
+
+                String command = strMsg.substring(strMsg.indexOf('t')+1);
+                if (command.contains("on")&&!SystemParam.botList.contains(botModel)){
+                    botService.updateBotStatus(SystemParam.strCurrentQQ,strGroup,1);
+                    sender.SENDER.sendGroupMsg(strGroup,"来了来了，嗯？我没有喝酒啦！今天会好好骰的！");
+                    refeshParam();
+                }else if (command.contains("off")&&SystemParam.botList.contains(botModel)){
+                    botService.updateBotStatus(SystemParam.strCurrentQQ,strGroup,0);
+                    sender.SENDER.sendGroupMsg(strGroup,"不需要我了？那我喝酒去了，挥挥");
+                    refeshParam();
+                }else if(command.contains("on")){
+                    sender.SENDER.sendGroupMsg(strGroup,"行光已经在工作了哦");
+                }else if(command.contains("off")){
+                    sender.SENDER.sendGroupMsg(strGroup,"行光已经在度假了呢");
+                }else{
+                    sender.SENDER.sendGroupMsg(strGroup,"行光于2020/01/04 20:00:00更新 \n请输入 .help 更新 查看行光的更新内容");
+                }
             }else{
-                sender.SENDER.sendGroupMsg(strGroup,"行光于2020/01/04 20:00:00更新 \n请输入 .help 更新 查看行光的更新内容");
+                sender.SENDER.sendGroupMsg(strGroup,"请联系黄帽子或者绿帽子");
             }
+
         }
+        return ;
     }
 
 

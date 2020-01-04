@@ -2,6 +2,7 @@ package com.xingguang.service.Impl;
 
 import com.forte.qqrobot.beans.messages.get.GetStrangerInfo;
 import com.xingguang.mapper.ImageMapper;
+import com.xingguang.model.VoImageModel;
 import com.xingguang.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,12 +26,18 @@ public class ImageServiceImpl implements ImageService {
      * @description 处理带有image的消息
      */
     @Override
-    public String dealImageMsg(String strImageMsg,String strQQ) {
+    public VoImageModel dealImageMsg(String strImageMsg,String strQQ) {
         int beginIndex = strImageMsg.lastIndexOf("=")+1;
-        int endIndex = strImageMsg.lastIndexOf("jpg")+3;
+        int endIndex =  0 ;
+        if (strImageMsg.contains("jpg")){
+            endIndex = strImageMsg.lastIndexOf("jpg")+3;
+        }
+        else if(strImageMsg.contains("png")){
+            endIndex = strImageMsg.lastIndexOf("png")+3;
+        }
         String imageId = strImageMsg.substring(beginIndex, endIndex);
-
-        String strRet = imageMapper.selectRetByImageId(imageId);
+        String strRet = "";
+        VoImageModel model = imageMapper.selectRetByImageId(imageId);
 
         if ("7655E8B9FA5C8FAA87766753EB866A49.jpg".equals(imageId)){
             if ("1571650839".equals(strQQ)){
@@ -43,9 +50,10 @@ public class ImageServiceImpl implements ImageService {
 
 
             }
+            model.setStrRet(strRet);
         }
 
-        return strRet;
+        return model == null ? new VoImageModel():model;
     }
 
     /**
@@ -58,7 +66,7 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public void saveImage(String strImageMsg) {
         int beginIndex = strImageMsg.lastIndexOf("=")+1;
-        int endIndex = strImageMsg.lastIndexOf("jpg")+3;
+        int endIndex = strImageMsg.lastIndexOf("g")+1;
         String imageId = strImageMsg.substring(beginIndex, endIndex);
         imageMapper.saveImage(imageId);
     }
