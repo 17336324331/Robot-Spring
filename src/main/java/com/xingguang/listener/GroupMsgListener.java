@@ -77,7 +77,7 @@ public class GroupMsgListener {
     SqlSession sqlSession ;
 
 
-    @Listen(MsgGetTypes.groupMsg)
+    //@Listen(MsgGetTypes.groupMsg)
     public void listen1(GroupMsg msg,  MsgSender sender,CQCodeUtil cqCodeUtil){
 
         // 检查内存中是否有系统参数
@@ -804,6 +804,9 @@ public class GroupMsgListener {
 
 
     }
+
+
+
 
 
 

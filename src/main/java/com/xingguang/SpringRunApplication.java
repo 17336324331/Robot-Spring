@@ -1,9 +1,7 @@
 package com.xingguang;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
 
 /**
  *
@@ -17,6 +15,8 @@ import org.springframework.context.annotation.ComponentScan;
 public class SpringRunApplication {
 
     public static void main(String[] args) {
+        //KeywordMatchTypeFactory.registerType("SINANYA_REGEX", (msg, regex) -> Pattern.compile(regex, Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(fullWidth2halfWidth(msg.trim().toLowerCase())).find());
+
         //首先，启动Spring
         SpringApplication.run(SpringRunApplication.class, args);
 

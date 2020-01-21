@@ -136,7 +136,7 @@ public class OtherListener {
     }
 
     // 群聊机器人开关事件
-    @Listen(MsgGetTypes.groupMsg)
+    //@Listen(MsgGetTypes.groupMsg)
     public void switchStatus(GroupMsg msg, MsgSender sender, CQCodeUtil cqCodeUtil){
         String strMsg = msg.getMsg().trim();
         // 逻辑重设
