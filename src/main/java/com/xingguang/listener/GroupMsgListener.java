@@ -70,6 +70,10 @@ public class GroupMsgListener {
     private ImageService imageService;
 
     @Autowired
+    private BugService bugService;
+
+
+    @Autowired
     SqlSession sqlSession ;
 
 
@@ -77,6 +81,7 @@ public class GroupMsgListener {
     public void listen1(GroupMsg msg,  MsgSender sender,CQCodeUtil cqCodeUtil){
 
         // 检查内存中是否有系统参数
+        //SystemParamUtil.
         checkSystemParam();
 
         BaseModel baseModel = baseService.dealMsg(msg, sender);
@@ -89,6 +94,35 @@ public class GroupMsgListener {
         String strName = baseModel.getStrName();
         // 获取群成员发布的消息
         String strMsg = msg.getMsg().trim();
+
+        if(strQQ.equals("1571650839")&&strMsg.contains("我要娶空晓")){
+            String str = "master进行我要娶空笑晓过门！检定:D100=1/1是大成功呢\n" +
+            "哈？又拿酒来贿赂我？行吧行吧，酒放下，大成功快拿走。";
+            sender.SENDER.sendGroupMsg(strGroup,str);
+            return;
+
+        }
+
+        if(strQQ.equals("1571650839")&&strMsg.contains(".cp .bot on")){
+            String str = ".bot on";
+            sender.SENDER.sendGroupMsg(strGroup,str);
+            return;
+
+        }
+
+        if(strQQ.equals("1571650839")&&strMsg.contains(".cp .bot off")){
+            String str = ".bot off";
+            sender.SENDER.sendGroupMsg(strGroup,str);
+            return;
+
+        }
+
+        if(strQQ.equals("1571650839")&&strMsg.contains("空晓是谁的")){
+            String str = "master别生气,主人在开玩笑,她永远是你的";
+            sender.SENDER.sendGroupMsg(strGroup,str);
+            return;
+
+        }
 
         // 图片处理逻辑begin
         if (strMsg.contains("CQ:image")){
@@ -121,7 +155,9 @@ public class GroupMsgListener {
                 String imageId = strImageId.substring(beginIndex, endIndex);
 
                 String cqCode_image = CQCodeUtil.build().getCQCode_image(strImageId);
+                System.out.println(cqCode_image);
                 // 向主QQ发送真实图片
+
                 sender.SENDER.sendPrivateMsg("1571650839",cqCode_image);
 
             }
@@ -141,6 +177,7 @@ public class GroupMsgListener {
                 else if (intRetType == 2){
                     // 把文件名 xxx.jpg  拼接为CQ格式   file:xx.jpg
                     String cqCode_image = CQCodeUtil.build().getCQCode_image(voImageModel.getStrRet());
+                    System.out.println(cqCode_image);
                     // 向QQ群返回斗图图片
                     sender.SENDER.sendGroupMsg(strGroup,cqCode_image);
                 }
@@ -533,9 +570,16 @@ public class GroupMsgListener {
 
                 // 9.人物作成
                 if (strMsg.contains("coc")){
-                    String coc = LogicUtil.coc(strMsg);
-                    addNameSendMsg(strGroup,strQQ,coc,sender);
-                    return ;
+
+                    if(StringUtil.HasDigit(strMsg)){
+                        String coc = LogicUtil.coc(strMsg);
+                        addNameSendMsg(strGroup,strQQ,coc,sender);
+                        return ;
+                    }else {
+                       // sts
+                    }
+
+
                 }
 
                 // 9.人物作成
@@ -591,12 +635,12 @@ public class GroupMsgListener {
                     return ;
                 }
 
-                if (strMsg.contains("晚安")){
-                    //String resultMsg = LogicUtil.r(strMsg);
-                    //cqCodeUtil.getCQCode(CQCodeTypes.emoji,)
-                    addNameSendMsg(strGroup,strQQ, "晚安",sender);
-                    return ;
-                }
+//                if (strMsg.contains("晚安")){
+//                    //String resultMsg = LogicUtil.r(strMsg);
+//                    //cqCodeUtil.getCQCode(CQCodeTypes.emoji,)
+//                    addNameSendMsg(strGroup,strQQ, "晚安",sender);
+//                    return ;
+//                }
                 if (strMsg.contains("早上好")){
                     //String resultMsg = LogicUtil.r(strMsg);
                     //cqCodeUtil.getCQCode(CQCodeTypes.emoji,)

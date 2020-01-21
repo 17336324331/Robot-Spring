@@ -151,7 +151,7 @@ public class OtherListener {
         }
 
         //String manageName =  CommandUtil.checkManage();
-        if (strMsg.contains("bot") ){
+        if (strMsg.contains("bot") &&(!strMsg.contains("cp"))){
 
 
             String strQQ = msg.getQQ();
