@@ -1,0 +1,2742 @@
+JFDML JFormDesigner: "7.0.0.6.255" Java: "11.0.5" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "java.awt.Frame", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+			name: "this"
+			"title": "SinaNya跑团骰点核心 By SitaNya"
+			"background": new java.awt.Color( 60, 63, 65, 255 )
+			"iconImage": new com.jformdesigner.model.SwingIcon( 0, "/icon.jpg" )
+			auxiliary() {
+				"JavaCodeGenerator.variableAnnotations": "UpdateForDice"
+			}
+			addEvent( new FormEvent( "java.awt.event.WindowListener", "windowClosing", "windowsWindowClosing", true ) )
+			add( new FormContainer( "javax.swing.JTabbedPane", new FormLayoutManager( class javax.swing.JTabbedPane ) ) {
+				name: "tab"
+				addEvent( new FormEvent( "javax.swing.event.ChangeListener", "stateChanged", "tabStateChanged", true ) )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+					name: "setting"
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+						name: "panel3"
+						"border": &EtchedBorder0 new javax.swing.border.EtchedBorder( 1, null, null )
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "save"
+							"text": "保存"
+							addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "save", true ) )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 35
+							"y": 435
+						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+							name: "infoPanel6"
+							"border": &BevelBorder0 new javax.swing.border.BevelBorder( 1, null, null, null, null )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "qqText6"
+								"text": "当前骰娘QQ号:"
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"x": 10
+								"y": 10
+								"width": 90
+								"height": 25
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "nickText6"
+								"text": "当前骰娘昵称:"
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"height": 25
+								"x": 10
+								"y": 70
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "qqValue6"
+								"text": "text"
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"x": 10
+								"y": 40
+								"height": 25
+								"width": 140
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "nickValue6"
+								"text": "text"
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"height": 25
+								"x": 10
+								"y": 100
+								"width": 140
+							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"width": 145
+							"height": 135
+							"x": 5
+							"y": 5
+						} )
+						add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+							name: "scrollPane11"
+							add( new FormComponent( "javax.swing.JTextPane" ) {
+								name: "textPane1"
+								"text": "这个界面用于设定：\n各种命令回复语\n各种报错回复语\n你需要注意的是，第一次启动会有默认信息生成\n里面可能会夹杂%s这样的字符，这指代实际的名称\n如日志创建并开启栏位中的%s指代日志名称\n小队成员en中的%s指代成员名\n此外，你可以善用\\n字符来代表回车\n完毕后记得点保存"
+								"font": new com.jformdesigner.model.SwingDerivedFont( null, 1, 0, false )
+							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"width": 145
+							"height": 275
+							"x": 5
+							"y": 145
+						} )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 10
+						"y": 10
+						"width": 155
+						"height": 480
+					} )
+					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+						name: "scrollPane1"
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+							name: "panel2"
+							"border": new javax.swing.border.BevelBorder( 1, null, null, null, null )
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+								name: "panel6"
+								"border": &EtchedBorder1 new javax.swing.border.EtchedBorder( 1, null, null )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label11"
+									"text": "人物卡录入格式有误"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"x": 10
+									"y": 10
+									"height": 25
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label12"
+									"text": "人物卡录入格式帮助"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 117
+									"height": 25
+									"x": 10
+									"y": 40
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label13"
+									"text": "未找到人物卡技能值"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 117
+									"height": 25
+									"x": 10
+									"y": 70
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label14"
+									"text": "属性设置成功"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 117
+									"height": 25
+									"x": 10
+									"y": 100
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField7"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "setPropFormat"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 300
+									"height": 25
+									"x": 145
+									"y": 10
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField8"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "setHelp"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 300
+									"height": 25
+									"x": 145
+									"y": 40
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField9"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "notFoundSkill"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 300
+									"height": 25
+									"x": 145
+									"y": 70
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField10"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "setPropSuccess"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 300
+									"height": 25
+									"x": 145
+									"y": 100
+								} )
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"x": 10
+								"y": 330
+								"width": 460
+								"height": 135
+							} )
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+								name: "panel13"
+								"border": #EtchedBorder1
+								"toolTipText": "机器人常用信息"
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label45"
+									"text": "en成功附加语"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"x": 10
+									"y": 10
+									"height": 25
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label46"
+									"text": "en失败附加语"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"height": 25
+									"x": 10
+									"y": 40
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label47"
+									"text": "暗骰语"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"height": 25
+									"x": 10
+									"y": 70
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField41"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "enSuccess"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"x": 105
+									"y": 10
+									"height": 25
+									"width": 340
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField42"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "enFailed"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 340
+									"height": 25
+									"x": 105
+									"y": 40
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField43"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "hiddenDice"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 340
+									"height": 25
+									"x": 105
+									"y": 70
+								} )
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"width": 460
+								"height": 105
+								"x": 10
+								"y": 215
+							} )
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+								name: "panel5"
+								"border": #EtchedBorder1
+								"toolTipText": "机器人常用信息"
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "botStartLable"
+									"text": "开启信息"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"x": 10
+									"y": 10
+									"height": 25
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "botAlreadyStartLable"
+									"text": "已开启提示"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"height": 25
+									"x": 10
+									"y": 40
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "botStopLable"
+									"text": "关闭信息"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"height": 25
+									"x": 10
+									"y": 70
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "botAlreadyStopLable"
+									"text": "已关闭提示"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"height": 25
+									"x": 10
+									"y": 100
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label9"
+									"text": "退群提示"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"height": 25
+									"x": 10
+									"y": 130
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label10"
+									"text": "机器人信息提示"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"height": 25
+									"x": 10
+									"y": 160
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "botStart"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"x": 105
+									"y": 10
+									"height": 25
+									"width": 340
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField2"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "botAlreadyStart"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 340
+									"height": 25
+									"x": 105
+									"y": 40
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField3"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "botStop"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 340
+									"height": 25
+									"x": 105
+									"y": 70
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField4"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "botAlreadyStop"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 340
+									"height": 25
+									"x": 105
+									"y": 100
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField5"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "botExit"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 340
+									"height": 25
+									"x": 105
+									"y": 130
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField6"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "botInfo"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 340
+									"height": 25
+									"x": 105
+									"y": 160
+								} )
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"x": 10
+								"y": 10
+								"width": 460
+								"height": 200
+							} )
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) {
+								"autoSize": false
+							} ) {
+								name: "panel12"
+								"border": #EtchedBorder1
+								"toolTipText": "机器人常用信息"
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label39"
+									"text": "SC格式有误"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"x": 10
+									"y": 10
+									"height": 25
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label40"
+									"text": "疯狂附加语"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"height": 25
+									"x": 10
+									"y": 40
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label41"
+									"text": "SC大成功附加语"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"height": 25
+									"x": 10
+									"y": 70
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label42"
+									"text": "SC大失败附加语"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"height": 25
+									"x": 10
+									"y": 100
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label43"
+									"text": "SC成功附加语"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"height": 25
+									"x": 10
+									"y": 130
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label44"
+									"text": "SC失败附加语"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"height": 25
+									"x": 10
+									"y": 160
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField35"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "sanCheck"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"x": 105
+									"y": 10
+									"height": 25
+									"width": 340
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField36"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "symptom"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 340
+									"height": 25
+									"x": 105
+									"y": 40
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField37"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "sanCheckCriticalSuccess"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 340
+									"height": 25
+									"x": 105
+									"y": 70
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField38"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "sanCheckFumble"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 340
+									"height": 25
+									"x": 105
+									"y": 100
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField39"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "sanCheckSuccess"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 340
+									"height": 25
+									"x": 105
+									"y": 130
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField40"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "sanCheckFailure"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 340
+									"height": 25
+									"x": 105
+									"y": 160
+								} )
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"width": 460
+								"height": 195
+								"x": 10
+								"y": 470
+							} )
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+								name: "panel9"
+								"border": #EtchedBorder1
+								"toolTipText": "机器人常用信息"
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label24"
+									"text": "日志创建并开启"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"x": 10
+									"y": 10
+									"height": 25
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label25"
+									"text": "日志追加并开启"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"height": 25
+									"x": 10
+									"y": 40
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label26"
+									"text": "日志已开启"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"height": 25
+									"x": 10
+									"y": 70
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label27"
+									"text": "日志已关闭"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"height": 25
+									"x": 10
+									"y": 100
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label28"
+									"text": "日志未找到"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"height": 25
+									"x": 10
+									"y": 130
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label29"
+									"text": "不可使用空日志名"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"height": 25
+									"x": 10
+									"y": 160
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField20"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "createLog"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"x": 150
+									"y": 10
+									"height": 25
+									"width": 290
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField21"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "appendLog"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 290
+									"height": 25
+									"x": 150
+									"y": 40
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField22"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "alreadyOpen"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 290
+									"height": 25
+									"x": 150
+									"y": 70
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField23"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "alreadyClose"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 290
+									"height": 25
+									"x": 150
+									"y": 100
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField24"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "notFoundLog"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 290
+									"height": 25
+									"x": 150
+									"y": 130
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField25"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "cantEmptyLogName"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 290
+									"height": 25
+									"x": 150
+									"y": 160
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label30"
+									"text": "无法删除已开启的日志"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"height": 25
+									"y": 190
+									"x": 10
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label31"
+									"text": "获取日志队列堵塞"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"height": 25
+									"y": 220
+									"x": 10
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField26"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "deleteOpenLog"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 290
+									"height": 25
+									"x": 150
+									"y": 190
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField27"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "readLock"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 290
+									"height": 25
+									"x": 150
+									"y": 220
+								} )
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"width": 460
+								"height": 250
+								"x": 480
+								"y": 10
+							} )
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+								name: "panel8"
+								"border": #EtchedBorder1
+								"toolTipText": "机器人常用信息"
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label19"
+									"text": "多重骰点(ral)命令格式有误"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"x": 10
+									"y": 10
+									"height": 25
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label20"
+									"text": "骰点次数过多"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"height": 25
+									"x": 10
+									"y": 40
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label21"
+									"text": "未设置kp群"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"height": 25
+									"x": 10
+									"y": 70
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label22"
+									"text": "非私聊命令"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"height": 25
+									"x": 10
+									"y": 100
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label23"
+									"text": "仅群主或管理员可用"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"height": 25
+									"x": 10
+									"y": 130
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField15"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "manyRollsFormat"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"x": 175
+									"y": 10
+									"height": 25
+									"width": 270
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField16"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "diceTimesTooBig"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 270
+									"height": 25
+									"x": 175
+									"y": 40
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField17"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "needKpGroup"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 270
+									"height": 25
+									"x": 175
+									"y": 70
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField18"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "cantInPrivate"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 270
+									"height": 25
+									"x": 175
+									"y": 100
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField19"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "onlyManager"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 270
+									"height": 25
+									"x": 175
+									"y": 130
+								} )
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"width": 460
+								"height": 165
+								"x": 480
+								"y": 270
+							} )
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+								name: "panel10"
+								"border": #EtchedBorder1
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label32"
+									"text": "先攻列表为空"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 117
+									"height": 25
+									"x": 10
+									"y": 10
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label33"
+									"text": "清空先攻列表"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 117
+									"height": 25
+									"x": 10
+									"y": 40
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField28"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "dndInitIsEmtpy"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 300
+									"height": 25
+									"x": 145
+									"y": 10
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField29"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "clrDndInit"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 300
+									"height": 25
+									"x": 145
+									"y": 40
+								} )
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"width": 460
+								"height": 75
+								"x": 480
+								"y": 440
+							} )
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+								name: "panel14"
+								"border": #EtchedBorder1
+								"toolTipText": "机器人常用信息"
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label48"
+									"text": "当前小队为空"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"x": 10
+									"y": 10
+									"height": 25
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label49"
+									"text": "当前小队EN列表为空"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"height": 25
+									"x": 10
+									"y": 40
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField44"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "teamIsEmpty"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"x": 145
+									"y": 10
+									"height": 25
+									"width": 300
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField45"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "teamMemberEnIsEmpty"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 300
+									"height": 25
+									"x": 145
+									"y": 40
+								} )
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"width": 460
+								"height": 75
+								"x": 480
+								"y": 525
+							} )
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+								name: "panel7"
+								"border": #EtchedBorder1
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label15"
+									"text": "新版人物卡链接"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 117
+									"height": 25
+									"x": 10
+									"y": 10
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label16"
+									"text": "RP问答链接"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 117
+									"height": 25
+									"x": 10
+									"y": 40
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label17"
+									"text": "规则书链接"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 117
+									"height": 25
+									"x": 10
+									"y": 70
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label18"
+									"text": "车卡指南链接"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 117
+									"height": 25
+									"x": 10
+									"y": 100
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField11"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "bookCard"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 300
+									"height": 25
+									"x": 145
+									"y": 10
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField12"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "bookRp"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 300
+									"height": 25
+									"x": 145
+									"y": 40
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField13"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "bookKp"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 300
+									"height": 25
+									"x": 145
+									"y": 70
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField14"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "bookMake"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 300
+									"height": 25
+									"x": 145
+									"y": 100
+								} )
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"x": 10
+								"y": 670
+								"width": 460
+								"height": 135
+							} )
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+								name: "panel11"
+								"border": #EtchedBorder1
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label34"
+									"text": "对抗结束"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 117
+									"height": 25
+									"x": 10
+									"y": 10
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label35"
+									"text": "先手胜利"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 117
+									"height": 25
+									"x": 10
+									"y": 40
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label36"
+									"text": "后手胜利"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 117
+									"height": 25
+									"x": 10
+									"y": 70
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label37"
+									"text": "全部失败"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 117
+									"height": 25
+									"x": 10
+									"y": 100
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField30"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "antagonizeOver"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 300
+									"height": 25
+									"x": 145
+									"y": 10
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField31"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "antagonizeFirstSuccess"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 300
+									"height": 25
+									"x": 145
+									"y": 40
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField32"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "antagonizeSecondSuccess"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 300
+									"height": 25
+									"x": 145
+									"y": 70
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField33"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "antagonizeAllFailed"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 300
+									"height": 25
+									"x": 145
+									"y": 100
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label38"
+									"text": "平手"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 117
+									"height": 25
+									"x": 10
+									"y": 130
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField34"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "antagonizeDraw"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 300
+									"height": 25
+									"x": 145
+									"y": 130
+								} )
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"width": 460
+								"height": 160
+								"x": 480
+								"y": 610
+							} )
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+								name: "panel28"
+								"border": new javax.swing.border.BevelBorder( 1, null, null, null, null )
+								add( new FormComponent( "javax.swing.JCheckBox" ) {
+									name: "checkBox17"
+									"text": "公有模式"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "publicMode"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"x": 10
+									"y": 10
+								} )
+								add( new FormComponent( "javax.swing.JCheckBox" ) {
+									name: "checkBox18"
+									"text": "全局开关"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "running"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"x": 10
+									"y": 35
+								} )
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"x": 10
+								"y": 815
+								"height": 70
+								"width": 460
+							} )
+							add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+								name: "scrollPane27"
+								add( new FormComponent( "javax.swing.JTextArea" ) {
+									name: "textArea10"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "helpInfo"
+									}
+								} )
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"x": 485
+								"y": 815
+								"width": 455
+								"height": 70
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label67"
+								"text": "help附加内容"
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"width": 117
+								"height": 25
+								"x": 485
+								"y": 780
+							} )
+						} )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 170
+						"y": 10
+						"width": 970
+						"height": 480
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "报错回复语等设置"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+					name: "panel1"
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+						name: "panel4"
+						"border": #EtchedBorder0
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "save2"
+							"text": "保存"
+							addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "save", true ) )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 35
+							"y": 435
+						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+							name: "infoPanel5"
+							"border": #BevelBorder0
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "qqText5"
+								"text": "当前骰娘QQ号:"
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"x": 10
+								"y": 10
+								"width": 90
+								"height": 25
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "nickText5"
+								"text": "当前骰娘昵称:"
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"height": 25
+								"x": 10
+								"y": 70
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "qqValue5"
+								"text": "text"
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"x": 10
+								"y": 40
+								"height": 25
+								"width": 140
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "nickValue5"
+								"text": "text"
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"height": 25
+								"x": 10
+								"y": 100
+								"width": 140
+							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"width": 145
+							"height": 135
+							"x": 5
+							"y": 5
+						} )
+						add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+							name: "scrollPane14"
+							add( new FormComponent( "javax.swing.JTextPane" ) {
+								name: "textPane2"
+								"text": "这个界面用于设定：\n大成功乃至大失败的回复语\n这里不会出现%s\n\\n一样代表换行\n\n你一定要记住的是：\n|\n这个竖线符号，它在你的回车上方\n同一种回复语，用|分割多句，在骰娘回复时会随即选取一句，这里比如\n成功|成功啦|是成功呢|你成功了\n会4种里随机选择1种\n此外，我为了尽可能给予你自由，没有写死回复“成功”这个字眼，因此你需要在回复语中填写“成功”二字"
+							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 5
+							"y": 145
+							"width": 145
+							"height": 275
+						} )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"width": 155
+						"height": 480
+						"x": 10
+						"y": 10
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+						name: "panel15"
+						"border": #EtchedBorder0
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label1"
+							"text": "大成功回复语"
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 10
+							"y": 5
+							"width": 150
+							"height": 25
+						} )
+						add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+							name: "scrollPane2"
+							add( new FormComponent( "javax.swing.JTextArea" ) {
+								name: "textArea1"
+								auxiliary() {
+									"JavaCodeGenerator.variableName": "criticalSuccess"
+								}
+							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 10
+							"y": 30
+							"width": 440
+							"height": 120
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label2"
+							"text": "极难成功回复语"
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 10
+							"y": 160
+							"height": 25
+						} )
+						add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+							name: "scrollPane3"
+							add( new FormComponent( "javax.swing.JTextArea" ) {
+								name: "textArea2"
+								auxiliary() {
+									"JavaCodeGenerator.variableName": "extremeSuccess"
+								}
+							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 10
+							"y": 185
+							"width": 440
+							"height": 120
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label3"
+							"text": "困难成功回复语"
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 10
+							"y": 315
+							"height": 25
+						} )
+						add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+							name: "scrollPane4"
+							add( new FormComponent( "javax.swing.JTextArea" ) {
+								name: "textArea3"
+								auxiliary() {
+									"JavaCodeGenerator.variableName": "headSuccess"
+								}
+							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 10
+							"y": 340
+							"width": 440
+							"height": 120
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label4"
+							"text": "成功回复语"
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 490
+							"y": 5
+							"height": 25
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label50"
+							"text": "失败回复语"
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 490
+							"y": 160
+							"height": 25
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label51"
+							"text": "大失败回复语"
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 490
+							"y": 315
+							"height": 25
+						} )
+						add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+							name: "scrollPane5"
+							add( new FormComponent( "javax.swing.JTextArea" ) {
+								name: "textArea4"
+								auxiliary() {
+									"JavaCodeGenerator.variableName": "success"
+								}
+							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 490
+							"y": 30
+							"width": 440
+							"height": 120
+						} )
+						add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+							name: "scrollPane6"
+							add( new FormComponent( "javax.swing.JTextArea" ) {
+								name: "textArea5"
+								auxiliary() {
+									"JavaCodeGenerator.variableName": "failure"
+								}
+							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 490
+							"y": 185
+							"width": 440
+							"height": 120
+						} )
+						add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+							name: "scrollPane7"
+							add( new FormComponent( "javax.swing.JTextArea" ) {
+								name: "textArea6"
+								auxiliary() {
+									"JavaCodeGenerator.variableName": "fumble"
+								}
+							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 490
+							"y": 340
+							"width": 440
+							"height": 120
+						} )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 175
+						"y": 10
+						"height": 480
+						"width": 970
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "自定义成功随即回复词"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+					name: "clean"
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+						name: "monitorPanel2"
+						"toolTipText": "监控信息"
+						"border": #EtchedBorder1
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "promethusPortText2"
+							"text": "普罗米修斯自定义端口"
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 10
+							"y": 65
+							"height": 25
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "promethusPortValue2"
+							auxiliary() {
+								"JavaCodeGenerator.variableName": "prometheusPort"
+							}
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 150
+							"y": 65
+							"height": 25
+							"width": 55
+						} )
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "Prometheus"
+							"text": "启用普罗米修斯监控上报"
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 10
+							"y": 35
+							"height": 25
+						} )
+						add( new FormComponent( "javax.swing.JCheckBox" ) {
+							name: "heap"
+							"text": "启用心跳报告"
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 10
+							"y": 10
+							"height": 25
+						} )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"width": 235
+						"height": 105
+						"x": 180
+						"y": 245
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+						name: "setMaster"
+						"border": #EtchedBorder1
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "masterText"
+							"text": "Master(使用,分割多个，注意全半角)"
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 10
+							"y": 10
+							"height": 25
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "notMasterInfoText"
+							"text": "非Master命令回复"
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"width": 220
+							"height": 25
+							"x": 10
+							"y": 110
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "masterValue"
+							auxiliary() {
+								"JavaCodeGenerator.variableName": "master"
+							}
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 15
+							"y": 35
+							"width": 205
+							"height": 25
+						} )
+						add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+							name: "scrollPane8"
+							add( new FormComponent( "javax.swing.JTextArea" ) {
+								name: "textArea7"
+								auxiliary() {
+									"JavaCodeGenerator.variableName": "notMaster"
+								}
+							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 15
+							"y": 140
+							"width": 205
+							"height": 75
+						} )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"width": 235
+						"height": 225
+						"x": 180
+						"y": 15
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+						name: "panel16"
+						"border": #EtchedBorder0
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+							name: "infoPanel3"
+							"border": #BevelBorder0
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "qqText3"
+								"text": "当前骰娘QQ号:"
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"x": 10
+								"y": 10
+								"width": 90
+								"height": 25
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "nickText3"
+								"text": "当前骰娘昵称:"
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"height": 25
+								"x": 10
+								"y": 70
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "qqValue3"
+								"text": "text"
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"x": 10
+								"y": 40
+								"height": 25
+								"width": 140
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "nickValue3"
+								"text": "text"
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"height": 25
+								"x": 10
+								"y": 100
+								"width": 140
+							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 5
+							"y": 5
+							"width": 145
+							"height": 135
+						} )
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "save3"
+							"text": "保存"
+							addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "save", true ) )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 35
+							"y": 435
+						} )
+						add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+							name: "scrollPane15"
+							add( new FormComponent( "javax.swing.JTextPane" ) {
+								name: "textPane3"
+								"text": "在这个界面中你需要设置:\nMasterQQ号和其报错信息\n只有设置了Master的QQ号，心跳报告才会正确的报警，后续的云黑也才可以正常使用\n这里需要为你解释的是：\n心跳报告，是指当你的骰娘因为任何原因挂起时，可以在20分钟内于群808619122中得到报告（只需要你加入，你的骰娘不需要）\n而普罗米修斯监控上报，你可以忽略，那是一种企业级的服务器负载监控能力，需要一些额外的配置。如果你的服务器上挂载了非常多的骰娘不堪重负，或者干脆它就有过宕机连不上的经历。你可以在加入报警群后询问我如何配置"
+							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"width": 145
+							"height": 275
+							"x": 5
+							"y": 145
+						} )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"width": 155
+						"height": 480
+						"x": 10
+						"y": 10
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+						name: "panel17"
+						"border": #EtchedBorder1
+						"toolTipText": "机器人常用信息"
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label52"
+							"text": "关闭群清理期限(单位:天)"
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 10
+							"y": 10
+							"height": 25
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label53"
+							"text": "关闭群清理用语"
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"height": 25
+							"x": 10
+							"y": 40
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label54"
+							"text": "废弃群清理期限(单位:天)"
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"height": 25
+							"x": 10
+							"y": 70
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label55"
+							"text": "废弃群清理用语"
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"height": 25
+							"x": 10
+							"y": 100
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "textField46"
+							auxiliary() {
+								"JavaCodeGenerator.variableName": "clearGroupByOff"
+							}
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 205
+							"y": 10
+							"height": 25
+							"width": 320
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "textField47"
+							auxiliary() {
+								"JavaCodeGenerator.variableName": "clearGroupByOffInfo"
+							}
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"width": 320
+							"height": 25
+							"x": 205
+							"y": 40
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "textField48"
+							auxiliary() {
+								"JavaCodeGenerator.variableName": "clearGroup"
+							}
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"width": 320
+							"height": 25
+							"x": 205
+							"y": 70
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "textField49"
+							auxiliary() {
+								"JavaCodeGenerator.variableName": "clearGroupInfo"
+							}
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"width": 320
+							"height": 25
+							"x": 205
+							"y": 100
+						} )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"width": 545
+						"height": 130
+						"x": 425
+						"y": 220
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+						name: "panel18"
+						"border": #EtchedBorder1
+						"toolTipText": "机器人常用信息"
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label56"
+							"text": "警告刷屏频度(N条/每10秒)"
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 10
+							"y": 10
+							"height": 25
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label57"
+							"text": "警告刷屏用语"
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"height": 25
+							"x": 10
+							"y": 40
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label58"
+							"text": "拉黑退群刷屏频度(N条/每分钟)"
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"height": 25
+							"x": 10
+							"y": 70
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label59"
+							"text": "拉黑退群刷屏用语"
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"height": 25
+							"x": 10
+							"y": 100
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "textField50"
+							auxiliary() {
+								"JavaCodeGenerator.variableName": "alterFrequentness"
+							}
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 205
+							"y": 10
+							"height": 25
+							"width": 320
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "textField51"
+							auxiliary() {
+								"JavaCodeGenerator.variableName": "frequentnessAlterInfo"
+							}
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"width": 320
+							"height": 25
+							"x": 205
+							"y": 40
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "textField52"
+							auxiliary() {
+								"JavaCodeGenerator.variableName": "banFrequentness"
+							}
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"width": 320
+							"height": 25
+							"x": 205
+							"y": 70
+						} )
+						add( new FormComponent( "javax.swing.JTextField" ) {
+							name: "textField53"
+							auxiliary() {
+								"JavaCodeGenerator.variableName": "frequentnessBanInfo"
+							}
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"width": 320
+							"height": 25
+							"x": 205
+							"y": 100
+						} )
+						add( new FormComponent( "javax.swing.JRadioButton" ) {
+							name: "radioButton1"
+							"text": "当到达拉黑频度时，退群、拉黑群、拉黑操作人"
+							"$buttonGroup": new FormReference( "buttonGroup1" )
+							auxiliary() {
+								"JavaCodeGenerator.variableName": "banGroupAndUserByFre"
+							}
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"height": 25
+							"x": 10
+							"y": 130
+						} )
+						add( new FormComponent( "javax.swing.JRadioButton" ) {
+							name: "radioButton2"
+							"text": "当到达拉黑频度时，只拉黑操作人"
+							"$buttonGroup": new FormReference( "buttonGroup1" )
+							auxiliary() {
+								"JavaCodeGenerator.variableName": "banUserByFre"
+							}
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"height": 25
+							"x": 10
+							"y": 160
+						} )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"width": 545
+						"height": 200
+						"x": 425
+						"y": 15
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "监控"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+					name: "panel19"
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+						name: "panel20"
+						"border": #EtchedBorder0
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "save4"
+							"text": "保存"
+							addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "save", true ) )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 35
+							"y": 435
+						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+							name: "infoPanel4"
+							"border": #BevelBorder0
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "qqText4"
+								"text": "当前骰娘QQ号:"
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"x": 10
+								"y": 10
+								"width": 90
+								"height": 25
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "nickText4"
+								"text": "当前骰娘昵称:"
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"height": 25
+								"x": 10
+								"y": 70
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "qqValue4"
+								"text": "text"
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"x": 10
+								"y": 40
+								"height": 25
+								"width": 140
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "nickValue4"
+								"text": "text"
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"height": 25
+								"x": 10
+								"y": 100
+								"width": 140
+							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"width": 145
+							"height": 135
+							"x": 5
+							"y": 5
+						} )
+						add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+							name: "scrollPane16"
+							add( new FormComponent( "javax.swing.JTextPane" ) {
+								name: "textPane4"
+								"text": "这里是黑名单设置区:\n我们采用云黑策略，因此这里不会用来显示黑名单列表——别人添加的黑名单你是不能修改的，同样，你添加的黑名单也不会有别人搭个骰子后偷偷删掉。\n开启云黑名单之后，每15分钟会请求一次远端服务器，拉取最新的黑名单列表\n而手工添加、删除黑名单一样是允许的，你可以在《关于》选项卡的文档中找到相应命令\n如果你想要用私人的黑名单插件，那么只需要取消掉左上方的“开启云黑名单”即可"
+							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 5
+							"y": 145
+							"width": 145
+							"height": 275
+						} )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"width": 155
+						"height": 480
+						"x": 10
+						"y": 10
+					} )
+					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+						name: "scrollPane21"
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+							name: "panel33"
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+								name: "panel21"
+								"border": #EtchedBorder0
+								add( new FormComponent( "javax.swing.JCheckBox" ) {
+									name: "checkBox3"
+									"text": "开启云黑名单"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "cloudBan"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"x": 10
+									"y": 10
+									"height": 25
+								} )
+								add( new FormComponent( "javax.swing.JCheckBox" ) {
+									name: "checkBox4"
+									"text": "当黑名单用户处于白名单群中时，忽略此用户"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "ignoreBanUser"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"x": 10
+									"y": 40
+									"height": 25
+								} )
+								add( new FormComponent( "javax.swing.JCheckBox" ) {
+									name: "checkBox5"
+									"text": "当黑名单用户处于白名单群中时，因此而退群"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "leaveByBanUser"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"x": 10
+									"y": 70
+									"height": 25
+								} )
+								add( new FormComponent( "javax.swing.JCheckBox" ) {
+									name: "checkBox6"
+									"text": "自动退出黑名单群"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "leaveGroupByBan"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"x": 10
+									"y": 100
+									"height": 25
+								} )
+								add( new FormComponent( "javax.swing.JCheckBox" ) {
+									name: "checkBox7"
+									"text": "退出并拉黑被禁言的群"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "banGroupBecauseBan"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"x": 10
+									"y": 130
+									"height": 25
+								} )
+								add( new FormComponent( "javax.swing.JCheckBox" ) {
+									name: "checkBox8"
+									"text": "拉黑被踢出的群"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "banGroupBecauseReduce"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"x": 10
+									"y": 160
+									"height": 25
+								} )
+								add( new FormComponent( "javax.swing.JCheckBox" ) {
+									name: "checkBox9"
+									"text": "拉黑踢出自己的管理员"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "banUserBecauseReduce"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"x": 10
+									"y": 190
+									"height": 25
+								} )
+								add( new FormComponent( "javax.swing.JCheckBox" ) {
+									name: "checkBox10"
+									"text": "自动添加非黑名单好友"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "autoAddFriends"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 155
+									"height": 25
+									"x": 10
+									"y": 220
+								} )
+								add( new FormComponent( "javax.swing.JCheckBox" ) {
+									name: "checkBox11"
+									"text": "自动加入非黑名单群"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "autoInputGroup"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 142
+									"height": 22
+									"x": 10
+									"y": 250
+								} )
+								add( new FormComponent( "javax.swing.JCheckBox" ) {
+									name: "checkBox15"
+									"text": "开启用户白名单(非云同步)"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "whiteUser"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"height": 22
+									"x": 10
+									"y": 280
+								} )
+								add( new FormComponent( "javax.swing.JCheckBox" ) {
+									name: "checkBox16"
+									"text": "开启群组白名单(非云同步)"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "whiteGroup"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"height": 22
+									"x": 10
+									"y": 310
+								} )
+								add( new FormComponent( "javax.swing.JCheckBox" ) {
+									name: "checkBox19"
+									"text": "开启审核列表"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "reviewed"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"x": 10
+									"y": 340
+									"height": 20
+								} )
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"x": 10
+								"y": 10
+								"width": 325
+								"height": 370
+							} )
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+								name: "panel24"
+								"border": new javax.swing.border.EtchedBorder( 1, null, null )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label65"
+									"text": "输入的不是QQ号或群号"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"x": 10
+									"y": 10
+									"height": 25
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField54"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "banListInputNotId"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"x": 10
+									"y": 40
+									"height": 25
+									"width": 300
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label75"
+									"text": "通报QQ群"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 100
+									"height": 25
+									"x": 345
+									"y": 10
+								} )
+								add( new FormComponent( "javax.swing.JTextField" ) {
+									name: "textField55"
+									auxiliary() {
+										"JavaCodeGenerator.variableName": "managerGroup"
+									}
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"width": 265
+									"height": 25
+									"x": 345
+									"y": 40
+								} )
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"x": 10
+								"y": 390
+								"width": 625
+								"height": 80
+							} )
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+								name: "panel23"
+								"border": #EtchedBorder0
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label60"
+									"text": "入群词"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"x": 10
+									"y": 10
+									"width": 150
+								} )
+								add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+									name: "scrollPane9"
+									add( new FormComponent( "javax.swing.JTextArea" ) {
+										name: "textArea8"
+										auxiliary() {
+											"JavaCodeGenerator.variableName": "addGroup"
+										}
+									} )
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"x": 10
+									"y": 30
+									"width": 285
+									"height": 145
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label61"
+									"text": "加好友欢迎词"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"x": 10
+									"y": 185
+								} )
+								add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+									name: "scrollPane10"
+									add( new FormComponent( "javax.swing.JTextArea" ) {
+										name: "textArea9"
+										auxiliary() {
+											"JavaCodeGenerator.variableName": "addFriend"
+										}
+									} )
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"x": 10
+									"y": 210
+									"width": 285
+									"height": 145
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label62"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"x": 10
+									"y": 320
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label63"
+									"text": "拒绝黑名单群用语"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"x": 310
+									"y": 10
+								} )
+								add( new FormComponent( "javax.swing.JLabel" ) {
+									name: "label64"
+									"text": "拒绝黑名单好友用语"
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"x": 310
+									"y": 185
+								} )
+								add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+									name: "scrollPane12"
+									add( new FormComponent( "javax.swing.JTextArea" ) {
+										name: "textArea11"
+										auxiliary() {
+											"JavaCodeGenerator.variableName": "refuseGroupByBan"
+										}
+									} )
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"x": 310
+									"y": 30
+									"width": 285
+									"height": 145
+								} )
+								add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+									name: "scrollPane13"
+									add( new FormComponent( "javax.swing.JTextArea" ) {
+										name: "textArea12"
+										auxiliary() {
+											"JavaCodeGenerator.variableName": "refuseFriendByBan"
+										}
+									} )
+								}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+									"x": 310
+									"y": 210
+									"width": 285
+									"height": 145
+								} )
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"width": 610
+								"height": 370
+								"x": 340
+								"y": 10
+							} )
+						} )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 175
+						"y": 10
+						"width": 960
+						"height": 480
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "云黑名单"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+					name: "panel29"
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+						name: "panel30"
+						"border": #EtchedBorder0
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "save5"
+							"text": "保存"
+							auxiliary() {
+								"JavaCodeGenerator.variableName": "saveGame"
+							}
+							addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "save", true ) )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 35
+							"y": 435
+						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+							name: "infoPanel7"
+							"border": #BevelBorder0
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "qqText7"
+								"text": "当前骰娘QQ号:"
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"x": 10
+								"y": 10
+								"width": 90
+								"height": 25
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "nickText7"
+								"text": "当前骰娘昵称:"
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"height": 25
+								"x": 10
+								"y": 70
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "qqValue7"
+								"text": "text"
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"x": 10
+								"y": 40
+								"height": 25
+								"width": 140
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "nickValue7"
+								"text": "text"
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"height": 25
+								"x": 10
+								"y": 100
+								"width": 140
+							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"width": 145
+							"height": 135
+							"x": 5
+							"y": 5
+						} )
+						add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+							name: "scrollPane20"
+							add( new FormComponent( "javax.swing.JTextPane" ) {
+								name: "textPane8"
+								"text": "这个界面用于下载牌堆和一些娱乐性功能\n你一样可以使用%s来指代对方昵称\n\n你需要注意的是，本开关仅用于管理骰子是否支持此功能，但打开不代表立刻生效，还需要当前群使用.group命令额外管理。\n具体查看.group info命令\n其中入群欢迎词不与bot开关联动，仅可以通过.welcome open/close来开关\n简易模式下，绝大部分娱乐功能和自定义回复词都将被关闭\n\n右侧的牌堆来自牌堆市场，你也可以来群里获得模板文件自己写牌堆，格式为yaml有兴趣的人可以先去了解"
+							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"width": 145
+							"height": 275
+							"x": 5
+							"y": 145
+						} )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"width": 155
+						"height": 480
+						"x": 5
+						"y": 5
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+						name: "panel31"
+						"border": &EtchedBorder2 new javax.swing.border.EtchedBorder( 1, null, null )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+							name: "panel32"
+							"border": #EtchedBorder2
+							add( new FormComponent( "javax.swing.JCheckBox" ) {
+								name: "checkBox1"
+								"text": "今日人品"
+								auxiliary() {
+									"JavaCodeGenerator.variableName": "jrrpSwitch"
+								}
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"x": 10
+								"y": 10
+								"height": 25
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label66"
+								"text": "今日人品语句"
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"x": 10
+								"y": 40
+								"height": 25
+							} )
+							add( new FormComponent( "javax.swing.JTextField" ) {
+								name: "textField1"
+								auxiliary() {
+									"JavaCodeGenerator.variableName": "jrrpInfo"
+								}
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"x": 110
+								"y": 40
+								"width": 175
+							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"width": 300
+							"height": 80
+							"x": 10
+							"y": 10
+						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+							name: "panel34"
+							"border": #EtchedBorder2
+							add( new FormComponent( "javax.swing.JCheckBox" ) {
+								name: "checkBox2"
+								"text": "入群欢迎词"
+								auxiliary() {
+									"JavaCodeGenerator.variableName": "welcomeSwitch"
+								}
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"height": 25
+								"x": 10
+								"y": 10
+							} )
+							add( new FormComponent( "javax.swing.JCheckBox" ) {
+								name: "checkBox12"
+								"text": "展示骰娘列表"
+								auxiliary() {
+									"JavaCodeGenerator.variableName": "botList"
+								}
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"height": 25
+								"x": 10
+								"y": 40
+							} )
+							add( new FormComponent( "javax.swing.JCheckBox" ) {
+								name: "checkBox13"
+								"text": "调用自定义文件卡牌"
+								auxiliary() {
+									"JavaCodeGenerator.variableName": "deck"
+								}
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"x": 10
+								"y": 70
+								"height": 25
+							} )
+							add( new FormComponent( "javax.swing.JCheckBox" ) {
+								name: "checkBox14"
+								"text": "获取随机名称"
+								auxiliary() {
+									"JavaCodeGenerator.variableName": "nameSwitch"
+								}
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"width": 142
+								"height": 25
+								"x": 10
+								"y": 100
+							} )
+							add( new FormComponent( "javax.swing.JCheckBox" ) {
+								name: "checkBox20"
+								"text": "旁观暗骰"
+								auxiliary() {
+									"JavaCodeGenerator.variableName": "ob"
+								}
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"x": 10
+								"y": 130
+							} )
+							add( new FormComponent( "javax.swing.JCheckBox" ) {
+								name: "checkBox21"
+								"text": "简易模式"
+								auxiliary() {
+									"JavaCodeGenerator.variableName": "simple"
+								}
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"x": 10
+								"y": 160
+							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"width": 300
+							"height": 375
+							"x": 10
+							"y": 95
+						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+							name: "panel35"
+							"border": #EtchedBorder2
+							add( new FormComponent( "javax.swing.JProgressBar" ) {
+								name: "progressBar1"
+								auxiliary() {
+									"JavaCodeGenerator.variableName": "DeckProgress"
+								}
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"x": 5
+								"y": 375
+								"width": 635
+								"height": 30
+							} )
+							add( new FormComponent( "javax.swing.JButton" ) {
+								name: "button2"
+								"text": "删除"
+								addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "deleteDeck", true ) )
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"x": 120
+								"y": 410
+							} )
+							add( new FormComponent( "javax.swing.JButton" ) {
+								name: "button3"
+								"text": "下载"
+								addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "getDeck", true ) )
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"x": 445
+								"y": 410
+							} )
+							add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+								name: "scrollPane25"
+								add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+									name: "scrollPane24"
+									add( new FormComponent( "javax.swing.JTable" ) {
+										name: "table2"
+										"autoCreateRowSorter": true
+										"model": new com.jformdesigner.model.SwingTableModel( new java.util.Vector, new java.util.Vector {
+											add( "名称" )
+											add( "命令" )
+											add( "版本" )
+											add( "作者" )
+											add( "说明" )
+										}, new java.util.Vector {
+											add( class java.lang.Object )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+										}, new java.util.Vector {
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+										}, new java.util.Vector {
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+										} )
+									} )
+								} )
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"width": 320
+								"height": 370
+							} )
+							add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+								name: "scrollPane26"
+								add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+									name: "scrollPane23"
+									add( new FormComponent( "javax.swing.JTable" ) {
+										name: "table1"
+										"autoCreateRowSorter": true
+										"model": new com.jformdesigner.model.SwingTableModel( new java.util.Vector, new java.util.Vector {
+											add( "名称" )
+											add( "命令" )
+											add( "版本" )
+											add( "作者" )
+											add( "说明" )
+										}, new java.util.Vector {
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+										}, new java.util.Vector {
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+										}, new java.util.Vector {
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+											add( null )
+										} )
+									} )
+								} )
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"width": 320
+								"height": 370
+								"x": 325
+							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 315
+							"y": 10
+							"width": 645
+							"height": 460
+						} )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"width": 975
+						"height": 480
+						"x": 165
+						"y": 5
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "附加功能"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+					name: "panel26"
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label6"
+						"text": "这里显示了插件的更新日志"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 20
+						"y": 15
+						"height": 25
+					} )
+					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+						name: "scrollPane17"
+						add( new FormComponent( "javax.swing.JTextPane" ) {
+							name: "textPane5"
+							auxiliary() {
+								"JavaCodeGenerator.variableName": "updateText"
+							}
+						} )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 20
+						"y": 50
+						"width": 1115
+						"height": 300
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+						name: "panel36"
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+							name: "panel37"
+							"border": &EtchedBorder3 new javax.swing.border.EtchedBorder( 1, null, null )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label68"
+								"text": "当前版本"
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"x": 10
+								"y": 5
+								"height": 25
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label69"
+								"text": "版本号"
+								auxiliary() {
+									"JavaCodeGenerator.variableName": "updateVersion"
+								}
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"x": 215
+								"y": 5
+								"height": 25
+								"width": 95
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label70"
+								"text": "是否需要更新"
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"height": 25
+								"x": 10
+								"y": 45
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label71"
+								"text": "不需要"
+								"foreground": sfield java.awt.Color green
+								auxiliary() {
+									"JavaCodeGenerator.variableName": "needUpdate"
+								}
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"height": 25
+								"x": 215
+								"y": 45
+								"width": 60
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label72"
+								"text": "可用版本"
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"width": 52
+								"height": 25
+								"x": 10
+								"y": 25
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label73"
+								"text": "版本号"
+								auxiliary() {
+									"JavaCodeGenerator.variableName": "nextVersion"
+								}
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"width": 95
+								"height": 25
+								"x": 215
+								"y": 25
+							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"width": 335
+							"height": 75
+							"x": 10
+							"y": 25
+						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+							name: "panel38"
+							"border": #EtchedBorder3
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label74"
+								"text": "当前Zip目录"
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"x": 10
+								"y": 15
+								"height": 25
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label77"
+								"text": "正常"
+								"foreground": sfield java.awt.Color green
+								auxiliary() {
+									"JavaCodeGenerator.variableName": "jarExists"
+								}
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"x": 130
+								"y": 15
+								"height": 25
+								"width": 60
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label80"
+								"text": "服务器端文件"
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"width": 84
+								"height": 25
+								"x": 10
+								"y": 60
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label81"
+								"text": "正常"
+								"foreground": sfield java.awt.Color green
+								auxiliary() {
+									"JavaCodeGenerator.variableName": "serviceFileExists"
+								}
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"width": 60
+								"height": 25
+								"x": 130
+								"y": 60
+							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"width": 200
+							"height": 105
+							"x": 355
+							"y": 25
+						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+							name: "panel39"
+							"border": #EtchedBorder3
+							"foreground": new java.awt.Color( 51, 255, 51, 255 )
+							add( new FormComponent( "javax.swing.JProgressBar" ) {
+								name: "progressBar2"
+								"background": new java.awt.Color( 204, 204, 204, 255 )
+								"stringPainted": true
+								auxiliary() {
+									"JavaCodeGenerator.variableName": "downJarProgress"
+								}
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"x": 15
+								"y": 60
+								"width": 540
+								"height": 20
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label82"
+								"text": "下载Jar包"
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+								"x": 10
+								"y": 20
+							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"width": 565
+							"height": 105
+							"x": 565
+							"y": 25
+						} )
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "button4"
+							"text": "升级"
+							auxiliary() {
+								"JavaCodeGenerator.variableName": "updateButton"
+							}
+							addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "update", true ) )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 10
+							"y": 105
+							"width": 195
+						} )
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label84"
+							"text": "升级过程中服务不会停止"
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"x": 65
+							"y": 5
+							"width": 190
+						} )
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "button5"
+							"text": "强制升级（危险）"
+							auxiliary() {
+								"JavaCodeGenerator.variableName": "updateButtonWarn"
+							}
+							addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "updateForce", true ) )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+							"width": 135
+							"height": 30
+							"x": 210
+							"y": 105
+						} )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"width": 1145
+						"height": 141
+						"x": 5
+						"y": 350
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "更新"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+					name: "panel27"
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label7"
+						"text": "项目文档"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 535
+						"y": 35
+						"height": 25
+					} )
+					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+						name: "scrollPane18"
+						add( new FormComponent( "javax.swing.JTextPane" ) {
+							name: "textPane6"
+							"text": "https://sinanya.com/#/"
+						} )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 135
+						"y": 65
+						"width": 865
+						"height": 25
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label8"
+						"text": "鸣谢"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 545
+						"y": 100
+						"height": 25
+					} )
+					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+						name: "scrollPane19"
+						add( new FormComponent( "javax.swing.JTextPane" ) {
+							name: "textPane7"
+							"text": "感谢以下人员的大力支持:\n羲、Bright 我的第一批用户，感谢你们\nshiki、惠惠，你们给我提供了很多好的建议和思路\n秃了秃了、夏浅秋 你们制作的rule和dnd法术列表文本帮助的不只是我，还有很多人\n月上中天 我最棒的测试者，在我的骰子恨不得一天崩溃5次的时候，坚持为我测试各种功能。我也承诺，你的需求我永远排在最前面完成\nCOC(2753342070) 感谢你为这个核心制作的人物卡，辛苦了\n还有很多没想起来的人，请随时私聊提醒我加到这里来。"
+						} )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 135
+						"y": 135
+						"width": 865
+						"height": 225
+					} )
+					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+						name: "scrollPane22"
+						add( new FormComponent( "javax.swing.JTextPane" ) {
+							name: "textPane9"
+							"text": "ƞƄȒČȵƄŔćnƅrČÑƃȓƇnbRċŃƅřcǸƄȒȻňƁŔÇǸƄRƈȠßȒĊÑƁŖĈŅƀŕĆnƃȒƇÑBŖĈŃbRćńþȒČÑBŖĈńÞŘȻŅþȒČƝƁŔcȠƅřCŘƇňƄȠÞrcnƅȒÇňBrȻŅƅŖčǹƀȒƈņƄrČŃþŔĉȠƅȒĊNƅŖČńƀřcńBȓcńþŘcȠþrcÑƃȓƇnƁRċȠƅřCŅþȒČńÞŘĈŘĉȠƃŘĉȵbŗčnBŗČȵƃŗƈǹßȠbrcŇƀȒČǹƀŖčƝBřćNƄȓcnƀRċƞƁrȼȠßȒĊƞƁŗCǸƄRƈȠßȒĊÑƃŖĈƞƃŗĈƞÞȒȻňÞŘƇȠÞRĆNÞȒƇǸƁŗĊƝÞŘƈŇƀȒȻȵBrĈƞÞŔCȠßȒĊÑBŖĈńÞRȻǹƀȒƈņƃrČÑÞŔČŅƃȒČŇÞŕčņßrĊ"
+						} )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 135
+						"y": 400
+						"width": 865
+						"height": 35
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "关于"
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "Center"
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+				name: "panel22"
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "North"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 25, 0 )
+			"size": new java.awt.Dimension( 1150, 560 )
+		} )
+		add( new FormWindow( "javax.swing.JDialog", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+			name: "dialog1"
+			"$locationPolicy": 1
+			"$sizePolicy": 1
+			"alwaysOnTop": true
+			"modal": true
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+				name: "panel25"
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label5"
+					"text": "保存成功"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"width": 60
+					"height": 25
+					"x": 140
+					"y": 35
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "button1"
+					"text": "确定"
+					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "button1MouseClicked", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 130
+					"y": 80
+					"height": 25
+				} )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 0
+				"y": 0
+				"width": 335
+				"height": 125
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 1385, 650 )
+			"size": new java.awt.Dimension( 335, 150 )
+		} )
+		add( new FormNonVisual( "javax.swing.ButtonGroup" ) {
+			name: "buttonGroup1"
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 1400, 350 )
+		} )
+	}
+}
