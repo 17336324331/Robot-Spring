@@ -4,6 +4,6 @@
 
 # IntelliJ project files
 .idea
-src/main/main.iml
+*.iml
 out
 gen
