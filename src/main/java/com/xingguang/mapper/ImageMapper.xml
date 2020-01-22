@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.xingguang.mapper.ImageMapper" >
 
-    <resultMap id="baseResultMap" type="VoImageModel">
+    <resultMap id="baseResultMap" type="com.xingguang.model.VoImageModel">
         <id column="INT_ID" jdbcType="INTEGER" property="intId"/>
         <result column="STR_RET" jdbcType="VARCHAR" property="strRet" />
         <result column="INT_RET_TYPE" jdbcType="VARCHAR" property="intRetType" />

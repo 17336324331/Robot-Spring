@@ -36,7 +36,7 @@ public class SystemParam {
     /**
      * 异常提示语句
      */
-    public static String errorMsg = "!无法识别的指令,行光已记录,master上线后会及时处理,";
+    public static String errorMsg = "!行光完全不想搭理你,并向你扔了一坨不可名状的物体";
 
 
 

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.xingguang.mapper.MsgMapper" >
 
-    <resultMap id="BaseResultMap" type="msgModel">
+    <resultMap id="BaseResultMap" type="com.xingguang.model.MsgModel">
         <result column="STR_QQ" jdbcType="VARCHAR" property="strQQ" />
         <result column="STR_GROUP" jdbcType="VARCHAR" property="strGroup" />
         <result column="STR_MSG" jdbcType="VARCHAR" property="strMsg" />
@@ -11,7 +11,7 @@
         <result column="DT_CREATETIME" jdbcType="TIMESTAMP" property="dtCreatetime" />
     </resultMap>
 
-    <insert id="saveMsg" parameterType="msgModel">
+    <insert id="saveMsg" parameterType="com.xingguang.model.MsgModel">
       insert into dialog
       values ( #{strQQ},
                #{strGroup},
