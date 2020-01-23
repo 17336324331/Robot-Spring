@@ -9,6 +9,7 @@ import com.xingguang.sinanya.tools.getinfo.GetMessagesProperties;
 import com.xingguang.sinanya.tools.getinfo.GetNickName;
 import com.xingguang.sinanya.tools.makedata.Sender;
 import com.xingguang.sinanya.dice.MakeNickToSender;
+import com.xingguang.utils.SystemParam;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -56,7 +57,8 @@ public class Jrrp implements MakeNickToSender {
         for (char c : b) {
             tmp *= c;
         }
-        Sender.sender(entityTypeMessages, String.format(GetMessagesProperties.entityGame.getJrrpInfo(), makeNickToSender(GetNickName.getNickName(entityTypeMessages)), abs(tmp % 101)));
+        //Sender.sender(entityTypeMessages, String.format(GetMessagesProperties.entityGame.getJrrpInfo(), makeNickToSender(GetNickName.getNickName(entityTypeMessages)), abs(tmp % 101)));
+        Sender.sender(entityTypeMessages, String.format(SystemParam.getRet("strStJrrp"), abs(tmp % 101)));
     }
 
     private void checkEnable() throws NotEnableException, NotEnableInGroupException, NotEnableBySimpleException {

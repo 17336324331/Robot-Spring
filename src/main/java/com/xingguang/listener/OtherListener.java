@@ -60,17 +60,7 @@ public class OtherListener {
         String qq = msg.getQQCode();
         String group = msg.getGroupCode();
         String card = sender.GETTER.getGroupMemberInfo(group, qq).getCard();
-        String resultMsg = "" ;
-        try {
-            sqlSession = SqlSessionFactoryUtil.openSqlSession();
-            SystemParamMapper mapper = sqlSession.getMapper(SystemParamMapper.class);
-            resultMsg = mapper.selectSystemCode("welcome");
-        }catch (Exception e){
-            e.printStackTrace();
-            logger.info(e.toString());
-            logger.info("welcome: qq:"+qq+"\tgroup:"+group+"\tcard"+card);
-
-        }
+        String resultMsg = SystemParam.getRet("strWelcome");
 
         if (!"1730707275".equals(qq)){
             sender.SENDER.sendGroupMsg(group,cqCodeUtil.getCQCode_At(qq)+" "+resultMsg);
@@ -108,7 +98,7 @@ public class OtherListener {
     }
 
     // 私聊机器人开关事件
-    @Listen(MsgGetTypes.privateMsg)
+    //@Listen(MsgGetTypes.privateMsg)
     public void switchStatus(PrivateMsg msg, MsgSender sender, CQCodeUtil cqCodeUtil){
         String strMsg = msg.getMsg();
         String qq = msg.getQQ();

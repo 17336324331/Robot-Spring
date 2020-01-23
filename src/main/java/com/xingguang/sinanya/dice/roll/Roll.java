@@ -19,6 +19,7 @@ import com.xingguang.sinanya.tools.makedata.MakeMessages;
 import com.xingguang.sinanya.tools.makedata.RandomInt;
 import com.xingguang.sinanya.tools.makedata.Sender;
 import com.xingguang.sinanya.dice.MakeNickToSender;
+import com.xingguang.utils.SystemParam;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -139,7 +140,8 @@ public class Roll implements MakeNickToSender {
 //            strFunction符号表达式:3d6k2+4d6*3+d4/2-6d
 //            strResult结果表达式: (1+2)+(1+3+4+6)*3+(2)/2-(32+35+12+54)
 //            Result实际结果:-87
-            Sender.sender(entityTypeMessages, String.format(GetMessagesProperties.entitySystemProperties.getHiddenDice(), GetNickName.getNickName(entityTypeMessages)));
+            //Sender.sender(entityTypeMessages, String.format(GetMessagesProperties.entitySystemProperties.getHiddenDice(), GetNickName.getNickName(entityTypeMessages)));
+            Sender.sender(entityTypeMessages, String.format(SystemParam.getRet("strAnTou"), GetNickName.getNickName(entityTypeMessages)));
 //            在群中发出暗骰提示
 
             int maxRolls = MessagesRollMaxValue.ROLL_MAX_VALUE.getOrDefault(entityTypeMessages.getFromGroupString(), 100);

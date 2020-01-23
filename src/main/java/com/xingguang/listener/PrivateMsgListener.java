@@ -21,7 +21,7 @@ import org.apache.commons.lang.StringUtils;
  * @date 2019年12月01日 0:49
  * @description 私聊消息监听器
  */
-@Listen(MsgGetTypes.privateMsg)
+//@Listen(MsgGetTypes.privateMsg)
 public class PrivateMsgListener {
 
 

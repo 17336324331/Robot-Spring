@@ -11,10 +11,13 @@ import com.xingguang.sinanya.system.MessagesBanList;
 import com.xingguang.sinanya.system.MessagesSystem;
 import com.xingguang.sinanya.system.RoleInfoCache;
 import com.xingguang.sinanya.tools.checkdata.CheckIsNumbers;
+import com.xingguang.utils.SystemParam;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
 import java.util.regex.Pattern;
 
 import static com.xingguang.sinanya.tools.getinfo.GetMessagesProperties.entitySystemProperties;
@@ -190,7 +193,8 @@ public class MakeSanCheck {
         }
 
         StringBuilder strResult = new StringBuilder();
-        strResult.append("[").append(role).append("]")
+        //strResult.append("[").append(role).append("]")
+        strResult.append("").append(role).append("")
                 .append("的理智检定结果:")
                 .append("\n");
 //        初始化回复字符串
@@ -208,26 +212,32 @@ public class MakeSanCheck {
             int maxSan = hasFunctionSeq(strFail) ? getMaxSan(strFail.split(regexFunctionSeq)[1]) : getMaxSan(strFail);
             newSan = max(0, san - maxSan);
             if (!groupHasSwitch || !MessagesBanList.groupSwitchHashMap.get(entityTypeMessages.getFromGroup()).isSimple()) {
-                strResult.append(String.format(sanText, random, san, "大失败", strFail, maxSan, newSan, entitySystemProperties.getSanCheckFumble()));
+                //strResult.append(String.format(sanText, random, san, "大失败", strFail, maxSan, newSan, entitySystemProperties.getSanCheckFumble()));
+                strResult.append(String.format(sanText, random, san, "大失败", strFail, maxSan, newSan, "\n"+SystemParam.strScBigFail.get(new Random().nextInt(SystemParam.strScBigFail.size()))));
             } else {
-                strResult.append(String.format(sanText, random, san, "大失败", strFail, maxSan, newSan, ""));
+                strResult.append(String.format(sanText, random, san, "大失败", strFail, maxSan, newSan, "\n"+SystemParam.strScBigFail.get(new Random().nextInt(SystemParam.strScBigFail.size()))));
             }
 
             makeInsane(strResult, newSan, san);
         } else if (random == 1) {
             newSan = max(0, san - (int) mSuccess.getResult());
             if (!groupHasSwitch || !MessagesBanList.groupSwitchHashMap.get(entityTypeMessages.getFromGroup()).isSimple()) {
-                strResult.append(String.format(sanText, random, san, "大成功", strSuccess, mSuccess.getResult(), newSan, entitySystemProperties.getSanCheckCriticalSuccess() + "\n本次理智检定大成功，调查员可考虑使用规则书第8章的自救规则，详情请听从守秘人指示"));
+                //strResult.append(String.format(sanText, random, san, "大成功", strSuccess, mSuccess.getResult(), newSan, entitySystemProperties.getSanCheckCriticalSuccess() + "\n本次理智检定大成功，调查员可考虑使用规则书第8章的自救规则，详情请听从守秘人指示"));
+                strResult.append(String.format(sanText, random, san, "大成功", strSuccess, mSuccess.getResult(), newSan, entitySystemProperties.getSanCheckCriticalSuccess() + "\n"+SystemParam.strScBigSuccess.get(new Random().nextInt(SystemParam.strScBigSuccess.size()))));
             } else {
-                strResult.append(String.format(sanText, random, san, "大成功", strSuccess, mSuccess.getResult(), newSan, "\n本次理智检定大成功，调查员可考虑使用规则书第8章的自救规则，详情请听从守秘人指示"));
+                //strResult.append(String.format(sanText, random, san, "大成功", strSuccess, mSuccess.getResult(), newSan, "\n本次理智检定大成功，调查员可考虑使用规则书第8章的自救规则，详情请听从守秘人指示"));
+                strResult.append(String.format(sanText, random, san, "大成功", strSuccess, mSuccess.getResult(), newSan));
+                strResult.append( "\n"+SystemParam.strScBigSuccess.get(new Random().nextInt(SystemParam.strScBigSuccess.size())));
             }
             makeInsane(strResult, newSan, san);
         } else if (random <= san) {
             newSan = max(0, san - (int) mSuccess.getResult());
             if (!groupHasSwitch || !MessagesBanList.groupSwitchHashMap.get(entityTypeMessages.getFromGroup()).isSimple()) {
                 strResult.append(String.format(sanText, random, san, "成功", strSuccess, mSuccess.getResult(), newSan, entitySystemProperties.getSanCheckSuccess()));
+                strResult.append("\n"+SystemParam.strScSuccess.get(new Random().nextInt(SystemParam.strScSuccess.size())));
             } else {
                 strResult.append(String.format(sanText, random, san, "成功", strSuccess, mSuccess.getResult(), newSan, ""));
+                strResult.append("\n"+SystemParam.strScSuccess.get(new Random().nextInt(SystemParam.strScSuccess.size())));
             }
 
 
@@ -236,8 +246,10 @@ public class MakeSanCheck {
             newSan = max(0, san - (int) mFail.getResult());
             if (!groupHasSwitch || !MessagesBanList.groupSwitchHashMap.get(entityTypeMessages.getFromGroup()).isSimple()) {
                 strResult.append(String.format(sanText, random, san, "失败", strFail, mFail.getResult(), newSan, entitySystemProperties.getSanCheckFailure()));
+                //strResult.append("\n"+SystemParam.strScFail.get(new Random().nextInt(SystemParam.strScFail.size())));
             } else {
                 strResult.append(String.format(sanText, random, san, "失败", strFail, mFail.getResult(), newSan, ""));
+                //strResult.append("\n"+SystemParam.strScFail.get(new Random().nextInt(SystemParam.strScFail.size())));
             }
             makeInsane(strResult, newSan, san);
         }
@@ -270,11 +282,14 @@ public class MakeSanCheck {
      */
     private void makeInsane(StringBuilder strResult, int newSan, int san) {
         if (newSan == 0) {
-            strResult.append("\n已永久疯狂");
+            //strResult.append("\n已永久疯狂");
+            strResult.append("\n"+SystemParam.getRet("strScFail0"));
         } else if (san - newSan >= 5 && (san - newSan) < (san / 5)) {
-            strResult.append("\n已进入临时性疯狂（请KP注意需要int检定成功后才进行疯狂，此信息只做提示）");
+            //strResult.append("\n已进入临时性疯狂（请KP注意需要int检定成功后才进行疯狂，此信息只做提示）");
+            strResult.append("\n"+SystemParam.getRet("strScFail6"));
         } else if ((san - newSan) >= (san / 5)) {
-            strResult.append("\n已因单次损失值进入不定性疯狂");
+            //strResult.append("\n已因单次损失值进入不定性疯狂");
+            strResult.append("\n"+SystemParam.getRet("strScFail1"));
         } else {
             return;
         }

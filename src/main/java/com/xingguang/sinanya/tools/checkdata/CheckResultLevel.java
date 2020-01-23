@@ -4,9 +4,12 @@ import com.xingguang.sinanya.entity.EntityAntagonize;
 import com.xingguang.sinanya.entity.EntityLevelResult;
 import com.xingguang.sinanya.system.MessagesBanList;
 import com.xingguang.sinanya.system.MessagesLevel;
+import com.xingguang.utils.SystemParam;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 import static com.xingguang.sinanya.tools.getinfo.GetMessagesProperties.entityGame;
 import static com.xingguang.sinanya.tools.makedata.RandomInt.random;
@@ -78,6 +81,7 @@ public class CheckResultLevel {
      */
     public String getLevelResultStr(String groupId) {
         String strlevel = checkResultLevel();
+        String strRet = SystemParam.dealStrLevel(strlevel);
         if (entityGame.isSimple() && !"0".equals(groupId) && MessagesBanList.groupSwitchHashMap.containsKey(Long.parseLong(groupId)) && MessagesBanList.groupSwitchHashMap.get(Long.parseLong(groupId)).isSimple()) {
             HashMap<String, String> levelStr = new HashMap<>();
             levelStr.put("STR_CRITICAL_SUCCESS", "大成功");
@@ -88,7 +92,10 @@ public class CheckResultLevel {
             levelStr.put("STR_FUMBLE", "大失败");
             return levelStr.get(strlevel);
         }
-        ArrayList<String> resultInfo = MessagesLevel.valueOf(strlevel).getText();
+        //ArrayList<String> resultInfo = MessagesLevel.valueOf(strlevel).getText();
+        ArrayList<String> resultInfo = new ArrayList<>();
+        resultInfo.add(strRet);
+
         return resultInfo.get(random(0, resultInfo.size() - 1)).replaceAll("\n+", "\n").replaceAll(" +", "");
     }
 

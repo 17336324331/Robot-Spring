@@ -11,6 +11,7 @@ import com.xingguang.sinanya.tools.getinfo.SwitchBot;
 import com.xingguang.sinanya.tools.makedata.MakeMessages;
 import com.xingguang.sinanya.tools.makedata.Sender;
 import com.xingguang.sinanya.dice.MakeNickToSender;
+import com.xingguang.utils.SystemParam;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
@@ -53,7 +54,8 @@ public class Bot implements AtQq, MakeNickToSender {
                     Sender.sender(entityTypeMessages, GetMessagesProperties.entitySystemProperties.getBotAlreadyStart());
                 } else {
                     SwitchBot.botOn(groupId);
-                    Sender.sender(entityTypeMessages, GetMessagesProperties.entitySystemProperties.getBotStart());
+                    //Sender.sender(entityTypeMessages, GetMessagesProperties.entitySystemProperties.getBotStart());
+                    Sender.sender(entityTypeMessages, SystemParam.getRet("strStBotOn"));
                 }
             }
         }
@@ -76,7 +78,8 @@ public class Bot implements AtQq, MakeNickToSender {
                     Sender.sender(entityTypeMessages, GetMessagesProperties.entitySystemProperties.getBotAlreadyStop());
                 } else {
                     SwitchBot.botOff(groupId);
-                    Sender.sender(entityTypeMessages, GetMessagesProperties.entitySystemProperties.getBotStop());
+                    //Sender.sender(entityTypeMessages, GetMessagesProperties.entitySystemProperties.getBotStop());
+                    Sender.sender(entityTypeMessages,SystemParam.getRet("strStBotOff"));
                 }
             }
         }

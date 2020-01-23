@@ -18,6 +18,7 @@ import com.xingguang.sinanya.db.roles.InsertRoles;
 import com.xingguang.sinanya.tools.getinfo.GetMessagesToValue;
 import com.xingguang.sinanya.tools.getinfo.MakeRolesInfo;
 import com.xingguang.sinanya.tools.getinfo.*;
+import com.xingguang.utils.SystemParam;
 
 import java.util.HashMap;
 import java.util.regex.Matcher;
@@ -87,7 +88,8 @@ public class Roles implements Role, GetSkillNameFromMuiltRole {
                 if (!RoleInfoCache.ROLE_NAME_CACHE.contains(roleTag)) {
                     RoleInfoCache.ROLE_NAME_CACHE.add(roleTag);
                 }
-                Sender.sender(entityTypeMessages, GetMessagesProperties.entitySystemProperties.getSetPropSuccess());
+               // Sender.sender(entityTypeMessages, GetMessagesProperties.entitySystemProperties.getSetPropSuccess());
+                Sender.sender(entityTypeMessages, SystemParam.getRet("strStRet"));
                 return true;
             } else {
                 return false;
@@ -113,7 +115,8 @@ public class Roles implements Role, GetSkillNameFromMuiltRole {
             } else if (HasDigit(msg)) {
                 if (RoleChoose.checkRoleChooseExistByFromQQ(entityTypeMessages) && msg.length() < 200) {
                     insertRoles.insertRoleInfo(msg, RoleChoose.getRoleChooseByFromQQ(entityTypeMessages), qqId);
-                    Sender.sender(entityTypeMessages, "已为" + RoleChoose.getRoleChooseByFromQQ(entityTypeMessages) + "更新属性");
+                    //Sender.sender(entityTypeMessages, "已为" + RoleChoose.getRoleChooseByFromQQ(entityTypeMessages) + "更新属性");
+                    Sender.sender(entityTypeMessages, SystemParam.getRet("strStRet"));
                     return true;
                 }
                 RoleInfoCache.ROLE_CHOOSE.put(qqId, defaultRole);

@@ -16,6 +16,7 @@ import com.xingguang.model.VoImageModel;
 import com.xingguang.service.BaseService;
 import com.xingguang.service.ImageService;
 import com.xingguang.service.MsgService;
+import com.xingguang.service.SpecialService;
 import com.xingguang.sinanya.exceptions.NotEnableException;
 import com.xingguang.sinanya.exceptions.NotEnableInGroupException;
 import com.xingguang.sinanya.exceptions.OnlyManagerException;
@@ -69,6 +70,9 @@ public class Listener implements MakeNickToSender {
     private ImageService imageService;
 
     @Autowired
+    private SpecialService specialService;
+
+    @Autowired
     private MsgService msgService;
 
     private static final Logger Log = LoggerFactory.getLogger(Listener.class.getName());
@@ -114,6 +118,7 @@ public class Listener implements MakeNickToSender {
 
         BaseModel baseModel = baseService.dealMsg(msgGroup, msgSender);
 
+
         // 获取发言人的QQ号
         String strQQ = baseModel.getStrQQ();
         // 获取发言的群
@@ -143,7 +148,7 @@ public class Listener implements MakeNickToSender {
             // 如果返回内容为空 ,说明之前没有入库
             if (StringUtils.isBlank(voImageModel.getStrRet())){
                 // 入库,保存图片地址
-                imageService.saveImage(strImageId);
+               // imageService.saveImage(strImageId);
                 // 向群里发送已记录的消息
                 //sender.SENDER.sendGroupMsg(strGroup,"发现新图片,已记录");
                 // 向master发送图片id
@@ -209,6 +214,69 @@ public class Listener implements MakeNickToSender {
                 }
                 return MSG_INTERCEPT;
             }
+
+        }
+
+        if(!CommandUtil.checkCommand(strMsg)){
+            String strRet = "";
+            if (strMsg.contains("太鼓钟")||strMsg.contains("sada")){
+                strRet = SystemParam.getRet("strTaiGu");
+            }
+            else if (strMsg.contains("织田信长")||strMsg.contains("第六天魔王")){
+                strRet = SystemParam.getRet("strXinChang");
+            }
+            else if (strMsg.contains("master")&&!SystemParam.strTouzi.contains(strQQ)){
+                strRet = SystemParam.getRet("strMaster");
+            }
+            else if (strMsg.contains("空晓")){
+                strRet = SystemParam.getRet("strKongxiao");
+            }
+            else if (strMsg.contains("审神者")){
+                strRet = SystemParam.getRet("strShenShengzhe");
+            }
+            else if (strMsg.contains("开团")){
+                strRet = SystemParam.getRet("strKaiTuan");
+            }
+            else if (strMsg.contains("喝酒")){
+                strRet = SystemParam.getRet("strHeJiu");
+            }
+            else if (strMsg.contains("摸头")){
+                strRet = SystemParam.getRet("strMoTou");
+            }
+            else if (strMsg.contains("行光")&&strMsg.contains("陪睡")){
+                if ("2649173157".equals(strQQ)){
+                    strRet = SystemParam.getRet("strXingGuangPeiShui_KongXiao");
+                }else {
+                    strRet = SystemParam.getRet("strXingGuangPeiShui");
+                }
+
+            }
+            else if (strMsg.contains("废刀")){
+                strRet = SystemParam.getRet("strFeiDao");
+            }
+            else if ((strGroup.equals("556799277")||strGroup.equals("976262575"))&&strMsg.contains("晚安")&&strMsg.length()<5&&!SystemParam.strTouzi.contains(strQQ)){
+                msgSender.SETTER.setGroupBan(strGroup,strQQ,60);
+                strRet = SystemParam.getRet("strWanAn");
+            }
+            else if (strMsg.contains("早安")&&!SystemParam.strTouzi.contains(strQQ)){
+                strRet = SystemParam.getRet("strZaoAn");
+            }
+            else if (strMsg.contains("奉上")){
+                if (strMsg.contains("酒")){
+                    Integer fengjiu = specialService.fengjiu(strQQ, strGroup, strMsg);
+                    Integer integer = specialService.selectFengjiu(strQQ);
+                    strRet = "(偷偷收下)谢谢,记得千万不要告诉我主人!\n 今天已收到的酒:"+integer+"壶";
+                }else{
+                    Integer fengjiu = specialService.fengjiu(strQQ, strGroup, strMsg);
+                    Integer integer = specialService.selectFengjiu(strQQ);
+                    strRet = "(这是你们家乡的酒吗,以前从未听闻)谢谢,记得千万不要告诉我主人!\n 今天已收到的酒:"+integer+"壶";
+                }
+
+            }
+//            String str = "master进行我要娶笑晓过门！检定:D100=1/1是大成功呢\n" +
+//                    "哈？又拿酒来贿赂我？行吧行吧，酒放下，大成功快拿走。";
+            msgSender.SENDER.sendGroupMsg(strGroup,strRet);
+            return MSG_INTERCEPT;
 
         }
 

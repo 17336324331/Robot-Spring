@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xingguang.mapper.SpecialMapper" >
+
+
+    <!-- 根据QQ和日期查询奉酒次数-->
+    <select id="selectFengjiu" resultType="integer" parameterType="string">
+      <!--insert into coc_Msg () -->
+        select
+            count(*)
+        from t_fengjiu
+        <where>
+            STR_DATE = #{strNow}
+        </where>
+    </select>
+
+    <!--插入奉酒数据-->
+    <insert id="fengjiu"  parameterType="string" >
+        insert into t_fengjiu (STR_QQ,STR_GROUP,STR_CONTENT,STR_DATE,DT_TIME)
+        values (#{strQQ}, #{strGroup}, #{strContent}, #{strNow}, now());
+    </insert>
+</mapper>

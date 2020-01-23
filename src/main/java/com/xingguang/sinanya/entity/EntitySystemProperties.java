@@ -1,6 +1,10 @@
 package com.xingguang.sinanya.entity;
 
 
+import com.xingguang.utils.SystemParam;
+
+import java.util.Random;
+
 public class EntitySystemProperties {
     String NONE = "";
     String botStart;
@@ -114,7 +118,8 @@ public class EntitySystemProperties {
 
         sanCheck = "请符合1/1d3|1d6/1d3|0/1这样的san check格式";
 
-        setPropSuccess = "已记录人物卡";
+        //setPropSuccess = "已记录人物卡";
+        setPropSuccess = SystemParam.strStRet.get(new Random().nextInt(SystemParam.strStRet.size()));
 
         clrDndInit = "清空先攻列表";
 

@@ -44,7 +44,7 @@ public class ImageServiceImpl implements ImageService {
                 strRet = "那么既然是master的话,我想主人一定会同意的吧";
 
             }else if ("2649173157".equals(strQQ)){
-                strRet = "主人要自己睡自己吗,完全无法想象呢";
+                strRet = "虽然这不太合适，那么既然是主人的要求，今天就由我来替主人暖好床铺吧";
             }
             else if(true){
 

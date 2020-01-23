@@ -21,6 +21,9 @@ import com.xingguang.sinanya.tools.makedata.*;
 import com.xingguang.sinanya.exceptions.*;
 import com.xingguang.sinanya.tools.makedata.MakeRal;
 import com.xingguang.sinanya.tools.makedata.MakeRcl;
+import com.xingguang.utils.StringUtil;
+import org.antlr.runtime.misc.IntArray;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
@@ -51,7 +54,7 @@ public class RollAndCheck implements En, MakeNickToSender {
     }
 
     /**
-     * 房规判定
+     * 房规判定//这里是正则表达式^[.。][ ]*ra.*
      */
     public void ra() throws ManyRollsTimesTooMoreException, RollCantInZeroException {
         String tag = MessagesTag.TAG_RA;
@@ -199,7 +202,6 @@ public class RollAndCheck implements En, MakeNickToSender {
      */
     private String check(String msg, Boolean ruleBook) throws ManyRollsTimesTooMoreException, RollCantInZeroException {
         EntityNickAndRandomAndSkill entityNickAndRandomAndSkill = GetNickAndRandomAndSkill.getNickAndRandomAndSkill(entityTypeMessages, msg);
-        CheckResultLevel checkResultLevel = new CheckResultLevel(entityNickAndRandomAndSkill.getRandom(), entityNickAndRandomAndSkill.getSkill(), ruleBook);
         String nick;
         if (msg.contains(":")) {
             nick = msg.split(":")[0];
@@ -207,6 +209,12 @@ public class RollAndCheck implements En, MakeNickToSender {
         } else {
             nick = entityNickAndRandomAndSkill.getNick();
         }
+        String strSkillScore = StringUtil.getIntFromStrBegin(msg);
+        if (StringUtils.isNotBlank(strSkillScore)){
+            entityNickAndRandomAndSkill.setSkill(Integer.valueOf(strSkillScore));
+            msg = msg.substring(msg.indexOf(strSkillScore)+strSkillScore.length());
+        }
+        CheckResultLevel checkResultLevel = new CheckResultLevel(entityNickAndRandomAndSkill.getRandom(), entityNickAndRandomAndSkill.getSkill(), ruleBook);
         String result = makeNickToSender(nick) +
                 "进行" + msg + "鉴定: D100=" + entityNickAndRandomAndSkill.getRandom() + "/" + entityNickAndRandomAndSkill.getSkill() +
                 checkResultLevel.getLevelResultStr(entityTypeMessages.getFromGroupString());
