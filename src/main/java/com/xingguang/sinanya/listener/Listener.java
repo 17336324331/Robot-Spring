@@ -35,6 +35,7 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.sound.midi.Soundbank;
 import java.util.regex.Pattern;
 
 import static com.forte.qqrobot.beans.messages.types.MsgGetTypes.discussMsg;
@@ -113,11 +114,14 @@ public class Listener implements MakeNickToSender {
     @Listen(MsgGetTypes.groupMsg)
     public ListenResult groupMsg(MsgGet msgGet, MsgGetTypes msgGetTypes, MsgSender msgSender, GroupMsg msgGroup) {
 
+        System.out.println(msgGet);
+        System.out.println(msgGetTypes);
+        System.out.println(msgSender);
+        System.out.println(msgGroup);
 
         //checkSystemParam();
 
         BaseModel baseModel = baseService.dealMsg(msgGroup, msgSender);
-
 
         // 获取发言人的QQ号
         String strQQ = baseModel.getStrQQ();
@@ -219,6 +223,9 @@ public class Listener implements MakeNickToSender {
 
         if(!CommandUtil.checkCommand(strMsg)){
             String strRet = "";
+            if ("行光w".equals(strMsg)){
+                strRet = SystemParam.getRet("xingGuangW");
+            }
             if (strMsg.contains("太鼓钟")||strMsg.contains("sada")){
                 strRet = SystemParam.getRet("strTaiGu");
             }
@@ -254,8 +261,11 @@ public class Listener implements MakeNickToSender {
             else if (strMsg.contains("废刀")){
                 strRet = SystemParam.getRet("strFeiDao");
             }
-            else if ((strGroup.equals("556799277")||strGroup.equals("976262575"))&&strMsg.contains("晚安")&&strMsg.length()<5&&!SystemParam.strTouzi.contains(strQQ)){
-                msgSender.SETTER.setGroupBan(strGroup,strQQ,60);
+            else if ((strGroup.equals("556799277")||strGroup.equals("976262575"))&&strMsg.equals("晚安")&&!SystemParam.strTouzi.contains(strQQ)){
+                Integer num = specialService.selectGroupBan(strQQ);
+                Long longM = Math.round(Math.pow(2, num));
+                msgSender.SETTER.setGroupBan(strGroup,strQQ,longM*60);
+                specialService.insertGroupBan(strQQ,strGroup);
                 strRet = SystemParam.getRet("strWanAn");
             }
             else if (strMsg.contains("早安")&&!SystemParam.strTouzi.contains(strQQ)){

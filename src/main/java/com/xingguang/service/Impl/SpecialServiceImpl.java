@@ -45,4 +45,32 @@ public class SpecialServiceImpl implements SpecialService {
         return num;
     }
 
+    /**
+     * @param strQQ
+     * @param strGroup
+     * @return
+     * @date 2020/1/23 15:30
+     * @author 陈瑞扬
+     * @description 禁言记录保存
+     */
+    @Override
+    public Integer insertGroupBan(String strQQ, String strGroup) {
+        String now = LocalDate.now().toString();
+        specialMapper.insertGroupBan(strQQ,strGroup,now);
+        return null;
+    }
+
+    /**
+     * @param strQQ
+     * @return
+     * @date 2020/1/23 15:31
+     * @author 陈瑞扬
+     * @description 查询禁言记录
+     */
+    @Override
+    public Integer selectGroupBan(String strQQ) {
+
+        return specialMapper.selectGroupBan(strQQ);
+    }
+
 }

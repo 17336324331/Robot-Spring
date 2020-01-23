@@ -180,7 +180,9 @@ public interface MessagesTag {
     //    获取测试标签
     String TAG_TEST = HEADER + "test[ ]*.*";
 
-    String TAG_RULES = HEADER + "rule[ ]*.*";
+    String TAG_RULE = HEADER + "rule[ ]*.*";
+
+    String TAG_RULES = HEADER + "rules[ ]*.*";
 
     String TAG_MAGIC_5E = HEADER + "magic[ ]*5e[ ]*.*";
 

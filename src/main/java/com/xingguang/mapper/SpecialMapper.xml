@@ -3,6 +3,12 @@
 <mapper namespace="com.xingguang.mapper.SpecialMapper" >
 
 
+    <!--插入奉酒数据-->
+    <insert id="fengjiu"  parameterType="string" >
+        insert into t_fengjiu (STR_QQ,STR_GROUP,STR_CONTENT,STR_DATE,DT_TIME)
+        values (#{strQQ}, #{strGroup}, #{strContent}, #{strNow}, now());
+    </insert>
+
     <!-- 根据QQ和日期查询奉酒次数-->
     <select id="selectFengjiu" resultType="integer" parameterType="string">
       <!--insert into coc_Msg () -->
@@ -14,9 +20,20 @@
         </where>
     </select>
 
-    <!--插入奉酒数据-->
-    <insert id="fengjiu"  parameterType="string" >
-        insert into t_fengjiu (STR_QQ,STR_GROUP,STR_CONTENT,STR_DATE,DT_TIME)
-        values (#{strQQ}, #{strGroup}, #{strContent}, #{strNow}, now());
+    <!--插入禁言数据记录-->
+    <insert id="insertGroupBan"  parameterType="string" >
+        insert into t_ban (STR_QQ,STR_GROUP,STR_DATE,DT_TIME,IS_DELETED)
+        values (#{strQQ}, #{strGroup}, #{strNow}, now(),0);
     </insert>
+
+    <!--查询禁言数据记录-->
+    <select id="selectGroupBan"  parameterType="string" resultType="integer">
+        select
+          count(*)
+        from t_ban
+        <where>
+            STR_QQ = #{strQQ}
+            AND IS_DELETED = 0
+        </where>
+    </select>
 </mapper>

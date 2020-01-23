@@ -187,6 +187,8 @@ class Flow implements MakeNickToSender {
 
     private boolean isRules = false;
 
+    private boolean isRule = false;
+
     private boolean isMagic5E = false;
 
     private boolean isMagic3R = false;
@@ -346,9 +348,11 @@ class Flow implements MakeNickToSender {
 
         isRules = checkTagRegex(MessagesTag.TAG_RULES);
 
+        isRule = checkTagRegex(MessagesTag.TAG_RULE);
+
         isFate = checkTagRegex(MessagesTag.TAG_FATE);
 
-        isr = checkTagRegex(MessagesTag.TAGR) && !isRh && !isRa && !isRc && !isRb && !isRp && !isRi && !isRal && !isRcl && !isRav && !isRcv && !isRules && !isFate;
+        isr = checkTagRegex(MessagesTag.TAGR) && !isRh && !isRa && !isRc && !isRb && !isRp && !isRi && !isRal && !isRcl && !isRav && !isRcv && !isRules && !isRule && !isFate;
     }
 
     private void banTag() {
@@ -453,6 +457,8 @@ class Flow implements MakeNickToSender {
 
             isRules = checkTagRegex(MessagesTag.TAG_RULES);
 
+            isRule = checkTagRegex(MessagesTag.TAG_RULE);
+
             isMagic3R = checkTagRegex(MessagesTag.TAG_MAGIC_3R);
 
             isMagic5E = checkTagRegex(MessagesTag.TAG_MAGIC_5E) && !isMagic3R;
@@ -496,6 +502,7 @@ class Flow implements MakeNickToSender {
         Jrrp jrrp = new Jrrp(entityTypeMessages);
         /* Test test = new Test(entityTypeMessages); */
         Rules rules = new Rules(entityTypeMessages);
+        Rule rule = new Rule(entityTypeMessages);
         Admin admin = new Admin(entityTypeMessages);
         DndMagic dndMagic = new DndMagic(entityTypeMessages);
         DndMonster dndMonster = new DndMonster(entityTypeMessages);
@@ -576,6 +583,10 @@ class Flow implements MakeNickToSender {
 
         if (isRules) {
             rules.get();
+        }
+
+        if (isRule&&!isRules) {
+            rule.get();
         }
 
 //        if (isTest) {
