@@ -1,5 +1,6 @@
 package com.xingguang.sinanya.tools.getinfo;
 
+import com.forte.qqrobot.beans.messages.types.MsgGetTypes;
 import com.forte.qqrobot.beans.messages.result.GroupMemberInfo;
 import com.forte.qqrobot.sender.MsgSender;
 import com.xingguang.sinanya.entity.EntityTypeMessages;
@@ -120,7 +121,11 @@ public class GetNickName {
      * @return 昵称
      */
     public static String getGroupName(EntityTypeMessages entityTypeMessages) {
-        return entityTypeMessages.getMsgSender().GETTER.getGroupInfo(entityTypeMessages.getFromGroupString()).getName();
+        if (entityTypeMessages.getMsgGetTypes() == MsgGetTypes.discussMsg) {
+            return "未找到";
+        } else {
+            return entityTypeMessages.getMsgSender().GETTER.getGroupInfo(entityTypeMessages.getFromGroupString()).getName();
+        }
     }
 
     /**

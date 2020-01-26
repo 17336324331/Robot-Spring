@@ -10,6 +10,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import static com.xingguang.sinanya.tools.getinfo.GetTime.getNowString;
+import static com.xingguang.sinanya.tools.getinfo.GetTime.getTime;
+
 /**
  * @author SitaNya
  * 日期: 2019-06-15
@@ -34,13 +37,14 @@ public class InsertLogInfo {
     public void insertLogTag(EntityLogTag entityLogTag, EntityLogText entityLogText) {
         try (Connection conn = DbUtil.getConnection()) {
             String sql = "INSERT INTO test.textLog(" +
-                    "groupId,logName, logInfo,nick,logType) VALUES(?,?,?,?,?)";
+                    "time,groupId,logName, logInfo,nick,logType) VALUES(?,?,?,?,?,?)";
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
-                ps.setString(1, entityLogTag.getGroupId());
-                ps.setString(2, entityLogTag.getLogName());
-                ps.setString(3, entityLogText.getText());
-                ps.setString(4, entityLogText.getNick());
-                ps.setInt(5, entityLogText.getLogType().getTypeId());
+                ps.setTimestamp(1, getTime(getNowString()));
+                ps.setString(2, entityLogTag.getGroupId());
+                ps.setString(3, entityLogTag.getLogName());
+                ps.setString(4, entityLogText.getText());
+                ps.setString(5, entityLogText.getNick());
+                ps.setInt(6, entityLogText.getLogType().getTypeId());
                 ps.executeUpdate();
             }
         } catch (SQLException e) {

@@ -8,30 +8,25 @@ import com.xingguang.sinanya.exceptions.*;
 import com.xingguang.sinanya.system.MessagesAntagonize;
 import com.xingguang.sinanya.system.MessagesSystem;
 import com.xingguang.sinanya.system.MessagesTag;
-import com.xingguang.sinanya.tools.checkdata.CheckIsNumbers;
 import com.xingguang.sinanya.tools.checkdata.CheckResultLevel;
 import com.xingguang.sinanya.tools.getinfo.GetMessagesProperties;
 import com.xingguang.sinanya.tools.getinfo.GetNickName;
-import com.xingguang.sinanya.tools.getinfo.History;
 import com.xingguang.sinanya.tools.getinfo.Kp;
 import com.xingguang.sinanya.tools.makedata.*;
 import com.xingguang.sinanya.dice.MakeNickToSender;
-import com.xingguang.sinanya.exceptions.*;
-import com.xingguang.sinanya.tools.makedata.*;
-import com.xingguang.sinanya.exceptions.*;
 import com.xingguang.sinanya.tools.makedata.MakeRal;
 import com.xingguang.sinanya.tools.makedata.MakeRcl;
-import com.xingguang.utils.StringUtil;
-import org.antlr.runtime.misc.IntArray;
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-import static com.xingguang.sinanya.tools.getinfo.GetNickName.getGroupName;
-import static com.xingguang.sinanya.tools.getinfo.GetNickName.getNickName;
+import static com.xingguang.sinanya.tools.checkdata.CheckIsNumbers.isNumeric;
+import static com.xingguang.sinanya.tools.getinfo.History.changeHistory;
+import static com.xingguang.sinanya.tools.makedata.GetNickAndRandomAndSkill.getNickAndRandomAndSkill;
 
 /**
  * @author SitaNya
@@ -43,6 +38,7 @@ import static com.xingguang.sinanya.tools.getinfo.GetNickName.getNickName;
  */
 public class RollAndCheck implements En, MakeNickToSender {
     private static final Logger log = LoggerFactory.getLogger(RollAndCheck.class.getName());
+    private Pattern times = Pattern.compile(".*?([0-9]+#).*");
 
 
     private String defaultGroupId = "0";
@@ -82,7 +78,7 @@ public class RollAndCheck implements En, MakeNickToSender {
     public void rav() throws NotSetKpGroupException, ManyRollsTimesTooMoreException, RollCantInZeroException, NotFoundSkillException {
         String tag = MessagesTag.TAG_RAV;
         String msg = MakeMessages.deleteTag(entityTypeMessages.getMsgGet().getMsg(), tag.substring(0, tag.length() - 2)).replaceAll(" +", "");
-        EntityNickAndRandomAndSkill entityNickAndRandomAndSkill = GetNickAndRandomAndSkill.getNickAndRandomAndSkill(entityTypeMessages, msg);
+        EntityNickAndRandomAndSkill entityNickAndRandomAndSkill = getNickAndRandomAndSkill(entityTypeMessages, msg);
 //        checkSkillInput(entityNickAndRandomAndSkill);
         CheckResultLevel checkResultLevel = new CheckResultLevel(entityNickAndRandomAndSkill.getRandom(), entityNickAndRandomAndSkill.getSkill(), false);
         //        使用房规进行判定结果
@@ -120,7 +116,7 @@ public class RollAndCheck implements En, MakeNickToSender {
     public void rcv() throws NotSetKpGroupException, ManyRollsTimesTooMoreException, RollCantInZeroException, NotFoundSkillException {
         String tag = MessagesTag.TAG_RCV;
         String msg = MakeMessages.deleteTag(entityTypeMessages.getMsgGet().getMsg(), tag.substring(0, tag.length() - 2)).replaceAll(" +", "");
-        EntityNickAndRandomAndSkill entityNickAndRandomAndSkill = GetNickAndRandomAndSkill.getNickAndRandomAndSkill(entityTypeMessages, msg);
+        EntityNickAndRandomAndSkill entityNickAndRandomAndSkill = getNickAndRandomAndSkill(entityTypeMessages, msg);
         CheckResultLevel checkResultLevel = new CheckResultLevel(entityNickAndRandomAndSkill.getRandom(), entityNickAndRandomAndSkill.getSkill(), true);
 //                使用规则书进行判定结果
         String nick;
@@ -201,26 +197,31 @@ public class RollAndCheck implements En, MakeNickToSender {
      * @return 包装后的骰点结果字符串
      */
     private String check(String msg, Boolean ruleBook) throws ManyRollsTimesTooMoreException, RollCantInZeroException {
-        EntityNickAndRandomAndSkill entityNickAndRandomAndSkill = GetNickAndRandomAndSkill.getNickAndRandomAndSkill(entityTypeMessages, msg);
-        String nick;
-        if (msg.contains(":")) {
-            nick = msg.split(":")[0];
-            msg = msg.split(":")[1];
-        } else {
-            nick = entityNickAndRandomAndSkill.getNick();
+        int timesNum = 1;
+        Matcher timesFind = times.matcher(msg);
+        if (timesFind.find() && isNumeric(timesFind.group(1).replace("#", ""))) {
+            timesNum = Integer.parseInt(timesFind.group(1).replace("#", ""));
+            msg = msg.replaceFirst("[0-9]+#", "");
         }
-        String strSkillScore = StringUtil.getIntFromStrBegin(msg);
-        if (StringUtils.isNotBlank(strSkillScore)){
-            entityNickAndRandomAndSkill.setSkill(Integer.valueOf(strSkillScore));
-            msg = msg.substring(msg.indexOf(strSkillScore)+strSkillScore.length());
+        StringBuilder result = new StringBuilder();
+        for (int i = 1; i <= timesNum; i++) {
+            EntityNickAndRandomAndSkill entityNickAndRandomAndSkill = getNickAndRandomAndSkill(entityTypeMessages, msg);
+            CheckResultLevel checkResultLevel = new CheckResultLevel(entityNickAndRandomAndSkill.getRandom(), entityNickAndRandomAndSkill.getSkill(), ruleBook);
+            String nick;
+            if (msg.contains(":")) {
+                nick = msg.split(":")[0];
+                msg = msg.split(":")[1];
+            } else {
+                nick = entityNickAndRandomAndSkill.getNick();
+            }
+            result.append(makeNickToSender(nick)).append("进行").append(msg).append("鉴定: D100=").append(entityNickAndRandomAndSkill.getRandom()).append("/").append(entityNickAndRandomAndSkill.getSkill()).append(checkResultLevel.getLevelResultStr(entityTypeMessages.getFromGroupString()));
+            checkEn(checkResultLevel.getLevel(), msg, entityTypeMessages.getFromQqString(), entityTypeMessages.getFromGroupString());
+            changeHistory(entityTypeMessages.getFromQqString()).update(checkResultLevel.getLevelAndRandom());
+            if (i != timesNum) {
+                result.append("\n");
+            }
         }
-        CheckResultLevel checkResultLevel = new CheckResultLevel(entityNickAndRandomAndSkill.getRandom(), entityNickAndRandomAndSkill.getSkill(), ruleBook);
-        String result = makeNickToSender(nick) +
-                "进行" + msg + "鉴定: D100=" + entityNickAndRandomAndSkill.getRandom() + "/" + entityNickAndRandomAndSkill.getSkill() +
-                checkResultLevel.getLevelResultStr(entityTypeMessages.getFromGroupString());
-        checkEn(checkResultLevel.getLevel(), msg, entityTypeMessages.getFromQqString(), entityTypeMessages.getFromGroupString());
-        History.changeHistory(entityTypeMessages.getFromQqString()).update(checkResultLevel.getLevelAndRandom());
-        return result;
+        return result.toString();
     }
 
     /**
@@ -258,7 +259,7 @@ public class RollAndCheck implements En, MakeNickToSender {
     private void checkManyRollsError(String msg) throws ManyRollsTimesTooMoreException, ManyRollsFormatException {
         int numParams = 2;
         int maxTimes = 1000;
-        if (!msg.contains(MessagesSystem.SPACE) || msg.split(MessagesSystem.SPACE).length != numParams || !CheckIsNumbers.isNumeric(msg.split(MessagesSystem.SPACE)[0]) || !CheckIsNumbers.isNumeric(msg.split(MessagesSystem.SPACE)[1])) {
+        if (!msg.contains(MessagesSystem.SPACE) || msg.split(MessagesSystem.SPACE).length != numParams || !isNumeric(msg.split(MessagesSystem.SPACE)[0]) || !isNumeric(msg.split(MessagesSystem.SPACE)[1])) {
             throw new ManyRollsFormatException(entityTypeMessages);
         }
 
@@ -313,7 +314,7 @@ public class RollAndCheck implements En, MakeNickToSender {
 
     private String makeVforGroupId(String msg, CheckResultLevel checkResultLevel) {
         checkEn(checkResultLevel.getLevel(), msg, entityTypeMessages.getFromQqString(), entityTypeMessages.getFromGroupString());
-        History.changeHistory(entityTypeMessages.getFromQqString()).update(checkResultLevel.getLevelAndRandom());
+        changeHistory(entityTypeMessages.getFromQqString()).update(checkResultLevel.getLevelAndRandom());
         String groupId;
         if (entityTypeMessages.getFromGroupString().equals(defaultGroupId)) {
             try {

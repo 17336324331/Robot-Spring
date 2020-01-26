@@ -20,10 +20,13 @@ public interface MessagesSystem {
     String SPACE = " ";
 
 
-    String VERSIONS = "5.52.87.78Beta";
+    String VERSIONS = "5.54.87.78Beta";
 
     StringBuilder UPDATE = new StringBuilder()
             .append("更新日志:\n")
+            .append("2020年01月23日 修复groupSearch命令无法私聊使用的问题\n")
+            .append("2020年01月23日 增加ra骰掷可以支持#号识别并骰掷多次的方式\n")
+            .append("2020年01月20日 优化log记录和获取方法\n")
             .append("2020年01月20日 自定义角色卡栏位的名称可以固化了\n")
             .append("2020年01月20日 解决了一个可能导致强制更新亮起的问题\n")
             .append("2020年01月20日 kp描述的开始结束语支持大小写了\n")

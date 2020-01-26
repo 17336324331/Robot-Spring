@@ -578,7 +578,7 @@ public class GroupManager implements MakeNickToSender, Check {
         if (!GetMessagesProperties.entityBanProperties.getMaster().contains(entityTypeMessages.getFromQqString())) {
             throw new NotMasterException(entityTypeMessages);
         }
-        CheckCantInPrivate.checkCantInPrivate(entityTypeMessages);
+        //CheckCantInPrivate.checkCantInPrivate(entityTypeMessages);
         String tag = MessagesTag.TAG_GROUP_SEARCH;
         String msg = MakeMessages.deleteTag(entityTypeMessages.getMsgGet().getMsg(), tag.substring(0, tag.length() - 4));
         if (!CheckIsNumbers.isNumeric(msg)) {

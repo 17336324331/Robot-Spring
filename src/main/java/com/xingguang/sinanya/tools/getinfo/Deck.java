@@ -9,10 +9,12 @@ import com.xingguang.sinanya.exceptions.RollCantInZeroException;
 import com.xingguang.sinanya.tools.makedata.GetRollResultAndStr;
 import com.xingguang.sinanya.tools.makedata.RandomInt;
 import com.xingguang.sinanya.db.deck.SelectDeckList;
+import com.xingguang.utils.StringUtil;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import org.yaml.snakeyaml.Yaml;
 
+import javax.sound.midi.Soundbank;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -51,8 +53,14 @@ public class Deck {
      */
     private static HashMap<String, ArrayList<String>> getDeckMap(String deckType) {
         File deckTypeFile = new File(entitySystemProperties.getSystemDir() + File.separator + "deck" + File.separator + deckType);
+
+        System.out.println("=====>"+entitySystemProperties.getSystemDir() + File.separator + "deck" + File.separator + deckType);
+        System.out.println("AbsolutePath()===>"+deckTypeFile.getAbsolutePath());
 //        File deckTypeFile = new File(deckType);
         HashMap<String, ArrayList<String>> deckList = new HashMap<>();
+        System.out.println("exists:"+deckTypeFile.exists() );
+        System.out.println("files:"+deckTypeFile.isFile());
+        System.out.println("ret:"+(!deckTypeFile.exists() || !deckTypeFile.isFile()));
         if (!deckTypeFile.exists() || !deckTypeFile.isFile()) {
             return deckList;
         }
@@ -61,6 +69,7 @@ public class Deck {
         try {
             // 加载配置文件
             Map map = yaml.load(new FileInputStream(deckTypeFile));
+            System.out.println(map.toString());
             for (Object key : map.keySet()) {
                 if (!key.equals("name") && !key.equals("command") && !key.equals("author") && !key.equals("version") && !key.equals("desc")) {
                     String value = map.get(key).toString();

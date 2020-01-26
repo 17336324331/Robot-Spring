@@ -106,13 +106,15 @@ public class QQRunApplication implements CoolQHttpApp {
         System.out.println(SystemParam.strCurrentQQ +"启动成功 ");
 
         initMessagesSystemProperties();
-        entitySystemProperties.setSystemDir(new File(new GetPath().getPath()).getParentFile().getPath());
+        //entitySystemProperties.setSystemDir(new File(new GetPath().getPath()).getParentFile().getPath());
         System.out.println(System.getProperty("os.name").toLowerCase(Locale.US));
         String log4jxml2;
         if (WINDOWS_MODEL) {
+            entitySystemProperties.setSystemDir(new File(new GetPath().getPath()).getParentFile().getPath());
             log4jxml2 = entitySystemProperties.getSystemDir() + "/SinaNya/conf/log4j2.xml";
             System.setProperty("log_path", entitySystemProperties.getSystemDir() + "/SinaNya/logs/");
         } else {
+            entitySystemProperties.setSystemDir(System.getProperty("user.dir"));
             String path;
             String buildClassTargetDir = "/target/classes";
             path = new GetLocationPath().getLocationPath().split(":")[0];

@@ -27,6 +27,7 @@ import com.xingguang.sinanya.entity.EntityLogTag;
 import com.xingguang.sinanya.entity.EntityTypeMessages;
 import com.xingguang.sinanya.flow.Flow;
 import com.xingguang.utils.CommandUtil;
+import com.xingguang.utils.StringUtil;
 import com.xingguang.utils.SystemParam;
 import com.xingguang.utils.TAipUtils;
 import org.apache.commons.lang.StringUtils;
@@ -114,11 +115,6 @@ public class Listener implements MakeNickToSender {
     @Listen(MsgGetTypes.groupMsg)
     public ListenResult groupMsg(MsgGet msgGet, MsgGetTypes msgGetTypes, MsgSender msgSender, GroupMsg msgGroup) {
 
-        System.out.println(msgGet);
-        System.out.println(msgGetTypes);
-        System.out.println(msgSender);
-        System.out.println(msgGroup);
-
         //checkSystemParam();
 
         BaseModel baseModel = baseService.dealMsg(msgGroup, msgSender);
@@ -134,6 +130,7 @@ public class Listener implements MakeNickToSender {
 
         // 图片处理逻辑begin
         if (strMsg.contains("CQ:image")){
+            System.out.println(strMsg);
             String strImageId = "";
             if (strMsg.contains("jpg")){
                 strImageId = strMsg.substring(strMsg.lastIndexOf("file="),strMsg.lastIndexOf("jpg")+3).trim();
@@ -156,17 +153,19 @@ public class Listener implements MakeNickToSender {
                 // 向群里发送已记录的消息
                 //sender.SENDER.sendGroupMsg(strGroup,"发现新图片,已记录");
                 // 向master发送图片id
-                msgSender.SENDER.sendPrivateMsg("1571650839",strImageId);
+                //msgSender.SENDER.sendPrivateMsg("1571650839",strImageId);
                 //CQC
                 int beginIndex = strImageId.lastIndexOf("=")+1;
                 int endIndex = strImageId.lastIndexOf("g")+1;
                 String imageId = strImageId.substring(beginIndex, endIndex);
-
-                String cqCode_image = CQCodeUtil.build().getCQCode_image(strImageId);
-                System.out.println(cqCode_image);
+                //System.out.println(imageId);
+                String cqCode_image = CQCodeUtil.build().getCQCode_image(imageId);
+                //System.out.println(cqCode_image);
                 // 向主QQ发送真实图片
+                msgSender.SENDER.sendGroupMsg("976262575",cqCode_image);
+                msgSender.SENDER.sendGroupMsg("976262575",imageId);
 
-                msgSender.SENDER.sendPrivateMsg("1571650839",cqCode_image);
+                return MSG_INTERCEPT;
 
             }
             // 如果为零 ,说明 未处理 添加 返回逻辑
@@ -197,31 +196,8 @@ public class Listener implements MakeNickToSender {
         }
         // 图片处理逻辑end
 
-        // 如果是At自己,特殊处理
-        if (strMsg.contains("at,qq="+ SystemParam.strCurrentQQ)){
-            // 获取 去除 at 的 语句
-            strMsg = strMsg.substring(strMsg.indexOf("]") + 1).trim();
-
-            // 如果原语句不是命令
-            if (!CommandUtil.checkCommand(strMsg)){
-                try {
-                    String result = TAipUtils.getTAIP()
-                            .nlpTextchat(TAipUtils.getSession(),strMsg);
-                    //发送私信，两个参数一个QQ号一个文本
-                    String answer = TAipUtils.getAnswer(result);
-
-                    //sender.SENDER.sendPrivateMsg(strQQ,answer);
-                    msgSender.SENDER.sendGroupMsg(strGroup,answer);
-                }catch (Exception e){
-                    msgSender.SENDER.sendGroupMsg(strGroup,SystemParam.errorMsg);
-                    msgSender.SENDER.sendPrivateMsg(msgGroup.getQQ(),strMsg);
-                }
-                return MSG_INTERCEPT;
-            }
-
-        }
-
         if(!CommandUtil.checkCommand(strMsg)){
+            System.out.println("分割线3.1");
             String strRet = "";
             if ("行光w".equals(strMsg)){
                 strRet = SystemParam.getRet("xingGuangW");
@@ -272,27 +248,57 @@ public class Listener implements MakeNickToSender {
                 strRet = SystemParam.getRet("strZaoAn");
             }
             else if (strMsg.contains("奉上")){
-                if (strMsg.contains("酒")){
+                if(strMsg.contains("蝙蝠")){
+                    strRet = "呜呜,主人说我再喝蝙蝠酒就不要我了我,你还是自己留着喝吧";
+                }else if (strMsg.contains("酒")){
                     Integer fengjiu = specialService.fengjiu(strQQ, strGroup, strMsg);
                     Integer integer = specialService.selectFengjiu(strQQ);
                     strRet = "(偷偷收下)谢谢,记得千万不要告诉我主人!\n 今天已收到的酒:"+integer+"壶";
-                }else{
+                }
+                else if (strMsg.contains("炒")){
+                    strRet = "拿来当下酒菜也可以";
+                }
+                else{
                     Integer fengjiu = specialService.fengjiu(strQQ, strGroup, strMsg);
                     Integer integer = specialService.selectFengjiu(strQQ);
                     strRet = "(这是你们家乡的酒吗,以前从未听闻)谢谢,记得千万不要告诉我主人!\n 今天已收到的酒:"+integer+"壶";
                 }
 
             }
+
 //            String str = "master进行我要娶笑晓过门！检定:D100=1/1是大成功呢\n" +
 //                    "哈？又拿酒来贿赂我？行吧行吧，酒放下，大成功快拿走。";
-            msgSender.SENDER.sendGroupMsg(strGroup,strRet);
-            return MSG_INTERCEPT;
+            if (StringUtils.isNotBlank(strRet)){
+                msgSender.SENDER.sendGroupMsg(strGroup,strRet);
+                return MSG_INTERCEPT;
+            }
+
 
         }
 
+        // 如果是At自己,特殊处理
+        if (strMsg.contains("at,qq="+ SystemParam.strCurrentQQ)){
+            // 获取 去除 at 的 语句
+            strMsg = strMsg.substring(strMsg.indexOf("]") + 1).trim();
 
+            // 如果原语句不是命令
+            if (!CommandUtil.checkCommand(strMsg)){
+                try {
+                    String result = TAipUtils.getTAIP()
+                            .nlpTextchat(TAipUtils.getSession(),strMsg);
+                    //发送私信，两个参数一个QQ号一个文本
+                    String answer = TAipUtils.getAnswer(result);
 
+                    //sender.SENDER.sendPrivateMsg(strQQ,answer);
+                    msgSender.SENDER.sendGroupMsg(strGroup,answer);
+                }catch (Exception e){
+                    msgSender.SENDER.sendGroupMsg(strGroup,SystemParam.errorMsg);
+                    msgSender.SENDER.sendPrivateMsg(msgGroup.getQQ(),strMsg);
+                }
+                return MSG_INTERCEPT;
+            }
 
+        }
 
 
         String msg = fullWidth2halfWidth(msgGroup.getMsg());
@@ -344,7 +350,7 @@ public class Listener implements MakeNickToSender {
     }
 
     @Listen(discussMsg)
-    @Filter(value = "(?s)^[ ]*[.。][ ]*.*", keywordMatchType = KeywordMatchType.TRIM_REGEX)
+    //@Filter(value = "(?s)^[ ]*[.。][ ]*.*", keywordMatchType = KeywordMatchType.TRIM_REGEX)
     public ListenResult discussMsg(MsgGet msgGet, MsgGetTypes msgGetTypes, MsgSender msgSender, DiscussMsg msgDisGroup) {
         String msg = fullWidth2halfWidth(msgDisGroup.getMsg());
         if (!entitySystemProperties.isRunning()) {
