@@ -129,10 +129,10 @@ public class EntitySystemProperties {
         antagonizeAllFailed = "全部失败";
         antagonizeDraw = "平手";
 
-        symptom = "";
+        symptom = "陷入疯狂了吗？但只要还活着希望就还在";
 
-        enSuccess = "";
-        enFailed = "";
+        enSuccess = "功啦！您又变强啦！";
+        enFailed = "非常可惜，但您现在已经够强得了，也不必遗憾哦";
 
         hiddenDice = "kp正在进行暗骰";
 

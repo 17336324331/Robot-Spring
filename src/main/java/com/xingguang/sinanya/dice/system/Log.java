@@ -25,8 +25,6 @@ import org.docx4j.openpackaging.exceptions.Docx4JException;
 import java.util.ArrayList;
 import java.util.concurrent.*;
 
-import static com.xingguang.sinanya.tools.getinfo.GetNickName.getGroupName;
-
 /**
  * @author SitaNya
  * 日期: 2019-06-15
@@ -123,7 +121,7 @@ public class Log implements MakeNickToSender {
             } else {
                 MessagesLogGetLock.LOG_GET_LOCK.add(msg);
             }
-            ArrayList<EntityLogText> bigResult = LogText.getLogText(new EntityLogTag(entityTypeMessages.getFromGroupString(), msg));
+            final ArrayList<EntityLogText> bigResult = LogText.getLogText(new EntityLogTag(entityTypeMessages.getFromGroupString(), msg));
             Sender.sender(entityTypeMessages, "正在抽取数据库为" + makeLogNickToSender(msg) + "生成文件");
             LogSave.logSave(entityTypeMessages.getFromGroupString(), msg, bigResult);
             Sender.sender(entityTypeMessages, "正在抽取数据库为" + makeLogNickToSender(msg) + "生成去括号文件");

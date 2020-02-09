@@ -84,8 +84,15 @@ public class Listener implements MakeNickToSender {
     private String tagMe = String.format("[cq:at,qq=%s]", String.valueOf(loginInfo.getLoginId()));
 
 
-    @Listen(MsgGetTypes.privateMsg)
+    @Listen(value = MsgGetTypes.privateMsg,sort = 500)
     public ListenResult privateMsg(MsgGet msgGet, MsgGetTypes msgGetTypes, MsgSender msgSender, PrivateMsg msgPrivate) {
+        System.out.println("进入privateMsg");
+        ListenResult result = mySelfDeal(msgGet, msgGetTypes, msgSender, msgPrivate);
+        System.out.println("自定义处理结束==>result:"+result);
+        if (result != null){
+            return result;
+        }
+        System.out.println("塔系处理开始");
         String msg = fullWidth2halfWidth(msgPrivate.getMsg());
         if (!entitySystemProperties.isRunning()) {
             msgSender.SENDER.sendPrivateMsg(msgPrivate.getQQCode(), "目前本骰休假中，不提供服务");
@@ -112,192 +119,14 @@ public class Listener implements MakeNickToSender {
         return MSG_IGNORE;
     }
 
-    @Listen(MsgGetTypes.groupMsg)
+    @Listen(value = MsgGetTypes.groupMsg ,sort = 500)
     public ListenResult groupMsg(MsgGet msgGet, MsgGetTypes msgGetTypes, MsgSender msgSender, GroupMsg msgGroup) {
 
         //checkSystemParam();
 
-        BaseModel baseModel = baseService.dealMsg(msgGroup, msgSender);
-
-        // 获取发言人的QQ号
-        String strQQ = baseModel.getStrQQ();
-        // 获取发言的群
-        String strGroup = baseModel.getStrGroup();
-        // 获取发言人的群昵称
-        String strName = baseModel.getStrName();
-        // 获取群成员发布的消息
-        String strMsg = msgGroup.getMsg().trim();
-
-        // 图片处理逻辑begin
-        if (strMsg.contains("CQ:image")){
-            System.out.println(strMsg);
-            String strImageId = "";
-            if (strMsg.contains("jpg")){
-                strImageId = strMsg.substring(strMsg.lastIndexOf("file="),strMsg.lastIndexOf("jpg")+3).trim();
-            }
-            else if(strMsg.contains("png")){
-                strImageId = strMsg.substring(strMsg.lastIndexOf("file="),strMsg.lastIndexOf("png")+3).trim();
-            }
-
-            VoImageModel voImageModel = null;
-            try {
-                voImageModel = imageService.dealImageMsg(strImageId,strQQ);
-            }catch (Exception e){
-                msgSender.SENDER.sendPrivateMsg("1571650839","异常捕获:"+strImageId);
-            }
-
-            // 如果返回内容为空 ,说明之前没有入库
-            if (StringUtils.isBlank(voImageModel.getStrRet())){
-                // 入库,保存图片地址
-               // imageService.saveImage(strImageId);
-                // 向群里发送已记录的消息
-                //sender.SENDER.sendGroupMsg(strGroup,"发现新图片,已记录");
-                // 向master发送图片id
-                //msgSender.SENDER.sendPrivateMsg("1571650839",strImageId);
-                //CQC
-                int beginIndex = strImageId.lastIndexOf("=")+1;
-                int endIndex = strImageId.lastIndexOf("g")+1;
-                String imageId = strImageId.substring(beginIndex, endIndex);
-                //System.out.println(imageId);
-                String cqCode_image = CQCodeUtil.build().getCQCode_image(imageId);
-                //System.out.println(cqCode_image);
-                // 向主QQ发送真实图片
-                msgSender.SENDER.sendGroupMsg("976262575",cqCode_image);
-                msgSender.SENDER.sendGroupMsg("976262575",imageId);
-
-                return MSG_INTERCEPT;
-
-            }
-            // 如果为零 ,说明 未处理 添加 返回逻辑
-            else if ("0".equals(voImageModel.getStrRet())){
-
-            }
-            // 如果不是0 ,说明已经添加返回逻辑 ,那就按照逻辑返回
-            else{
-                int intRetType = voImageModel.getIntRetType();
-                // 如果类型为1 ,说明为 文字回复
-                if ( intRetType == 1){
-                    // 向群里发送文字回复
-                    msgSender.SENDER.sendGroupMsg(strGroup,voImageModel.getStrRet());
-                }
-                // 如果类型为2 ,说明为 图片回复
-                else if (intRetType == 2){
-                    // 把文件名 xxx.jpg  拼接为CQ格式   file:xx.jpg
-                    String cqCode_image = CQCodeUtil.build().getCQCode_image(voImageModel.getStrRet());
-                    System.out.println(cqCode_image);
-                    // 向QQ群返回斗图图片
-                    msgSender.SENDER.sendGroupMsg(strGroup,cqCode_image);
-                }
-
-            }
-
-            return MSG_INTERCEPT;
-
-        }
-        // 图片处理逻辑end
-
-        if(!CommandUtil.checkCommand(strMsg)){
-            System.out.println("分割线3.1");
-            String strRet = "";
-            if ("行光w".equals(strMsg)){
-                strRet = SystemParam.getRet("xingGuangW");
-            }
-            if (strMsg.contains("太鼓钟")||strMsg.contains("sada")){
-                strRet = SystemParam.getRet("strTaiGu");
-            }
-            else if (strMsg.contains("织田信长")||strMsg.contains("第六天魔王")){
-                strRet = SystemParam.getRet("strXinChang");
-            }
-            else if (strMsg.contains("master")&&!SystemParam.strTouzi.contains(strQQ)){
-                strRet = SystemParam.getRet("strMaster");
-            }
-            else if (strMsg.contains("空晓")){
-                strRet = SystemParam.getRet("strKongxiao");
-            }
-            else if (strMsg.contains("审神者")){
-                strRet = SystemParam.getRet("strShenShengzhe");
-            }
-            else if (strMsg.contains("开团")){
-                strRet = SystemParam.getRet("strKaiTuan");
-            }
-            else if (strMsg.contains("喝酒")){
-                strRet = SystemParam.getRet("strHeJiu");
-            }
-            else if (strMsg.contains("摸头")){
-                strRet = SystemParam.getRet("strMoTou");
-            }
-            else if (strMsg.contains("行光")&&strMsg.contains("陪睡")){
-                if ("2649173157".equals(strQQ)){
-                    strRet = SystemParam.getRet("strXingGuangPeiShui_KongXiao");
-                }else {
-                    strRet = SystemParam.getRet("strXingGuangPeiShui");
-                }
-
-            }
-            else if (strMsg.contains("废刀")){
-                strRet = SystemParam.getRet("strFeiDao");
-            }
-            else if ((strGroup.equals("556799277")||strGroup.equals("976262575"))&&strMsg.equals("晚安")&&!SystemParam.strTouzi.contains(strQQ)){
-                Integer num = specialService.selectGroupBan(strQQ);
-                Long longM = Math.round(Math.pow(2, num));
-                msgSender.SETTER.setGroupBan(strGroup,strQQ,longM*60);
-                specialService.insertGroupBan(strQQ,strGroup);
-                strRet = SystemParam.getRet("strWanAn");
-            }
-            else if (strMsg.contains("早安")&&!SystemParam.strTouzi.contains(strQQ)){
-                strRet = SystemParam.getRet("strZaoAn");
-            }
-            else if (strMsg.contains("奉上")){
-                if(strMsg.contains("蝙蝠")){
-                    strRet = "呜呜,主人说我再喝蝙蝠酒就不要我了我,你还是自己留着喝吧";
-                }else if (strMsg.contains("酒")){
-                    Integer fengjiu = specialService.fengjiu(strQQ, strGroup, strMsg);
-                    Integer integer = specialService.selectFengjiu(strQQ);
-                    strRet = "(偷偷收下)谢谢,记得千万不要告诉我主人!\n 今天已收到的酒:"+integer+"壶";
-                }
-                else if (strMsg.contains("炒")){
-                    strRet = "拿来当下酒菜也可以";
-                }
-                else{
-                    Integer fengjiu = specialService.fengjiu(strQQ, strGroup, strMsg);
-                    Integer integer = specialService.selectFengjiu(strQQ);
-                    strRet = "(这是你们家乡的酒吗,以前从未听闻)谢谢,记得千万不要告诉我主人!\n 今天已收到的酒:"+integer+"壶";
-                }
-
-            }
-
-//            String str = "master进行我要娶笑晓过门！检定:D100=1/1是大成功呢\n" +
-//                    "哈？又拿酒来贿赂我？行吧行吧，酒放下，大成功快拿走。";
-            if (StringUtils.isNotBlank(strRet)){
-                msgSender.SENDER.sendGroupMsg(strGroup,strRet);
-                return MSG_INTERCEPT;
-            }
-
-
-        }
-
-        // 如果是At自己,特殊处理
-        if (strMsg.contains("at,qq="+ SystemParam.strCurrentQQ)){
-            // 获取 去除 at 的 语句
-            strMsg = strMsg.substring(strMsg.indexOf("]") + 1).trim();
-
-            // 如果原语句不是命令
-            if (!CommandUtil.checkCommand(strMsg)){
-                try {
-                    String result = TAipUtils.getTAIP()
-                            .nlpTextchat(TAipUtils.getSession(),strMsg);
-                    //发送私信，两个参数一个QQ号一个文本
-                    String answer = TAipUtils.getAnswer(result);
-
-                    //sender.SENDER.sendPrivateMsg(strQQ,answer);
-                    msgSender.SENDER.sendGroupMsg(strGroup,answer);
-                }catch (Exception e){
-                    msgSender.SENDER.sendGroupMsg(strGroup,SystemParam.errorMsg);
-                    msgSender.SENDER.sendPrivateMsg(msgGroup.getQQ(),strMsg);
-                }
-                return MSG_INTERCEPT;
-            }
-
+        ListenResult result = mySelfDeal(msgGet, msgGetTypes, msgSender, msgGroup);
+        if (result != null){
+            return result;
         }
 
 
@@ -349,9 +178,15 @@ public class Listener implements MakeNickToSender {
         return MSG_IGNORE;
     }
 
-    @Listen(discussMsg)
+    @Listen(value = discussMsg , sort = 500)
     //@Filter(value = "(?s)^[ ]*[.。][ ]*.*", keywordMatchType = KeywordMatchType.TRIM_REGEX)
     public ListenResult discussMsg(MsgGet msgGet, MsgGetTypes msgGetTypes, MsgSender msgSender, DiscussMsg msgDisGroup) {
+
+        ListenResult result = mySelfDeal(msgGet, msgGetTypes, msgSender, msgDisGroup);
+        if (result != null){
+            return result;
+        }
+
         String msg = fullWidth2halfWidth(msgDisGroup.getMsg());
         if (!entitySystemProperties.isRunning()) {
             return MSG_INTERCEPT;
@@ -649,7 +484,7 @@ public class Listener implements MakeNickToSender {
                 return MSG_IGNORE;
             }
             sender(entityTypeMessages, "检测到处于黑名单群中，正在退群");
-            entityTypeMessages.getMsgSender().SENDER.sendPrivateMsg(entityBanProperties.getManagerGroup(), "检测到处于黑名单群" + makeGroupNickToSender(getGroupName(entityTypeMessages)) + "("
+            entityTypeMessages.getMsgSender().SENDER.sendGroupMsg(entityBanProperties.getManagerGroup(), "检测到处于黑名单群" + makeGroupNickToSender(getGroupName(entityTypeMessages)) + "("
                     + entityTypeMessages.getFromGroup() + ")中，正在退群");
             leave(entityTypeMessages.getMsgSender(), entityTypeMessages.getMsgGetTypes(), entityTypeMessages.getFromGroupString());
             return MSG_INTERCEPT;
@@ -761,5 +596,554 @@ public class Listener implements MakeNickToSender {
             setLogText(entityTypeMessages, new EntityLogTag(entityTypeMessages.getFromGroupString(),
                     getOtherLogTrue(entityTypeMessages.getFromGroupString())), entityTypeMessages.getMsgGet().getMsg());
         }
+    }
+
+    private ListenResult mySelfDeal(MsgGet msgGet, MsgGetTypes msgGetTypes, MsgSender msgSender, GroupMsg msgGroup){
+
+        BaseModel baseModel = baseService.dealMsg(msgGroup, msgSender);
+
+        // 获取发言人的QQ号
+        String strQQ = baseModel.getStrQQ();
+        // 获取发言的群
+        String strGroup = baseModel.getStrGroup();
+        // 获取发言人的群昵称
+        String strName = baseModel.getStrName();
+        // 获取群成员发布的消息
+        String strMsg = msgGroup.getMsg().trim();
+
+        // 图片处理逻辑begin
+        if (strMsg.contains("CQ:image")){
+            System.out.println(strMsg);
+            String strImageId = "";
+            if (strMsg.contains("jpg")){
+                strImageId = strMsg.substring(strMsg.lastIndexOf("file="),strMsg.lastIndexOf("jpg")+3).trim();
+            }
+            else if(strMsg.contains("png")){
+                strImageId = strMsg.substring(strMsg.lastIndexOf("file="),strMsg.lastIndexOf("png")+3).trim();
+            }
+
+            VoImageModel voImageModel = null;
+            try {
+                voImageModel = imageService.dealImageMsg(strImageId,strQQ);
+            }catch (Exception e){
+                msgSender.SENDER.sendPrivateMsg("1571650839","异常捕获:"+strImageId);
+            }
+
+            // 如果返回内容为空 ,说明之前没有入库
+            if (StringUtils.isBlank(voImageModel.getStrRet())){
+                // 入库,保存图片地址
+                // imageService.saveImage(strImageId);
+                // 向群里发送已记录的消息
+                //sender.SENDER.sendGroupMsg(strGroup,"发现新图片,已记录");
+                // 向master发送图片id
+                //msgSender.SENDER.sendPrivateMsg("1571650839",strImageId);
+                //CQC
+                int beginIndex = strImageId.lastIndexOf("=")+1;
+                int endIndex = strImageId.lastIndexOf("g")+1;
+                String imageId = strImageId.substring(beginIndex, endIndex);
+                //System.out.println(imageId);
+                String cqCode_image = CQCodeUtil.build().getCQCode_image(imageId);
+                //System.out.println(cqCode_image);
+                // 向主QQ发送真实图片
+                msgSender.SENDER.sendGroupMsg("976262575",cqCode_image);
+                msgSender.SENDER.sendGroupMsg("976262575",imageId);
+
+                return MSG_INTERCEPT;
+
+            }
+            // 如果为零 ,说明 未处理 添加 返回逻辑
+            else if ("0".equals(voImageModel.getStrRet())){
+
+            }
+            // 如果不是0 ,说明已经添加返回逻辑 ,那就按照逻辑返回
+            else{
+                int intRetType = voImageModel.getIntRetType();
+                // 如果类型为1 ,说明为 文字回复
+                if ( intRetType == 1){
+                    // 向群里发送文字回复
+                    msgSender.SENDER.sendGroupMsg(strGroup,voImageModel.getStrRet());
+                }
+                // 如果类型为2 ,说明为 图片回复
+                else if (intRetType == 2){
+                    // 把文件名 xxx.jpg  拼接为CQ格式   file:xx.jpg
+                    String cqCode_image = CQCodeUtil.build().getCQCode_image(voImageModel.getStrRet());
+                    System.out.println(cqCode_image);
+                    // 向QQ群返回斗图图片
+                    msgSender.SENDER.sendGroupMsg(strGroup,cqCode_image);
+                }
+
+            }
+
+            return MSG_INTERCEPT;
+
+        }
+        // 图片处理逻辑end
+
+        if(!CommandUtil.checkCommand(strMsg)){
+            System.out.println("分割线3.1");
+            String strRet = "";
+            if ("行光w".equals(strMsg)){
+                strRet = SystemParam.getRet("xingGuangW");
+            }
+            if (strMsg.contains("太鼓钟")||strMsg.contains("sada")){
+                strRet = SystemParam.getRet("strTaiGu");
+            }
+            else if (strMsg.contains("织田信长")||strMsg.contains("第六天魔王")){
+                strRet = SystemParam.getRet("strXinChang");
+            }
+            else if (strMsg.contains("master")&&!SystemParam.strTouzi.contains(strQQ)){
+                strRet = SystemParam.getRet("strMaster");
+            }
+            else if (strMsg.contains("空晓")){
+                strRet = SystemParam.getRet("strKongxiao");
+            }
+            else if (strMsg.contains("审神者")){
+                strRet = SystemParam.getRet("strShenShengzhe");
+            }
+            else if (strMsg.contains("开团")){
+                strRet = SystemParam.getRet("strKaiTuan");
+            }
+            else if (strMsg.contains("喝酒")){
+                strRet = SystemParam.getRet("strHeJiu");
+            }
+            else if (strMsg.contains("摸头")){
+                strRet = SystemParam.getRet("strMoTou");
+            }
+            else if (strMsg.contains("行光")&&strMsg.contains("陪睡")){
+                if ("2649173157".equals(strQQ)){
+                    strRet = SystemParam.getRet("strXingGuangPeiShui_KongXiao");
+                }else {
+                    strRet = SystemParam.getRet("strXingGuangPeiShui");
+                }
+
+            }
+            else if (strMsg.contains("废刀")){
+                strRet = SystemParam.getRet("strFeiDao");
+            }
+            else if ((strGroup.equals("556799277")||strGroup.equals("976262575"))&&strMsg.equals("晚安")&&!SystemParam.strTouzi.contains(strQQ)){
+                Integer num = specialService.selectGroupBan(strQQ);
+                Long longM = Math.round(Math.pow(2, num));
+                msgSender.SETTER.setGroupBan(strGroup,strQQ,longM*60);
+                specialService.insertGroupBan(strQQ,strGroup);
+                strRet = SystemParam.getRet("strWanAn");
+            }
+            else if (strMsg.contains("早安")&&!SystemParam.strTouzi.contains(strQQ)){
+                strRet = SystemParam.getRet("strZaoAn");
+            }
+            else if (strMsg.contains("奉上")){
+                if(strMsg.contains("蝙蝠")){
+                    strRet = "呜呜,主人说我再喝蝙蝠酒就不要我了我,你还是自己留着喝吧";
+                }else if (strMsg.contains("酒")){
+                    Integer fengjiu = specialService.fengjiu(strQQ, strGroup, strMsg);
+                    Integer integer = specialService.selectFengjiu(strQQ);
+                    strRet = "(偷偷收下)谢谢,记得千万不要告诉我主人!\n 今天已收到的酒:"+integer+"壶";
+                }
+                else if (strMsg.contains("炒")){
+                    strRet = "拿来当下酒菜也可以";
+                }
+                else{
+                    Integer fengjiu = specialService.fengjiu(strQQ, strGroup, strMsg);
+                    Integer integer = specialService.selectFengjiu(strQQ);
+                    strRet = "(这是你们家乡的酒吗,以前从未听闻)谢谢,记得千万不要告诉我主人!\n 今天已收到的酒:"+integer+"壶";
+                }
+
+            }
+
+//            String str = "master进行我要娶笑晓过门！检定:D100=1/1是大成功呢\n" +
+//                    "哈？又拿酒来贿赂我？行吧行吧，酒放下，大成功快拿走。";
+            if (StringUtils.isNotBlank(strRet)){
+                msgSender.SENDER.sendGroupMsg(strGroup,strRet);
+                return MSG_INTERCEPT;
+            }
+
+
+        }
+
+        // 如果是At自己,特殊处理
+        if (strMsg.contains("at,qq="+ SystemParam.strCurrentQQ)){
+            // 获取 去除 at 的 语句
+            strMsg = strMsg.substring(strMsg.indexOf("]") + 1).trim();
+
+            // 如果原语句不是命令
+            if (!CommandUtil.checkCommand(strMsg)){
+                try {
+                    String result = TAipUtils.getTAIP()
+                            .nlpTextchat(TAipUtils.getSession(),strMsg);
+                    //发送私信，两个参数一个QQ号一个文本
+                    String answer = TAipUtils.getAnswer(result);
+
+                    //sender.SENDER.sendPrivateMsg(strQQ,answer);
+                    msgSender.SENDER.sendGroupMsg(strGroup,answer);
+                }catch (Exception e){
+                    msgSender.SENDER.sendGroupMsg(strGroup,SystemParam.errorMsg);
+                    msgSender.SENDER.sendPrivateMsg(msgGroup.getQQ(),strMsg);
+                }
+                return MSG_INTERCEPT;
+            }
+
+        }
+
+        return null;
+
+    }
+
+    private ListenResult mySelfDeal(MsgGet msgGet, MsgGetTypes msgGetTypes, MsgSender msgSender, PrivateMsg msgPrivate){
+        System.out.println("自定义处理开始");
+        String strQQ = msgPrivate.getQQ();
+
+        // 获取群成员发布的消息
+        String strMsg = msgPrivate.getMsg().trim();
+
+        // 图片处理逻辑begin
+        if (strMsg.contains("CQ:image")){
+            System.out.println(strMsg);
+            String strImageId = "";
+            if (strMsg.contains("jpg")){
+                strImageId = strMsg.substring(strMsg.lastIndexOf("file="),strMsg.lastIndexOf("jpg")+3).trim();
+            }
+            else if(strMsg.contains("png")){
+                strImageId = strMsg.substring(strMsg.lastIndexOf("file="),strMsg.lastIndexOf("png")+3).trim();
+            }
+
+            VoImageModel voImageModel = null;
+            try {
+                voImageModel = imageService.dealImageMsg(strImageId,strQQ);
+            }catch (Exception e){
+                msgSender.SENDER.sendPrivateMsg("1571650839","异常捕获:"+strImageId);
+            }
+
+            // 如果返回内容为空 ,说明之前没有入库
+            if (StringUtils.isBlank(voImageModel.getStrRet())){
+                // 入库,保存图片地址
+                // imageService.saveImage(strImageId);
+                // 向群里发送已记录的消息
+                //sender.SENDER.sendGroupMsg(strGroup,"发现新图片,已记录");
+                // 向master发送图片id
+                //msgSender.SENDER.sendPrivateMsg("1571650839",strImageId);
+                //CQC
+                int beginIndex = strImageId.lastIndexOf("=")+1;
+                int endIndex = strImageId.lastIndexOf("g")+1;
+                String imageId = strImageId.substring(beginIndex, endIndex);
+                //System.out.println(imageId);
+                String cqCode_image = CQCodeUtil.build().getCQCode_image(imageId);
+                //System.out.println(cqCode_image);
+                // 向主QQ发送真实图片
+                msgSender.SENDER.sendGroupMsg("976262575",cqCode_image);
+                msgSender.SENDER.sendGroupMsg("976262575",imageId);
+
+                return MSG_INTERCEPT;
+
+            }
+            // 如果为零 ,说明 未处理 添加 返回逻辑
+            else if ("0".equals(voImageModel.getStrRet())){
+
+            }
+            // 如果不是0 ,说明已经添加返回逻辑 ,那就按照逻辑返回
+            else{
+                int intRetType = voImageModel.getIntRetType();
+                // 如果类型为1 ,说明为 文字回复
+                if ( intRetType == 1){
+                    // 向群里发送文字回复
+                    msgSender.SENDER.sendPrivateMsg(strQQ,voImageModel.getStrRet());
+                }
+                // 如果类型为2 ,说明为 图片回复
+                else if (intRetType == 2){
+                    // 把文件名 xxx.jpg  拼接为CQ格式   file:xx.jpg
+                    String cqCode_image = CQCodeUtil.build().getCQCode_image(voImageModel.getStrRet());
+                    System.out.println(cqCode_image);
+                    // 向QQ群返回斗图图片
+                    msgSender.SENDER.sendPrivateMsg(strQQ,cqCode_image);
+                }
+
+            }
+
+            return MSG_INTERCEPT;
+
+        }
+        // 图片处理逻辑end
+
+        if(!CommandUtil.checkCommand(strMsg)){
+            //System.out.println("分割线3.1");
+            String strRet = "";
+            if ("行光w".equals(strMsg)){
+                strRet = SystemParam.getRet("xingGuangW");
+            }
+            if (strMsg.contains("太鼓钟")||strMsg.contains("sada")){
+                strRet = SystemParam.getRet("strTaiGu");
+            }
+            else if (strMsg.contains("织田信长")||strMsg.contains("第六天魔王")){
+                strRet = SystemParam.getRet("strXinChang");
+            }
+            else if (strMsg.contains("master")&&!SystemParam.strTouzi.contains(strQQ)){
+                strRet = SystemParam.getRet("strMaster");
+            }
+            else if (strMsg.contains("空晓")){
+                strRet = SystemParam.getRet("strKongxiao");
+            }
+            else if (strMsg.contains("审神者")){
+                strRet = SystemParam.getRet("strShenShengzhe");
+            }
+            else if (strMsg.contains("开团")){
+                strRet = SystemParam.getRet("strKaiTuan");
+            }
+            else if (strMsg.contains("喝酒")){
+                strRet = SystemParam.getRet("strHeJiu");
+            }
+            else if (strMsg.contains("摸头")){
+                strRet = SystemParam.getRet("strMoTou");
+            }
+            else if (strMsg.contains("行光")&&strMsg.contains("陪睡")){
+                if ("2649173157".equals(strQQ)){
+                    strRet = SystemParam.getRet("strXingGuangPeiShui_KongXiao");
+                }else {
+                    strRet = SystemParam.getRet("strXingGuangPeiShui");
+                }
+
+            }
+            else if (strMsg.contains("废刀")){
+                strRet = SystemParam.getRet("strFeiDao");
+            }
+//            else if ((strGroup.equals("556799277")||strGroup.equals("976262575"))&&strMsg.equals("晚安")&&!SystemParam.strTouzi.contains(strQQ)){
+//                Integer num = specialService.selectGroupBan(strQQ);
+//                Long longM = Math.round(Math.pow(2, num));
+//                msgSender.SETTER.setGroupBan(strGroup,strQQ,longM*60);
+//                specialService.insertGroupBan(strQQ,strGroup);
+//                strRet = SystemParam.getRet("strWanAn");
+//            }
+            else if (strMsg.contains("早安")&&!SystemParam.strTouzi.contains(strQQ)){
+                strRet = SystemParam.getRet("strZaoAn");
+            }
+            else if (strMsg.contains("奉上")){
+                if(strMsg.contains("蝙蝠")){
+                    strRet = "呜呜,主人说我再喝蝙蝠酒就不要我了我,你还是自己留着喝吧";
+                }else if (strMsg.contains("酒")){
+                    Integer fengjiu = specialService.fengjiu(strQQ, null, strMsg);
+                    Integer integer = specialService.selectFengjiu(strQQ);
+                    strRet = "(偷偷收下)谢谢,记得千万不要告诉我主人!\n 今天已收到的酒:"+integer+"壶";
+                }
+                else if (strMsg.contains("炒")){
+                    strRet = "拿来当下酒菜也可以";
+                }
+                else{
+                    Integer fengjiu = specialService.fengjiu(strQQ, null, strMsg);
+                    Integer integer = specialService.selectFengjiu(strQQ);
+                    strRet = "(这是你们家乡的酒吗,以前从未听闻)谢谢,记得千万不要告诉我主人!\n 今天已收到的酒:"+integer+"壶";
+                }
+
+            }
+
+//            String str = "master进行我要娶笑晓过门！检定:D100=1/1是大成功呢\n" +
+//                    "哈？又拿酒来贿赂我？行吧行吧，酒放下，大成功快拿走。";
+            if (StringUtils.isNotBlank(strRet)){
+                msgSender.SENDER.sendPrivateMsg(strQQ,strRet);
+                return MSG_INTERCEPT;
+            }
+
+            try {
+                String result = TAipUtils.getTAIP()
+                        .nlpTextchat(TAipUtils.getSession(),strMsg);
+                //发送私信，两个参数一个QQ号一个文本
+                String answer = TAipUtils.getAnswer(result);
+
+                msgSender.SENDER.sendPrivateMsg(strQQ,answer);
+            }catch (Exception e){
+                msgSender.SENDER.sendPrivateMsg(strQQ,SystemParam.errorMsg);
+                msgSender.SENDER.sendPrivateMsg("1571650839",strMsg);
+            }
+            return MSG_INTERCEPT;
+
+
+        }
+
+
+
+        return null;
+
+    }
+
+    private ListenResult mySelfDeal(MsgGet msgGet, MsgGetTypes msgGetTypes, MsgSender msgSender, DiscussMsg msgDisGroup){
+
+
+        // 获取发言人的QQ号
+        String strQQ = msgDisGroup.getQQ();
+        // 获取发言的群
+        String strGroup = msgDisGroup.getGroupCode();
+        // 获取群成员发布的消息
+        String strMsg = msgDisGroup.getMsg().trim();
+
+        // 图片处理逻辑begin
+        if (strMsg.contains("CQ:image")){
+            System.out.println(strMsg);
+            String strImageId = "";
+            if (strMsg.contains("jpg")){
+                strImageId = strMsg.substring(strMsg.lastIndexOf("file="),strMsg.lastIndexOf("jpg")+3).trim();
+            }
+            else if(strMsg.contains("png")){
+                strImageId = strMsg.substring(strMsg.lastIndexOf("file="),strMsg.lastIndexOf("png")+3).trim();
+            }
+
+            VoImageModel voImageModel = null;
+            try {
+                voImageModel = imageService.dealImageMsg(strImageId,strQQ);
+            }catch (Exception e){
+                msgSender.SENDER.sendPrivateMsg("1571650839","异常捕获:"+strImageId);
+            }
+
+            // 如果返回内容为空 ,说明之前没有入库
+            if (StringUtils.isBlank(voImageModel.getStrRet())){
+                // 入库,保存图片地址
+                // imageService.saveImage(strImageId);
+                // 向群里发送已记录的消息
+                //sender.SENDER.sendGroupMsg(strGroup,"发现新图片,已记录");
+                // 向master发送图片id
+                //msgSender.SENDER.sendPrivateMsg("1571650839",strImageId);
+                //CQC
+                int beginIndex = strImageId.lastIndexOf("=")+1;
+                int endIndex = strImageId.lastIndexOf("g")+1;
+                String imageId = strImageId.substring(beginIndex, endIndex);
+                //System.out.println(imageId);
+                String cqCode_image = CQCodeUtil.build().getCQCode_image(imageId);
+                //System.out.println(cqCode_image);
+                // 向主QQ发送真实图片
+                msgSender.SENDER.sendGroupMsg("976262575",cqCode_image);
+                msgSender.SENDER.sendGroupMsg("976262575",imageId);
+
+                return MSG_INTERCEPT;
+
+            }
+            // 如果为零 ,说明 未处理 添加 返回逻辑
+            else if ("0".equals(voImageModel.getStrRet())){
+
+            }
+            // 如果不是0 ,说明已经添加返回逻辑 ,那就按照逻辑返回
+            else{
+                int intRetType = voImageModel.getIntRetType();
+                // 如果类型为1 ,说明为 文字回复
+                if ( intRetType == 1){
+                    // 向群里发送文字回复
+                    msgSender.SENDER.sendGroupMsg(strGroup,voImageModel.getStrRet());
+                }
+                // 如果类型为2 ,说明为 图片回复
+                else if (intRetType == 2){
+                    // 把文件名 xxx.jpg  拼接为CQ格式   file:xx.jpg
+                    String cqCode_image = CQCodeUtil.build().getCQCode_image(voImageModel.getStrRet());
+                    System.out.println(cqCode_image);
+                    // 向QQ群返回斗图图片
+                    msgSender.SENDER.sendDiscussMsg(strGroup,cqCode_image);
+                }
+
+            }
+
+            return MSG_INTERCEPT;
+
+        }
+        // 图片处理逻辑end
+
+        if(!CommandUtil.checkCommand(strMsg)){
+            //System.out.println("分割线3.1");
+            String strRet = "";
+            if ("行光w".equals(strMsg)){
+                strRet = SystemParam.getRet("xingGuangW");
+            }
+            if (strMsg.contains("太鼓钟")||strMsg.contains("sada")){
+                strRet = SystemParam.getRet("strTaiGu");
+            }
+            else if (strMsg.contains("织田信长")||strMsg.contains("第六天魔王")){
+                strRet = SystemParam.getRet("strXinChang");
+            }
+            else if (strMsg.contains("master")&&!SystemParam.strTouzi.contains(strQQ)){
+                strRet = SystemParam.getRet("strMaster");
+            }
+            else if (strMsg.contains("空晓")){
+                strRet = SystemParam.getRet("strKongxiao");
+            }
+            else if (strMsg.contains("审神者")){
+                strRet = SystemParam.getRet("strShenShengzhe");
+            }
+            else if (strMsg.contains("开团")){
+                strRet = SystemParam.getRet("strKaiTuan");
+            }
+            else if (strMsg.contains("喝酒")){
+                strRet = SystemParam.getRet("strHeJiu");
+            }
+            else if (strMsg.contains("摸头")){
+                strRet = SystemParam.getRet("strMoTou");
+            }
+            else if (strMsg.contains("行光")&&strMsg.contains("陪睡")){
+                if ("2649173157".equals(strQQ)){
+                    strRet = SystemParam.getRet("strXingGuangPeiShui_KongXiao");
+                }else {
+                    strRet = SystemParam.getRet("strXingGuangPeiShui");
+                }
+
+            }
+            else if (strMsg.contains("废刀")){
+                strRet = SystemParam.getRet("strFeiDao");
+            }
+            else if ((strGroup.equals("556799277")||strGroup.equals("976262575"))&&strMsg.equals("晚安")&&!SystemParam.strTouzi.contains(strQQ)){
+                Integer num = specialService.selectGroupBan(strQQ);
+                Long longM = Math.round(Math.pow(2, num));
+                msgSender.SETTER.setGroupBan(strGroup,strQQ,longM*60);
+                specialService.insertGroupBan(strQQ,strGroup);
+                strRet = SystemParam.getRet("strWanAn");
+            }
+            else if (strMsg.contains("早安")&&!SystemParam.strTouzi.contains(strQQ)){
+                strRet = SystemParam.getRet("strZaoAn");
+            }
+            else if (strMsg.contains("奉上")){
+                if(strMsg.contains("蝙蝠")){
+                    strRet = "呜呜,主人说我再喝蝙蝠酒就不要我了我,你还是自己留着喝吧";
+                }else if (strMsg.contains("酒")){
+                    Integer fengjiu = specialService.fengjiu(strQQ, strGroup, strMsg);
+                    Integer integer = specialService.selectFengjiu(strQQ);
+                    strRet = "(偷偷收下)谢谢,记得千万不要告诉我主人!\n 今天已收到的酒:"+integer+"壶";
+                }
+                else if (strMsg.contains("炒")){
+                    strRet = "拿来当下酒菜也可以";
+                }
+                else{
+                    Integer fengjiu = specialService.fengjiu(strQQ, strGroup, strMsg);
+                    Integer integer = specialService.selectFengjiu(strQQ);
+                    strRet = "(这是你们家乡的酒吗,以前从未听闻)谢谢,记得千万不要告诉我主人!\n 今天已收到的酒:"+integer+"壶";
+                }
+
+            }
+
+//            String str = "master进行我要娶笑晓过门！检定:D100=1/1是大成功呢\n" +
+//                    "哈？又拿酒来贿赂我？行吧行吧，酒放下，大成功快拿走。";
+            if (StringUtils.isNotBlank(strRet)){
+                msgSender.SENDER.sendDiscussMsg(strGroup,strRet);
+                return MSG_INTERCEPT;
+            }
+
+
+        }
+
+        // 如果是At自己,特殊处理
+        if (strMsg.contains("at,qq="+ SystemParam.strCurrentQQ)){
+            // 获取 去除 at 的 语句
+            strMsg = strMsg.substring(strMsg.indexOf("]") + 1).trim();
+
+            // 如果原语句不是命令
+            if (!CommandUtil.checkCommand(strMsg)){
+                try {
+                    String result = TAipUtils.getTAIP()
+                            .nlpTextchat(TAipUtils.getSession(),strMsg);
+                    //发送私信，两个参数一个QQ号一个文本
+                    String answer = TAipUtils.getAnswer(result);
+
+                    //sender.SENDER.sendPrivateMsg(strQQ,answer);
+                    msgSender.SENDER.sendDiscussMsg(strGroup,answer);
+                }catch (Exception e){
+                    msgSender.SENDER.sendDiscussMsg(strGroup,SystemParam.errorMsg);
+                    msgSender.SENDER.sendPrivateMsg("1571650839",strMsg);
+                }
+                return MSG_INTERCEPT;
+            }
+
+        }
+
+        return null;
+
     }
 }

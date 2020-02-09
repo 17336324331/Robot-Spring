@@ -234,9 +234,14 @@ public class MakeSanCheck {
             newSan = max(0, san - (int) mSuccess.getResult());
             if (!groupHasSwitch || !MessagesBanList.groupSwitchHashMap.get(entityTypeMessages.getFromGroup()).isSimple()) {
                 strResult.append(String.format(sanText, random, san, "成功", strSuccess, mSuccess.getResult(), newSan, entitySystemProperties.getSanCheckSuccess()));
-                strResult.append("\n"+SystemParam.strScSuccess.get(new Random().nextInt(SystemParam.strScSuccess.size())));
+                //strResult.append("\n"+SystemParam.strScSuccess.get(new Random().nextInt(SystemParam.strScSuccess.size())));
             } else {
                 strResult.append(String.format(sanText, random, san, "成功", strSuccess, mSuccess.getResult(), newSan, ""));
+                //strResult.append("\n"+SystemParam.strScSuccess.get(new Random().nextInt(SystemParam.strScSuccess.size())));
+            }
+
+            if (san - newSan < 5) {
+                //strResult.append("\n已因单次损失值进入不定性疯狂");
                 strResult.append("\n"+SystemParam.strScSuccess.get(new Random().nextInt(SystemParam.strScSuccess.size())));
             }
 
@@ -289,7 +294,12 @@ public class MakeSanCheck {
             strResult.append("\n"+SystemParam.getRet("strScFail6"));
         } else if ((san - newSan) >= (san / 5)) {
             //strResult.append("\n已因单次损失值进入不定性疯狂");
-            strResult.append("\n"+SystemParam.getRet("strScFail1"));
+            strResult.append("\n"+SystemParam.getRet("strScFail6"));
+        } else if (san - newSan < 5) {
+            //strResult.append("\n已因单次损失值进入不定性疯狂");
+            if (!strResult.toString().contains("成功")){
+                strResult.append("\n"+SystemParam.getRet("strScFail1"));
+            }
         } else {
             return;
         }

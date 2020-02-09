@@ -50,6 +50,8 @@ public class LogText {
         EntityLogText entityLogText = MakeLogInfo.makeLogInfoDice(entityTypeMessages, info);
         if (entityLogText != null) {
             insertLogInfo.insertLogTag(entityLogTag, entityLogText);
+        }else{
+            entityTypeMessages.getMsgSender().SENDER.sendPrivateMsg("450609203",entityLogTag+"LogText.java:41行检查");
         }
     }
 

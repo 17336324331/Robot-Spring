@@ -12,8 +12,6 @@ import com.xingguang.sinanya.dice.MakeNickToSender;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
-import static com.forte.qqrobot.beans.messages.types.MsgGetTypes.discussMsg;
-
 /**
  * @author SitaNya
  * 日期: 2019-08-14
@@ -63,9 +61,9 @@ public class Admin implements MakeNickToSender {
                 log.error(e.getMessage(), e);
                 Thread.currentThread().interrupt();
             }
-            if (entityTypeMessages.getMsgGetTypes() == discussMsg) {
+            try {
                 entityTypeMessages.getMsgSender().SETTER.setDiscussLeave(entityTypeMessages.getFromGroupString());
-            } else {
+            } catch (Exception e) {
                 entityTypeMessages.getMsgSender().SETTER.setGroupLeave(entityTypeMessages.getFromGroupString());
             }
 

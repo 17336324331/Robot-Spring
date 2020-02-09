@@ -20,10 +20,15 @@ public interface MessagesSystem {
     String SPACE = " ";
 
 
-    String VERSIONS = "5.54.87.78Beta";
+    String VERSIONS = "5.56.91.80Beta";
 
     StringBuilder UPDATE = new StringBuilder()
             .append("更新日志:\n")
+            .append("2020年01月29日 尝试排查log没录上的问题\n")
+            .append("2020年01月29日 更新API版本\n")
+            .append("2020年01月28日 修复admin指令退群失败的问题\n")
+            .append("2020年01月25日 下调默认方法的优先级\n")
+            .append("2020年01月23日 尝试对.r方法中不识别空格分隔的问题进行修复\n")
             .append("2020年01月23日 修复groupSearch命令无法私聊使用的问题\n")
             .append("2020年01月23日 增加ra骰掷可以支持#号识别并骰掷多次的方式\n")
             .append("2020年01月20日 优化log记录和获取方法\n")

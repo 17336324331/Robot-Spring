@@ -80,7 +80,7 @@
         <dependency>
             <groupId>io.github.ForteScarlet.simple-robot-core</groupId>
             <artifactId>component-forcoolqhttpapi</artifactId>
-            <version>0.5.6-BETA-1.5.0</version>
+            <version>0.6.4-BETA-1.6.0</version>
         </dependency>
 
         <dependency>

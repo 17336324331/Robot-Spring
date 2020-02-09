@@ -67,7 +67,7 @@ public class CnMod {
                     stringBuilder.append("您搜索的关键词是: ").append(key).append(" 结果为:\n");
                     JSONObject jsonObject1 = jsonObject.getJSONObject("data").getJSONArray("list").getJSONObject(0);
                     ArrayList<String> nameList = new ArrayList<>();
-                    nameList.add("作者:\t" + new String(jsonObject1.getString("article").getBytes(), StandardCharsets.UTF_8));
+                    nameList.add("作者:\t" + jsonObject1.getString("article"));
                     nameList.add("作者QQ:\t" + new String(jsonObject1.getString("qq").getBytes(), StandardCharsets.UTF_8));
                     nameList.add("类型:\t" + new String(jsonObject1.getString("structure").getBytes(), StandardCharsets.UTF_8));
                     nameList.add("版本:\t" + new String(jsonObject1.getString("moduleVersion").getBytes(), StandardCharsets.UTF_8));

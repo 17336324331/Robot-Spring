@@ -69,7 +69,7 @@ public class Deck {
         try {
             // 加载配置文件
             Map map = yaml.load(new FileInputStream(deckTypeFile));
-            System.out.println(map.toString());
+            //System.out.println(map.toString());
             for (Object key : map.keySet()) {
                 if (!key.equals("name") && !key.equals("command") && !key.equals("author") && !key.equals("version") && !key.equals("desc")) {
                     String value = map.get(key).toString();

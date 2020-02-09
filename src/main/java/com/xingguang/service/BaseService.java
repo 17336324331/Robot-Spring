@@ -16,4 +16,6 @@ public interface BaseService {
      * @return  解析结果
      */
       BaseModel dealMsg(GroupMsg msg, MsgSender sender);
+
+
 }

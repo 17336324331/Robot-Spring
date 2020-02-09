@@ -11,7 +11,6 @@ import com.xingguang.sinanya.system.MessagesTag;
 import com.xingguang.sinanya.tools.checkdata.CheckCantInPrivate;
 import com.xingguang.sinanya.tools.checkdata.CheckIsNumbers;
 import com.xingguang.sinanya.tools.checkdata.CheckResultLevel;
-import com.xingguang.sinanya.tools.getinfo.GetMessagesProperties;
 import com.xingguang.sinanya.tools.getinfo.GetNickName;
 import com.xingguang.sinanya.tools.getinfo.GetSkillValue;
 import com.xingguang.sinanya.tools.makedata.GetRollResultAndStr;
@@ -23,9 +22,6 @@ import com.xingguang.utils.SystemParam;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static com.xingguang.sinanya.tools.getinfo.GetNickName.getGroupName;
-import static com.xingguang.sinanya.tools.getinfo.GetNickName.getNickName;
 
 /**
  * @author SitaNya
@@ -62,7 +58,7 @@ public class Roll implements MakeNickToSender {
      */
     public void r() throws ManyRollsTimesTooMoreException, RollCantInZeroException {
         String tag = MessagesTag.TAGR;
-        String msg = MakeMessages.deleteTag(entityTypeMessages.getMsgGet().getMsg(), tag.substring(0, tag.length() - 2)).replaceAll(" +", "");
+        String msg = MakeMessages.deleteTag(entityTypeMessages.getMsgGet().getMsg(), tag.substring(0, tag.length() - 2)).replaceAll(" +.*$", "");
 
         String nick = makeNickToSender(GetNickName.getNickName(entityTypeMessages));
 

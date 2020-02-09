@@ -75,22 +75,23 @@ public class SkillUp {
                     .append(random)
                     .append("/")
                     .append(skill)
-                    .append("成功!\n")
+                    .append(" 成功啦!您又变强啦\n")
                     .append("您的技能增长了1D10=")
                     .append(skillUp)
                     .append("点，目前为:")
                     .append(skill + skillUp);
+            System.out.println("useRoleCard:"+useRoleCard);
             if (useRoleCard) {
                 new InsertRoles().insertRoleInfo(msg + (skill + skillUp), roleName, entityTypeMessages.getFromQq());
                 stringBuilder.append("\n本次结果会自动更新到人物卡中");
             } else {
                 stringBuilder.append("\n本次结果不会自动更新到人物卡中，请使用.st<角色名>-<属性><新属性值>的格式进行更新录入，没有更改的属性不需要再次录入\n.en <技能>这种格式可以自动录入人物卡，无需再次st");
             }
-            if (MessagesBanList.groupSwitchHashMap.containsKey(entityTypeMessages.getFromGroup()) && MessagesBanList.groupSwitchHashMap.get(entityTypeMessages.getFromGroup()).isSimple()) {
-                stringBuilder.append("成功");
-            } else {
-                stringBuilder.append(GetMessagesProperties.entitySystemProperties.getEnSuccess());
-            }
+//            if (MessagesBanList.groupSwitchHashMap.containsKey(entityTypeMessages.getFromGroup()) && MessagesBanList.groupSwitchHashMap.get(entityTypeMessages.getFromGroup()).isSimple()) {
+//                stringBuilder.append("成功");
+//            } else {
+//                stringBuilder.append(GetMessagesProperties.entitySystemProperties.getEnSuccess());
+//            }
             Sender.sender(entityTypeMessages, stringBuilder.toString());
         } else {
             stringBuilder
@@ -100,10 +101,18 @@ public class SkillUp {
                     .append("的技能成长检定:\n")
                     .append(random)
                     .append("/")
-                    .append(skill);
+                    .append(skill)
+                    .append(" 失败!");
+//            System.out.println("MessagesBanList.groupSwitchHashMap:"+MessagesBanList.groupSwitchHashMap);
+//            System.out.println("entityTypeMessages.getFromGroup():"+entityTypeMessages.getFromGroup());
+//            System.out.println("MessagesBanList.groupSwitchHashMap.containsKey(entityTypeMessages.getFromGroup()) :"+MessagesBanList.groupSwitchHashMap.containsKey(entityTypeMessages.getFromGroup()) );
+//            System.out.println("MessagesBanList.groupSwitchHashMap.get(entityTypeMessages.getFromGroup()):"+MessagesBanList.groupSwitchHashMap.get(entityTypeMessages.getFromGroup()));
+//            System.out.println("MessagesBanList.groupSwitchHashMap.get(entityTypeMessages.getFromGroup()).isSimple():"+MessagesBanList.groupSwitchHashMap.get(entityTypeMessages.getFromGroup()).isSimple());
             if (MessagesBanList.groupSwitchHashMap.containsKey(entityTypeMessages.getFromGroup()) && MessagesBanList.groupSwitchHashMap.get(entityTypeMessages.getFromGroup()).isSimple()) {
                 stringBuilder.append("失败");
             } else {
+                //System.out.println("GetMessagesProperties.entitySystemProperties:"+GetMessagesProperties.entitySystemProperties);
+                //System.out.println("GetMessagesProperties.entitySystemProperties.getEnFailed()"+GetMessagesProperties.entitySystemProperties.getEnFailed());
                 stringBuilder.append(GetMessagesProperties.entitySystemProperties.getEnFailed());
             }
 

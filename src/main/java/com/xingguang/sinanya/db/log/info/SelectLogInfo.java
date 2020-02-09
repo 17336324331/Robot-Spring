@@ -43,13 +43,13 @@ public class SelectLogInfo {
     public ArrayList<EntityLogText> selectLogInfo(EntityLogTag entityLogTag) {
         ArrayList<EntityLogText> logTexts = new ArrayList<>();
         try (Connection conn = DbUtil.getConnection()) {
-            String sql = "select * from test.textLog where groupId=? and logName=? order by time desc";
+            String sql = "select * from test.textLog where groupId=? and logName=? order by time";
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
                 ps.setString(1, entityLogTag.getGroupId());
                 ps.setString(2, entityLogTag.getLogName());
                 try (ResultSet set = ps.executeQuery()) {
                     while (set.next()) {
-                        EntityLogText entityLogText = new EntityLogText(set.getString("nick"), set.getString("loginfo"), getEnum(set.getInt("logType")));
+                        EntityLogText entityLogText = new EntityLogText(set.getString("nick"), set.getString("logInfo"), getEnum(set.getInt("logType")));
                         logTexts.add(entityLogText);
                     }
                 }
